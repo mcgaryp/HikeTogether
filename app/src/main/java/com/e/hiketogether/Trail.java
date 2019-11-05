@@ -1,4 +1,4 @@
-package applegate;
+package com.e.hiketogether;
 
 import com.google.gson.annotations.SerializedName;
 

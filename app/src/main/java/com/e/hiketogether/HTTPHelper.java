@@ -1,4 +1,4 @@
-package applegate;
+package com.e.hiketogether;
 
 import java.io.BufferedReader;
 import java.io.IOException;

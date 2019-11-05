@@ -1,4 +1,4 @@
-package applegate;
+package com.e.hiketogether;
 
 import java.util.ArrayList;
 import java.util.List;
