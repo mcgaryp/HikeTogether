@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "252041147114",
+    "firebase_url": "https://hiketogether-87ea9.firebaseio.com",
+    "project_id": "hiketogether-87ea9",
+    "storage_bucket": "hiketogether-87ea9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252041147114:android:6a127c4d25370edc2add93",
+        "android_client_info": {
+          "package_name": "com.e.hiketogether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252041147114-fdh77s3qujiialrj201j8norb8og2b0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCZwCl_GNks8yDxcQlJ2IFDUKE9IFWvU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252041147114-fdh77s3qujiialrj201j8norb8og2b0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
