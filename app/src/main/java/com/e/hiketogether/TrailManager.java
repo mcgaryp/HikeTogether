@@ -19,7 +19,7 @@ public class TrailManager {
     private String sort = "quality";
     private String minLength;
     private String minStars;
-    private String key = "key=200628563-f10bd47da474cc11ccc357f4a540d8fe";
+    private String key = "key=SECRET";
 
 
     public void setTL(TrailList tl) {
