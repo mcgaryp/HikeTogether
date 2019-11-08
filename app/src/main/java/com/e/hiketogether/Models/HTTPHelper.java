@@ -1,4 +1,4 @@
-package com.e.hiketogether;
+package com.e.hiketogether.Models;
 
 import java.io.BufferedReader;
 import java.io.IOException;

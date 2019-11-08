@@ -1,4 +1,7 @@
-package com.e.hiketogether;
+package com.e.hiketogether.Presenters;
+
+import com.e.hiketogether.Views.Activities.LoginActivity;
+import com.e.hiketogether.Models.Account;
 
 public class LoginManager {
     // Variables

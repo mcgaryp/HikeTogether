@@ -1,4 +1,4 @@
-package com.e.hiketogether;
+package com.e.hiketogether.Models;
 
 public class Account {
     // VARIABLES
