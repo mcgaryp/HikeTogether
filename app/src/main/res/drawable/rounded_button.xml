@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- I took this from a stack over flow as a guide to help get the beveled
-     edged working I think this could be useful in making other items beveled
-     and not having to repeat a ton of code -->
-<!--  res/drawable/rounded_edittext.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle" android:padding="10dp">
     <solid android:color="#aaaaaa"/>
@@ -13,4 +9,3 @@
         android:topRightRadius="50dp"/>
     <size android:height="50dp"/>
 </shape>
-
