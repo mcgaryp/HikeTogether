@@ -15,12 +15,12 @@ public class Account {
 
     // GET the hashed password
     String getHashedPassword() {
-
+        return null;
     }
 
     // ADD a Trail to the accounts trail list
     void addTrail() {
-        
+
     }
 
 }
