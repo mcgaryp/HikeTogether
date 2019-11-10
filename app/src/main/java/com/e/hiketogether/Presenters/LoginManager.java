@@ -28,6 +28,7 @@ public class LoginManager {
     public LoginManager(String username, String password) {
         this.password = password;
         this.username = username;
+        this.account = findAccount(username);
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
@@ -71,12 +72,13 @@ public class LoginManager {
     }
 
     // Find account and confirm passwords
-    public void findAccount() {
+    public Account findAccount(String username) {
         // TODO search through the account list in database and find account with same username
         // TODO create account list??
 //        for (int i = 0; i < accountList.length(); i++) {
 //            if(accountList.getUsername[i] == username)
 //                confirmPassword();
+        return null;
     }
 
     // **OPTIONAL** helper function to reset password

@@ -26,7 +26,8 @@ public class Account {
     private String username;
     private TrailList trailList;
     private String email;
-//    private Settings settings;
+    private Settings settings;
+    Gson gson = null;
 
     private FirebaseFirestore dataBase;
 
@@ -36,7 +37,19 @@ public class Account {
         this.password = password;
         this.username = username;
         this.email = email;
+        this.trailList = new TrailList();
+        this.settings = new Settings();
     }
+
+    // Constructor for when you only know username
+//    public Account(String username) {
+//        this.username = username;
+//    }
+//
+//    // Constructor for when you only know email
+//    public Account(String email) {
+//        this.email = email;
+//    }
 
     // Save the account to the location that we have in the firebase
     // .set(gsonObject or string) creates the document if there isn't one or updates.
@@ -45,7 +58,6 @@ public class Account {
     // TODO make this async task or call in an async task?
     public void saveAccount() {
         // Convert the account to gson string
-        Gson gson = null;
         gson.toJson(this);
         String gsonString = gson.toString();
 
@@ -67,7 +79,8 @@ public class Account {
     }
 
     // Idea is to pull the date from the account
-    public void loadAccount() {
+    public Account loadAccount() {
+        Account account;
         DocumentReference documentReference = dataBase.collection("accounts").document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -84,6 +97,15 @@ public class Account {
                 }
             }
         });
+
+        String gsonString = documentReference.get().toString();
+
+        // What did we just save??
+        Log.d(TAG, gsonString);
+        // Set the gson to the account
+        account = gson.fromJson(gsonString, Account.class);
+
+        return account;
     }
 
     // Idea is to adjust and make changes to the account as necessary
@@ -102,4 +124,8 @@ public class Account {
 
     }
 
+    // Find an account from database
+    public void findAccount() {
+        loadAccount();
+    }
 }
