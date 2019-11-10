@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Presenters.AccountManager;
 
+/**
+ * PURPOSE OF THE CLASS
+ *      Intent is to present the user with a user friendly display and allow them to create a
+ *      personal account that will allow them to do special things with the account.
+ */
 public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
@@ -47,12 +52,14 @@ public class CreateAccountActivity extends AppCompatActivity {
                 secondPassword = editText.toString();
             }
         }
-
+        // Okay it's alright to create the account now.
+        // Get the rest of the info
         editText = view.findViewById(R.id.createUsername);
         username = editText.toString();
         editText = view.findViewById(R.id.createEmail);
         email = editText.toString();
 
+        // Create the account
         accountManager.createAccount(username, password, email);
     }
 }
