@@ -27,8 +27,8 @@ public class LoginManager {
         // Call hashing on password
         String tempHash = hashPassword();
         // TODO confirm hashed saved password with entered hash
-//        if (tempHash != account.password)
-//            return false;
+        if (tempHash != account.getHashedPassword())
+            return false;
 
         return true;
     }
@@ -40,6 +40,7 @@ public class LoginManager {
 
     // Find account and confirm passwords
     public void findAccount() {
-        // TODO search through the account and find account with same username
+        // TODO search through the account list in database and find account with same username
+
     }
 }

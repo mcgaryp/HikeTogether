@@ -5,22 +5,23 @@ public class Account {
     private String password;
     private String username;
     private TrailList trailList;
-//    private Settings settings;
     private String email;
+//    private Settings settings;
 
     // Constructor
-    Account() {
+    // Stores password, username, email, and generates regular settings?
+    Account(String password, String username, String email) {
 
     }
 
     // GET the hashed password
-    String getHashedPassword() {
-        return null;
+    public String getHashedPassword() {
+        return password;
     }
 
     // ADD a Trail to the accounts trail list
-    void addTrail() {
-
+    public void addTrail() {
+        // TODO add new trail to the account
     }
 
 }
