@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -38,16 +39,19 @@ public class Account {
     }
 
     // Save the account to the location that we have in the firebase
-    // TODO make this async task
+    // .set(gsonObject or string) creates the document if there isn't one or updates.
+    // .update() updates a specific part ie .update("username", "newUsername").
+    // .add(gsonObject or string) creates document id for you.
+    // TODO make this async task or call in an async task?
     public void saveAccount() {
-        // TODO convert the account to gson string
+        // Convert the account to gson string
+        Gson gson = null;
+        gson.toJson(this);
+        String gsonString = gson.toString();
 
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
-                // .set(gsonObject or string) creates the document if there isn't one or updates.
-                // .update() updates a specific part ie .update("username", "newUsername").
-                // .add(gsonObject or string) creates document id for you.
-                .set(this)
+                .set(gsonString)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -60,9 +64,6 @@ public class Account {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-
-        // Next is to save the account info into the "file"? that i just created?
-
     }
 
     // Idea is to pull the date from the account
@@ -86,8 +87,8 @@ public class Account {
     }
 
     // Idea is to adjust and make changes to the account as necessary
-    public void updateAccount() {
-
+    public void updateAccount(String fieldToUpdate, String update) {
+        dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
     }
 
     // GET the hashed password
@@ -98,6 +99,7 @@ public class Account {
     // ADD a Trail to the accounts trail list
     public void addTrail() {
         // TODO add new trail to the account
+
     }
 
 }
