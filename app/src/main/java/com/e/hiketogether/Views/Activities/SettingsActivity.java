@@ -1,4 +1,4 @@
-package com.e.hiketogether.Presenters;
+package com.e.hiketogether.Views.Activities;
 
 import android.os.Bundle;
 

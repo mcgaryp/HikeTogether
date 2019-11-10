@@ -62,6 +62,7 @@ public class LoginManager {
 
     // **OPTIONAL** forgot password option
     public void forgotPassword() {
+        // TODO search for email in AccountList once found have user answer security question?
 
     }
 

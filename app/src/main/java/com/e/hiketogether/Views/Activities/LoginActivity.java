@@ -35,9 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager loginManager = new LoginManager(username, password);
 
         // Get information back from LoginManager and create HomeActivity with it
-        loginManager.findAccount();
-
         // TODO Create the HomeActivity with specific stuff
+        loginManager.findAccount();
 
     }
 
