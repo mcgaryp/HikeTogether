@@ -12,6 +12,11 @@ import java.security.SecureRandom;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+/**
+ * PURPOSE:
+ *      This class will handle the logic behind login into our database and create a unique
+ *      environment for the apps users.
+ */
 public class LoginManager {
     // Variables
     private Account account;

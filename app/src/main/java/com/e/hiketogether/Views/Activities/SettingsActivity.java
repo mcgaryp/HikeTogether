@@ -8,6 +8,11 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.e.hiketogether.R;
 
+/**
+ * PURPOSE:
+ *      Provides the user a personal way to change their account as needed and also to make the
+ *      usage of the app more personalized for each of the individual users.
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     @Override

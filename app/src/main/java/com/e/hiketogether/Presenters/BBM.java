@@ -1,7 +1,10 @@
 package com.e.hiketogether.Presenters;
 
-import com.e.hiketogether.Presenters.LoginManager;
-
+/**
+ * PURPOSE:
+ *      This class owns just about everything so that the views can connect and communicate with
+ *      each other.
+ */
 public class BBM {
     // VARIABLES
     private LoginManager loginManager;

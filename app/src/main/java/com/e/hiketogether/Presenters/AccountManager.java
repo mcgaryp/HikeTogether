@@ -2,6 +2,12 @@ package com.e.hiketogether.Presenters;
 
 import com.e.hiketogether.Models.Account;
 
+/**
+ * PURPOSE:
+ *      This is to manage all of the logic that is needed manage an account.
+ *      I, Porter have thought about merging this class with the login class...
+ *      or implementing a hashing interface or something of the sort.
+ */
 public class AccountManager {
     // VARIABLES
     private String email;
@@ -15,6 +21,7 @@ public class AccountManager {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
+        // TODO hashing function to store the password as a hashed value
         Account account = new Account(password, username, email);
         account.saveAccount();
     }

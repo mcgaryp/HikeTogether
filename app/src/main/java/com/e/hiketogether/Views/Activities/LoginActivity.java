@@ -11,6 +11,11 @@ import android.widget.TextView;
 import com.e.hiketogether.Presenters.LoginManager;
 import com.e.hiketogether.R;
 
+/**
+ * PURPOSE:
+ *      Display the login activity for the user and communicate with the LoginManager to know what
+ *      should and should not be executed and when to the user.
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private String username;

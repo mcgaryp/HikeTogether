@@ -1,5 +1,10 @@
 package com.e.hiketogether.Models;
 
+/**
+ * PURPOSE:
+ *      This class will handle the data and the model. I think it should save things and be directly
+ *      related and connected to the firebase database that we are setting up.
+ */
 public class Account {
     // VARIABLES
     private String password;
