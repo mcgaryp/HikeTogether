@@ -43,6 +43,8 @@ public class LoginManager {
             e.printStackTrace();
         }
 
+
+        // Display in the log just to make sure that it worked right!
         Log.i(TAG, hashTemp);
 
         return hashTemp;
@@ -50,6 +52,9 @@ public class LoginManager {
 
     // Confirm account with that in our database
     private Boolean confirmPassword() {
+        // Display in log to check and see if the hashes are the same
+        Log.i(TAG, account.getHashedPassword());
+
         // Call hashing on password
         // Confirm hashed saved password with entered hash
         if (hashPassword() != account.getHashedPassword()){
@@ -60,12 +65,6 @@ public class LoginManager {
         return true;
     }
 
-    // **OPTIONAL** forgot password option
-    public void forgotPassword() {
-        // TODO search for email in AccountList once found have user answer security question?
-
-    }
-
     // Find account and confirm passwords
     public void findAccount() {
         // TODO search through the account list in database and find account with same username
@@ -73,5 +72,18 @@ public class LoginManager {
 //        for (int i = 0; i < accountList.length(); i++) {
 //            if(accountList.getUsername[i] == username)
 //                confirmPassword();
-        }
     }
+
+    // **OPTIONAL** helper function to reset password
+    private void resetPassword() {
+
+    }
+
+    // **OPTIONAL** forgot password option
+    public void forgotPassword(String email) {
+        // TODO search for email in AccountList once found have user answer security question?
+//        for (int i = 0; i < accountList.length(); i++) {
+//            if(accountList.getEmail[i] == email)
+//                resetPassword();
+    }
+}

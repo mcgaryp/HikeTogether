@@ -2,6 +2,7 @@ package com.e.hiketogether.Views.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -37,15 +38,16 @@ public class LoginActivity extends AppCompatActivity {
         // Get information back from LoginManager and create HomeActivity with it
         // TODO Create the HomeActivity with specific stuff
         loginManager.findAccount();
+    }
 
+    // Start the CreateAccountActivity to create a personal account
+    public void onCreateAccount(View view) {
+        startActivity(new Intent(LoginActivity.this, CreateAccountActivity.class));
     }
 
     // Skip logging in and create a Standard home screen
-    // TODO Implement onSkip()
     public void onSkip(View view) {
-        // TODO Skip to HomeActivity
-        // Create normal standards for home activity WHAT ARE THEY?
-
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
     @Override

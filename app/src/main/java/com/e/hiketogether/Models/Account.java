@@ -10,7 +10,13 @@ public class Account {
 
     // Constructor
     // Stores password, username, email, and generates regular settings?
-    Account(String password, String username, String email) {
+    public Account(String password, String username, String email) {
+        this.password = password;
+        this.username = username;
+        this.email = email;
+    }
+
+    public void saveAccount() {
 
     }
 
