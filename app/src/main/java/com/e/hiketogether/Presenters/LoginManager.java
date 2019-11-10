@@ -19,6 +19,7 @@ public class LoginManager {
     // Hashing Password Function RETURN SOMETHING HASHED
     private String hashPassword() {
         // TODO implement hashing algorithm
+        return "";
     }
 
     // Confirm account with that in our database
