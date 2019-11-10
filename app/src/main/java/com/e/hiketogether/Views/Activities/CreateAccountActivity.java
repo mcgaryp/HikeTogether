@@ -1,6 +1,7 @@
 package com.e.hiketogether.Views.Activities;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -35,11 +36,19 @@ public class CreateAccountActivity extends AppCompatActivity {
         AccountManager accountManager = new AccountManager();
 
         // Get the passwords to check them by
-        // TODO make sure the passwords aren't empty strings
+        // TODO make sure the passwords aren't empty strings I DONT THINK THIS IMPLEMENTATION WORKS
         editText = view.findViewById(R.id.createPassword);
-        password = editText.toString();
+        // Check to see if empty
+        if (TextUtils.isEmpty(editText.getText()))
+            editText.setError("Password Required");
+//        else
+            password = editText.toString();
         editText = view.findViewById(R.id.createVerifyPassword);
-        secondPassword = editText.toString();
+        // Check to see if empty
+        if (TextUtils.isEmpty(editText.getText()))
+            editText.setError("Verify Password");
+//        else
+            secondPassword = editText.toString();
 
         // Check to make sure the two passwords match
         if (!accountManager.crossCheckPasswords(password, secondPassword)) {
