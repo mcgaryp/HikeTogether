@@ -9,6 +9,28 @@
     tools:context=".Views.Activities.LoginActivity">
 
     <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="@string/username"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:nextFocusDown="@id/passwordInput"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/passwordInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -20,9 +42,11 @@
         android:hint="@string/password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:nextFocusDown="@id/loginButton"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:singleLine="false"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,23 +89,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/usernameInput"
-        android:layout_width="315dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:hint="@string/username"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

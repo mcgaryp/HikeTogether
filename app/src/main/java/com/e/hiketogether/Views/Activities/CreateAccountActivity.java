@@ -36,19 +36,25 @@ public class CreateAccountActivity extends AppCompatActivity {
         AccountManager accountManager = new AccountManager();
 
         // Get the passwords to check them by
-        // TODO make sure the passwords aren't empty strings I DONT THINK THIS IMPLEMENTATION WORKS
         editText = view.findViewById(R.id.createPassword);
+
         // Check to see if empty
-        if (TextUtils.isEmpty(editText.getText()))
-            editText.setError("Password Required");
-//        else
-            password = editText.toString();
+        // TODO listener click? maybe is what we need
+        while (!accountManager.checkInput(editText, "Password"))
+            // TODO Display error message and keep prompting
+            ;
+
+        // Set password to not empty string
+        password = editText.toString();
+
         editText = view.findViewById(R.id.createVerifyPassword);
         // Check to see if empty
-        if (TextUtils.isEmpty(editText.getText()))
-            editText.setError("Verify Password");
-//        else
-            secondPassword = editText.toString();
+        while (!accountManager.checkInput(editText, "Verify Password"))
+            // TODO Display error message and keep prompting
+            ;
+
+        // Set password to not empty string
+        secondPassword = editText.toString();
 
         // Check to make sure the two passwords match
         if (!accountManager.crossCheckPasswords(password, secondPassword)) {
@@ -61,6 +67,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 secondPassword = editText.toString();
             }
         }
+
         // Okay it's alright to create the account now.
         // Get the rest of the info
         editText = view.findViewById(R.id.createUsername);

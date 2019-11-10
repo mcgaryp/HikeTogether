@@ -1,5 +1,19 @@
 package com.e.hiketogether.Models;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 /**
  * PURPOSE:
  *      This class will handle the data and the model. I think it should save things and be directly
@@ -13,6 +27,8 @@ public class Account {
     private String email;
 //    private Settings settings;
 
+    private FirebaseFirestore dataBase;
+
     // Constructor
     // Stores password, username, email, and generates regular settings?
     public Account(String password, String username, String email) {
@@ -21,7 +37,56 @@ public class Account {
         this.email = email;
     }
 
+    // Save the account to the location that we have in the firebase
+    // TODO make this async task
     public void saveAccount() {
+        // TODO convert the account to gson string
+
+        // Upload to the cloud storage FIRESTORE
+        dataBase.collection("accounts").document(username)
+                // .set(gsonObject or string) creates the document if there isn't one or updates.
+                // .update() updates a specific part ie .update("username", "newUsername").
+                // .add(gsonObject or string) creates document id for you.
+                .set(this)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+        // Next is to save the account info into the "file"? that i just created?
+
+    }
+
+    // Idea is to pull the date from the account
+    public void loadAccount() {
+        DocumentReference documentReference = dataBase.collection("accounts").document(username);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    // Idea is to adjust and make changes to the account as necessary
+    public void updateAccount() {
 
     }
 
