@@ -13,8 +13,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-
 /**
  * PURPOSE:
  *      This class will handle the data and the model. I think it should save things and be directly
@@ -22,6 +20,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class Account {
     // VARIABLES
+    private static final String TAG = "ACCOUNT";
     private String password;
     private String username;
     private TrailList trailList;
@@ -32,24 +31,15 @@ public class Account {
     private FirebaseFirestore dataBase;
 
     // Constructor
-    // Stores password, username, email, and generates regular settings?
-    public Account(String password, String username, String email) {
-        this.password = password;
+    // Stores username
+    public Account(String username) {
         this.username = username;
-        this.email = email;
-        this.trailList = new TrailList();
-        this.settings = new Settings();
+        // Load the account to set the other data ?
+        this.email = loadAccount().email;
+        this.password = loadAccount().password;
+        this.trailList = loadAccount().trailList;
+        this.settings = loadAccount().settings;
     }
-
-    // Constructor for when you only know username
-//    public Account(String username) {
-//        this.username = username;
-//    }
-//
-//    // Constructor for when you only know email
-//    public Account(String email) {
-//        this.email = email;
-//    }
 
     // Save the account to the location that we have in the firebase
     // .set(gsonObject or string) creates the document if there isn't one or updates.
@@ -78,9 +68,12 @@ public class Account {
                 });
     }
 
-    // Idea is to pull the date from the account
+    // Idea is to pull the date from the account and return it in account form
+    // TODO make async task or thread?
     public Account loadAccount() {
+        // Need an account to save the info to
         Account account;
+        // Start the search in the dataBase
         DocumentReference documentReference = dataBase.collection("accounts").document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -91,20 +84,24 @@ public class Account {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                     } else {
                         Log.d(TAG, "No such document");
+                        // TODO return or throw?
+                        return;
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
+                    // TODO return or throw?
+                    return;
                 }
             }
         });
-
+        // if we have gotten this far we should add the document to a string
         String gsonString = documentReference.get().toString();
 
         // What did we just save??
         Log.d(TAG, gsonString);
         // Set the gson to the account
         account = gson.fromJson(gsonString, Account.class);
-
+        // Return the account we found
         return account;
     }
 
@@ -122,10 +119,5 @@ public class Account {
     public void addTrail() {
         // TODO add new trail to the account
 
-    }
-
-    // Find an account from database
-    public void findAccount() {
-        loadAccount();
     }
 }

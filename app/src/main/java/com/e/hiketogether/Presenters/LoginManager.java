@@ -28,11 +28,11 @@ public class LoginManager {
     public LoginManager(String username, String password) {
         this.password = password;
         this.username = username;
-        this.account = findAccount(username);
+        account = new Account(username);
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
-    private String hashPassword() {
+    private String hashPassword(String password) {
         // implement hashing algorithm
         String hashTemp = null;
 
@@ -63,22 +63,16 @@ public class LoginManager {
 
         // Call hashing on password
         // Confirm hashed saved password with entered hash
-        if (hashPassword() != account.getHashedPassword()){
-            // TODO throw exception and have the user resubmit a password
+        if (hashPassword(password) != account.getHashedPassword()){
             return false;
         }
-
         return true;
     }
 
     // Find account and confirm passwords
     public Account findAccount(String username) {
-        // TODO search through the account list in database and find account with same username
-        // TODO create account list??
-//        for (int i = 0; i < accountList.length(); i++) {
-//            if(accountList.getUsername[i] == username)
-//                confirmPassword();
-        return null;
+        // Load account from the Database
+        return account.loadAccount();
     }
 
     // **OPTIONAL** helper function to reset password

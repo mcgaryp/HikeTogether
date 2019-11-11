@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.e.hiketogether.Presenters.LoginManager;
 import com.e.hiketogether.R;
@@ -18,6 +20,7 @@ import com.e.hiketogether.R;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String TAG = "LOGIN_ACTIVITY";
     private String username;
     private String password;
 
@@ -30,7 +33,12 @@ public class LoginActivity extends AppCompatActivity {
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
         // Get the info from username and password fields
+        // TODO check to make sure it isn't empty TRY AND CATCH
+        try
         EditText text = view.findViewById(R.id.usernameInput);
+        try {
+
+        }
         username = text.getText().toString();
         text = view.findViewById(R.id.passwordInput);
         password = text.getText().toString();
@@ -41,8 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager loginManager = new LoginManager(username, password);
 
         // Get information back from LoginManager and create HomeActivity with it
-        // TODO Create the HomeActivity with specific stuff
-        loginManager.findAccount();
+        try {
+            loginManager.findAccount(username);
+        } catch (Exception e) {
+            Log.d(TAG, "Failed to find Account");
+            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist.", Toast.LENGTH_SHORT);
+            return;
+        }
+        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
     // Start the CreateAccountActivity to create a personal account
@@ -54,11 +68,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onSkip(View view) {
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // TODO destroy LoginManager Object
-
-    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        // TODO destroy LoginManager Object
+//
+//    }
 }
