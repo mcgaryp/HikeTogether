@@ -1,14 +1,13 @@
 package com.e.hiketogether.Views.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.e.hiketogether.Presenters.LoginManager;
 import com.e.hiketogether.R;
@@ -32,18 +31,31 @@ public class LoginActivity extends AppCompatActivity {
 
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
+        // Send information to Manager
+        LoginManager loginManager = new LoginManager();
+
         // Get the info from username and password fields
         // TODO check to make sure it isn't empty TRY AND CATCH
         EditText text = view.findViewById(R.id.usernameInput);
-
+        // Check to see if the username is empty
+        try {
+            checkInput(text, "Username");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // Set the username
         username = text.getText().toString();
-        text = view.findViewById(R.id.passwordInput);
-        password = text.getText().toString();
 
-        // Each time we Login we need to search a new account and therefore need a new login manager
-        // TODO onDestroy() make sure that the manager is DELETED
-        // Send information to Manager
-        LoginManager loginManager = new LoginManager(username, password);
+        // Point to the password
+        try {
+            checkInput(text, "Password");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // Set the password
+        password = text.getText().toString();
 
         // Get information back from LoginManager and create HomeActivity with it
         try {
@@ -53,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist.", Toast.LENGTH_SHORT);
             return;
         }
+        // Start the activity since they logged in!
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
@@ -65,11 +78,4 @@ public class LoginActivity extends AppCompatActivity {
     public void onSkip(View view) {
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        // TODO destroy LoginManager Object
-//
-//    }
 }

@@ -25,10 +25,8 @@ public class LoginManager {
     private String username;
 
     // Constructor
-    public LoginManager(String username, String password) {
-        this.password = password;
-        this.username = username;
-        account = new Account(username);
+    public LoginManager() {
+
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
