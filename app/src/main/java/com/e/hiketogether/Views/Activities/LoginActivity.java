@@ -34,11 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onLogin(View view) {
         // Get the info from username and password fields
         // TODO check to make sure it isn't empty TRY AND CATCH
-        try
         EditText text = view.findViewById(R.id.usernameInput);
-        try {
 
-        }
         username = text.getText().toString();
         text = view.findViewById(R.id.passwordInput);
         password = text.getText().toString();

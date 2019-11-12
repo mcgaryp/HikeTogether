@@ -1,21 +1,30 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e.hiketogether.Presenters.CreateAccountManager;
 import com.e.hiketogether.R;
-import com.e.hiketogether.Presenters.AccountManager;
 
 /**
  * PURPOSE OF THE CLASS
  *      Intent is to present the user with a user friendly display and allow them to create a
  *      personal account that will allow them to do special things with the account.
+ *      After creating an account it will send them to the login page.
  */
 public class CreateAccountActivity extends AppCompatActivity {
+    // Variables
+    private static final String TAG = "CREATE_ACCOUNT_ACTIVITY";
+    private String password;
+    private String username;
+    private String email;
+    private EditText editText;
+    private String secondPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,57 +34,72 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     // Takes input and creates account!
     public void onCreateAccount(View view) {
-        // TEMP VARIABLES
-        String password;
-        String username;
-        String email;
-        EditText editText;
-        String secondPassword;
-
         // Need some managing of accounts happening
-        AccountManager accountManager = new AccountManager();
+        CreateAccountManager accountManager = new CreateAccountManager();
 
         // Get the passwords to check them by
         editText = view.findViewById(R.id.createPassword);
 
-        // Check to see if empty
-        // TODO listener click? maybe is what we need
-        while (!accountManager.checkInput(editText, "Password"))
-            // TODO Display error message and keep prompting
-            ;
-
+        // Check constraints
+        try {
+            accountManager.checkPassword(editText, "Password");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
         // Set password to not empty string
         password = editText.toString();
 
+        // Set the edit to next password
         editText = view.findViewById(R.id.createVerifyPassword);
-        // Check to see if empty
-        while (!accountManager.checkInput(editText, "Verify Password"))
-            // TODO Display error message and keep prompting
-            ;
-
-        // Set password to not empty string
+        // Check constraints
+        try {
+            accountManager.checkPassword(editText, "Verify Password");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // Set password
         secondPassword = editText.toString();
 
         // Check to make sure the two passwords match
-        if (!accountManager.crossCheckPasswords(password, secondPassword)) {
-            while (!accountManager.crossCheckPasswords(password, secondPassword)) {
-                // TODO make user reenter password
-
-                editText = view.findViewById(R.id.createPassword);
-                password = editText.toString();
-                editText = view.findViewById(R.id.createVerifyPassword);
-                secondPassword = editText.toString();
-            }
+        try {
+            accountManager.crossCheckPasswords(password, secondPassword);
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
         }
 
         // Okay it's alright to create the account now.
-        // Get the rest of the info
+        // Set editText to username
         editText = view.findViewById(R.id.createUsername);
+        // Check to make sure username is within constraints
+        try {
+            accountManager.checkUsername(editText, "username");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // Set username
         username = editText.toString();
+
+        // Set the edit text to email
         editText = view.findViewById(R.id.createEmail);
+        // Check to make sure email is within constraints
+        try {
+            accountManager.checkEmail(editText, "email");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // Set email
         email = editText.toString();
 
         // Create the account
         accountManager.createAccount(username, password, email);
+
+        // Send the user to the login activity
+        // TODO destroy this activity.
+        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
     }
 }
