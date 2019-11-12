@@ -34,24 +34,26 @@ public class LoginActivity extends AppCompatActivity {
         // Send information to Manager
         LoginManager loginManager = new LoginManager();
 
-        // Get the info from username and password fields
-        // TODO check to make sure it isn't empty TRY AND CATCH
+        // Point to Username input
         EditText text = view.findViewById(R.id.usernameInput);
         // Check to see if the username is empty
         try {
-            checkInput(text, "Username");
+            loginManager.checkInput(text, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Username", Toast.LENGTH_SHORT);
             return;
         }
         // Set the username
         username = text.getText().toString();
 
         // Point to the password
+        text = view.findViewById(R.id.passwordInput);
         try {
-            checkInput(text, "Password");
+            loginManager.checkInput(text, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Password", Toast.LENGTH_SHORT);
             return;
         }
         // Set the password
@@ -62,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.findAccount(username);
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
-            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist.", Toast.LENGTH_SHORT);
+            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist", Toast.LENGTH_SHORT);
             return;
         }
         // Start the activity since they logged in!

@@ -1,6 +1,7 @@
 package com.e.hiketogether.Presenters;
 
 import android.util.Log;
+import android.widget.EditText;
 
 import com.e.hiketogether.Views.Activities.LoginActivity;
 import com.e.hiketogether.Models.Account;
@@ -29,6 +30,14 @@ public class LoginManager {
 
     }
 
+    // Check the input to make sure it's not empty
+    public void checkInput(EditText editText, String error) throws Exception {
+        if (editText.getText().toString().isEmpty()) {
+            editText.setError(error + " field is empty");
+            throw new Exception(error + " field is empty");
+        }
+    }
+
     // Hashing Password Function RETURN SOMETHING HASHED
     private String hashPassword(String password) {
         // implement hashing algorithm
@@ -55,7 +64,7 @@ public class LoginManager {
     }
 
     // Confirm account with that in our database
-    private Boolean confirmPassword() {
+    private boolean confirmPassword() {
         // Display in log to check and see if the hashes are the same
         Log.i(TAG, account.getHashedPassword());
 
