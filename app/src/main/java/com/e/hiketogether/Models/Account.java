@@ -13,6 +13,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 /**
  * PURPOSE:
  *      This class will handle the data and the model. I think it should save things and be directly
@@ -26,19 +31,46 @@ public class Account {
     private TrailList trailList;
     private String email;
     private Settings settings;
-    Gson gson = null;
+    private Gson gson = null;
 
     private FirebaseFirestore dataBase;
 
-    // Constructor
-    // Stores username
-    public Account(String username) {
+    // Default Constructor
+    public Account() {
+
+    }
+
+    // Optional Constructor for creating account
+    public Account(String username, String password, String email) {
         this.username = username;
-        // Load the account to set the other data ?
-        this.email = loadAccount().email;
-        this.password = loadAccount().password;
-        this.trailList = loadAccount().trailList;
-        this.settings = loadAccount().settings;
+        this.password = hashPassword(password);
+        this.email = email;
+        trailList = new TrailList();
+        settings = new Settings();
+    }
+
+    // Hashing Password Function RETURN SOMETHING HASHED
+    public String hashPassword(String password) {
+        // implement hashing algorithm
+        String hashTemp = null;
+
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            messageDigest.update(salt);
+            byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+            hashTemp = hashedPassword.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // Display in the log just to make sure that it worked right!
+        Log.i(TAG, hashTemp);
+
+        return hashTemp;
     }
 
     // Save the account to the location that we have in the firebase
@@ -48,7 +80,7 @@ public class Account {
     // TODO make this async task or call in an async task?
     public void saveAccount() {
         // Convert the account to gson string
-        gson.toJson(this);
+        gson.toJson(Account.class);
         String gsonString = gson.toString();
 
         // Upload to the cloud storage FIRESTORE
@@ -70,7 +102,7 @@ public class Account {
 
     // Idea is to pull the date from the account and return it in account form
     // TODO make async task or thread?
-    public Account loadAccount() {
+    public Account loadAccount(String username) {
         // Need an account to save the info to
         Account account;
         // Start the search in the dataBase
@@ -84,12 +116,10 @@ public class Account {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                     } else {
                         Log.d(TAG, "No such document");
-                        // TODO return or throw?
                         return;
                     }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                    // TODO return or throw?
+                    Log.d(TAG, "'Get' failed with ", task.getException());
                     return;
                 }
             }
@@ -107,12 +137,11 @@ public class Account {
 
     // Idea is to adjust and make changes to the account as necessary
     public void updateAccount(String fieldToUpdate, String update) {
-        dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
-    }
-
-    // GET the hashed password
-    public String getHashedPassword() {
-        return password;
+        try {
+            dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
+        } catch (Exception e) {
+            Log.d(TAG, "Failed to update account.");
+        }
     }
 
     // ADD a Trail to the accounts trail list
@@ -120,4 +149,11 @@ public class Account {
         // TODO add new trail to the account
 
     }
+
+    // Getter functions
+    public String getPassword()     { return password;  }
+    public String getUsername()     { return username;  }
+    public String getEmail()        { return email;     }
+    public Settings getSettings()   { return settings;  }
+    public TrailList getTrailList() { return trailList; }
 }

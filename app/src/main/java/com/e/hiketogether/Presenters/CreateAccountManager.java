@@ -2,6 +2,8 @@ package com.e.hiketogether.Presenters;
 
 import android.widget.EditText;
 
+import com.e.hiketogether.Models.Account;
+
 /**
  * PURPOSE:
  *      This is to manage all of the logic that is needed manage an account.
@@ -19,9 +21,7 @@ public class CreateAccountManager {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        // TODO hashing function to store the password as a hashed value
-
-        // TODO think about storing a local account in cache??
+        new Account(username,password,email).saveAccount();
     }
 
     // Checks to make sure that the password and verifying password match

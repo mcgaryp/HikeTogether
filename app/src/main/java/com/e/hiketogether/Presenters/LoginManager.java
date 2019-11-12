@@ -20,10 +20,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class LoginManager {
     // Variables
-    private Account account;
-    private LoginActivity activity;
-    private String password;
-    private String username;
 
     // Constructor
     public LoginManager() {
@@ -38,48 +34,43 @@ public class LoginManager {
         }
     }
 
-    // Hashing Password Function RETURN SOMETHING HASHED
-    private String hashPassword(String password) {
-        // implement hashing algorithm
-        String hashTemp = null;
+    // TODO Confirm account with that in our database
+    private void confirmPassword(String p1, String p2) throws Exception {
+        if (p1 != p2) {
+            throw new Exception("Passwords do not match");
+        }
+    }
 
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
+    // TODO Search for account in dataBase
+    private Account findAccount(String username) throws Exception {
+        // I think this works....
+        // TODO throw exception if account not found
+        return new Account().loadAccount(username);
+    }
 
+    // TODO Confirm account and confirm passwords
+    public void confirmAccount(String username, String password) throws Exception {
+        // Start by creating an account
+        Account account;
+        // Find the account
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-            messageDigest.update(salt);
-            byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-            hashTemp = hashedPassword.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            account = findAccount(username);
+        } catch (Exception e) {
+            // TODO Notify that the account was not found with a toast
+
+            throw e;
         }
 
+        // Confirm the passwords are the same
+        try {
+            // Confirm passwords
+            confirmPassword(account.getPassword(), account.hashPassword(password));
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            // TODO Send notification to user that password was not found with toast
 
-        // Display in the log just to make sure that it worked right!
-        Log.i(TAG, hashTemp);
-
-        return hashTemp;
-    }
-
-    // Confirm account with that in our database
-    private boolean confirmPassword() {
-        // Display in log to check and see if the hashes are the same
-        Log.i(TAG, account.getHashedPassword());
-
-        // Call hashing on password
-        // Confirm hashed saved password with entered hash
-        if (hashPassword(password) != account.getHashedPassword()){
-            return false;
+            throw e;
         }
-        return true;
-    }
-
-    // Find account and confirm passwords
-    public Account findAccount(String username) {
-        // Load account from the Database
-        return account.loadAccount();
     }
 
     // **OPTIONAL** helper function to reset password
@@ -89,9 +80,6 @@ public class LoginManager {
 
     // **OPTIONAL** forgot password option
     public void forgotPassword(String email) {
-        // TODO search for email in AccountList once found have user answer security question?
-//        for (int i = 0; i < accountList.length(); i++) {
-//            if(accountList.getEmail[i] == email)
-//                resetPassword();
+
     }
 }

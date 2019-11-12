@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get information back from LoginManager and create HomeActivity with it
         try {
-            loginManager.findAccount(username);
+            loginManager.confirmAccount(username, password);
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
             new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist", Toast.LENGTH_SHORT);
