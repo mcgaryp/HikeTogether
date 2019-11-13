@@ -44,6 +44,9 @@ public class LoginActivity extends AppCompatActivity {
             new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Username", Toast.LENGTH_SHORT);
             return;
         }
+        // reset the setError
+        text.setError(null);
+
         // Set the username
         username = text.getText().toString();
 
@@ -56,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
             new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Password", Toast.LENGTH_SHORT);
             return;
         }
+        // reset the setError
+        text.setError(null);
+        
         // Set the password
         password = text.getText().toString();
 

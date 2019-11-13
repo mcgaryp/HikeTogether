@@ -59,6 +59,9 @@ public class CreateAccountActivity extends AppCompatActivity {
             Log.d(TAG, e.getMessage());
             return;
         }
+        // reset the setError
+        editText.setError(null);
+
         // Set password
         secondPassword = editText.toString();
 
@@ -69,6 +72,8 @@ public class CreateAccountActivity extends AppCompatActivity {
             Log.d(TAG, e.getMessage());
             return;
         }
+        // reset the setError
+        editText.setError(null);
 
         // Okay it's alright to create the account now.
         // Set editText to username
@@ -80,6 +85,9 @@ public class CreateAccountActivity extends AppCompatActivity {
             Log.d(TAG, e.getMessage());
             return;
         }
+        // reset the setError
+        editText.setError(null);
+
         // Set username
         username = editText.toString();
 
@@ -92,6 +100,9 @@ public class CreateAccountActivity extends AppCompatActivity {
             Log.d(TAG, e.getMessage());
             return;
         }
+        // reset the setError
+        editText.setError(null);
+
         // Set email
         email = editText.toString();
 
