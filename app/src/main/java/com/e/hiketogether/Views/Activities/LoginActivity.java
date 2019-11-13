@@ -20,8 +20,8 @@ import com.e.hiketogether.R;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LOGIN_ACTIVITY";
-    private String username;
-    private String password;
+    private String username = "";
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

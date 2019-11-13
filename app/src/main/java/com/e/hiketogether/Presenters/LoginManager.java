@@ -20,6 +20,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class LoginManager {
     // Variables
+    private static final String TAG = "LOGIN_MANAGER";
 
     // Constructor
     public LoginManager() {
@@ -28,13 +29,15 @@ public class LoginManager {
 
     // Check the input to make sure it's not empty
     public void checkInput(EditText editText, String error) throws Exception {
+        editText.setError(null);
+
         if (editText.getText().toString().isEmpty()) {
             editText.setError(error + " field is empty");
             throw new Exception(error + " field is empty");
         }
     }
 
-    // TODO Confirm account with that in our database
+    // Confirm passwordsare the same with that in our database
     private void confirmPassword(String p1, String p2) throws Exception {
         if (p1 != p2) {
             throw new Exception("Passwords do not match");
