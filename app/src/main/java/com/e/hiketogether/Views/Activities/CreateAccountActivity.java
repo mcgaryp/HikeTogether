@@ -37,6 +37,21 @@ public class CreateAccountActivity extends AppCompatActivity {
         // Need some managing of accounts happening
         CreateAccountManager accountManager = new CreateAccountManager();
 
+        // Set editText to username
+        editText = findViewById(R.id.createUsername);
+        // Check to make sure username is within constraints
+        try {
+            accountManager.checkUsername(editText, "username");
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+            return;
+        }
+        // reset the setError
+        editText.setError(null);
+
+        // Set username
+        username = editText.toString();
+
         // Get the passwords to check them by
         editText = findViewById(R.id.createPassword);
 
@@ -74,22 +89,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
         // reset the setError
         editText.setError(null);
-
-        // Okay it's alright to create the account now.
-        // Set editText to username
-        editText = findViewById(R.id.createUsername);
-        // Check to make sure username is within constraints
-        try {
-            accountManager.checkUsername(editText, "username");
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            return;
-        }
-        // reset the setError
-        editText.setError(null);
-
-        // Set username
-        username = editText.toString();
 
         // Set the edit text to email
         editText = findViewById(R.id.createEmail);
