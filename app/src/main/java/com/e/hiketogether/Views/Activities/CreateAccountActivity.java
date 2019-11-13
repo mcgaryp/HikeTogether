@@ -38,7 +38,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         CreateAccountManager accountManager = new CreateAccountManager();
 
         // Get the passwords to check them by
-        editText = view.findViewById(R.id.createPassword);
+        editText = findViewById(R.id.createPassword);
 
         // Check constraints
         try {
@@ -51,7 +51,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         password = editText.toString();
 
         // Set the edit to next password
-        editText = view.findViewById(R.id.createVerifyPassword);
+        editText = findViewById(R.id.createVerifyPassword);
         // Check constraints
         try {
             accountManager.checkPassword(editText, "Verify Password");
@@ -72,7 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // Okay it's alright to create the account now.
         // Set editText to username
-        editText = view.findViewById(R.id.createUsername);
+        editText = findViewById(R.id.createUsername);
         // Check to make sure username is within constraints
         try {
             accountManager.checkUsername(editText, "username");
@@ -84,7 +84,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         username = editText.toString();
 
         // Set the edit text to email
-        editText = view.findViewById(R.id.createEmail);
+        editText = findViewById(R.id.createEmail);
         // Check to make sure email is within constraints
         try {
             accountManager.checkEmail(editText, "email");

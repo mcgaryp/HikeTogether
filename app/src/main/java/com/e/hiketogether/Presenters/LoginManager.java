@@ -29,8 +29,6 @@ public class LoginManager {
 
     // Check the input to make sure it's not empty
     public void checkInput(EditText editText, String error) throws Exception {
-        editText.setError(null);
-
         if (editText.getText().toString().isEmpty()) {
             editText.setError(error + " field is empty");
             throw new Exception(error + " field is empty");

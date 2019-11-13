@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginManager loginManager = new LoginManager();
 
         // Point to Username input
-        EditText text = view.findViewById(R.id.usernameInput);
+        EditText text = findViewById(R.id.usernameInput);
         // Check to see if the username is empty
         try {
             loginManager.checkInput(text, "Username");
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         username = text.getText().toString();
 
         // Point to the password
-        text = view.findViewById(R.id.passwordInput);
+        text = findViewById(R.id.passwordInput);
         try {
             loginManager.checkInput(text, "Password");
         } catch (Exception e) {
