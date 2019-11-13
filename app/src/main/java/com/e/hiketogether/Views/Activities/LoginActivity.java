@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.checkInput(text, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Username", Toast.LENGTH_SHORT);
             return;
         }
         // reset the setError
@@ -56,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.checkInput(text, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Enter Password", Toast.LENGTH_SHORT);
             return;
         }
         // reset the setError
@@ -70,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.confirmAccount(username, password);
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
-            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist", Toast.LENGTH_SHORT);
+            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Account does not exist", Toast.LENGTH_LONG).show();
             return;
         }
         // Start the activity since they logged in!

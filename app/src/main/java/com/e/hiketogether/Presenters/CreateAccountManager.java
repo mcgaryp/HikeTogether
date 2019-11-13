@@ -83,6 +83,7 @@ public class CreateAccountManager {
     // Checks input to make sure its not empty
     private void checkInput(EditText editText, String error) throws Exception {
         if (editText.toString().isEmpty()) {
+            editText.setError("Empty " + error + " field.");
             throw new Exception("Empty " + error + " field.");
         }
     }
