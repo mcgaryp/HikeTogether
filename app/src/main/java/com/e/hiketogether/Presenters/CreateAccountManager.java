@@ -70,7 +70,7 @@ public class CreateAccountManager {
         }
     }
 
-    // Check the username agains all usernames in database so it's not repeated
+    // Check the username against all usernames in database so it's not repeated
     public void checkUsername(EditText editText, String error) throws Exception {
         // Check to see if empty
         try {

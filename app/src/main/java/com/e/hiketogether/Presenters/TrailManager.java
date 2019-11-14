@@ -1,6 +1,5 @@
 package com.e.hiketogether.Presenters;
 
-import com.e.hiketogether.Models.HTTPHelper;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.google.gson.Gson;

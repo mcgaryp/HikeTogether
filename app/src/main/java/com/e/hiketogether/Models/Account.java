@@ -31,9 +31,6 @@ public class Account {
     private TrailList trailList;
     private String email;
     private Settings settings;
-    private Gson gson = null;
-
-    private FirebaseFirestore dataBase;
 
     // Default Constructor
     public Account() {
@@ -71,77 +68,6 @@ public class Account {
         Log.i(TAG, hashTemp);
 
         return hashTemp;
-    }
-
-    // Save the account to the location that we have in the firebase
-    // .set(gsonObject or string) creates the document if there isn't one or updates.
-    // .update() updates a specific part ie .update("username", "newUsername").
-    // .add(gsonObject or string) creates document id for you.
-    // TODO make this async task or call in an async task?
-    public void saveAccount() {
-        // Convert the account to gson string
-        gson.toJson(Account.class);
-        String gsonString = gson.toString();
-
-        // Upload to the cloud storage FIRESTORE
-        dataBase.collection("accounts").document(username)
-                .set(gsonString)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
-    }
-
-    // Idea is to pull the date from the account and return it in account form
-    // TODO make async task or thread?
-    public Account loadAccount(String username) {
-        // Need an account to save the info to
-        Account account;
-        // Start the search in the dataBase
-        DocumentReference documentReference = dataBase.collection("accounts").document(username);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                        return;
-                    }
-                } else {
-                    Log.d(TAG, "'Get' failed with ", task.getException());
-                    return;
-                }
-            }
-        });
-        // if we have gotten this far we should add the document to a string
-        String gsonString = documentReference.get().toString();
-
-        // What did we just save??
-        Log.d(TAG, gsonString);
-        // Set the gson to the account
-        account = gson.fromJson(gsonString, Account.class);
-        // Return the account we found
-        return account;
-    }
-
-    // Idea is to adjust and make changes to the account as necessary
-    public void updateAccount(String fieldToUpdate, String update) {
-        try {
-            dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
-        } catch (Exception e) {
-            Log.d(TAG, "Failed to update account.");
-        }
     }
 
     // ADD a Trail to the accounts trail list
