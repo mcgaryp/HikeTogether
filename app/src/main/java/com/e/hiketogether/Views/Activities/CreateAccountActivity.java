@@ -78,7 +78,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
         // reset the setError
         editText.setError(null);
-        // Set SeccondPassword
+        // Set SecondPassword
         secondPassword = editText.toString();
 
         // Set the edit text to email
