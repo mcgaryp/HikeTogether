@@ -1,5 +1,6 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,8 +109,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         // Create the account
         accountManager.createAccount(username, password, email);
 
-        // Send the user to the login activity
-        // TODO destroy this activity.
-        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
+        //Account created successfully!  Return to LoginActivity with their data
+        //TODO- return the account info in the intent, so they can be logged in
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", 1);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
     }
 }

@@ -20,7 +20,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
  */
 public class LoginManager {
     // Variables
-    private static final String TAG = "LOGIN_MANAGER";
+    private static final String TAG = "LOGIN_MANAGER"; //Log tag
 
     // Constructor
     public LoginManager() {

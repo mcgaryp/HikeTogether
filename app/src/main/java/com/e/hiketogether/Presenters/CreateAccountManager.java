@@ -1,5 +1,7 @@
 package com.e.hiketogether.Presenters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;

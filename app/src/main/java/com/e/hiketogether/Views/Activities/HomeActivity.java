@@ -14,8 +14,10 @@ import com.e.hiketogether.R;
  *      user to different fragments such as the settings, Favorites, Trails, Map and Search Bar
  */
 public class HomeActivity extends AppCompatActivity {
-    static final int LOGIN_REQUEST = 1; //Request code for LoginActivity
-
+    private static final String TAG = "HOME_ACTIVITY"; //Log tag
+    private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
+    private static final int LOGIN_FAILED = 0;  //resultCode for HomeActivity
+    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for HomeActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     //When user clicks "Login", this function will create the Activity and receive the user's account
     public void openLoginActivity(View view) {
-        Intent loginIntent = new Intent(HomeActivity.this, LoginActivity.class);
+        Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivityForResult(loginIntent, LOGIN_REQUEST);
     }
 
@@ -35,5 +37,14 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LOGIN_SUCCESSFUL) {
+            if (resultCode == RESULT_OK) {
+                //The user was logged in!
+                //The intent will have pertinent information that needs to be passed back in it
+
+                //TODO- do something with the intent here
+            }
+        }
     }
 }

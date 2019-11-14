@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="356dp"
         android:background="@drawable/rounded_button"
-        android:onClick="onCreateAccount"
+        android:onClick="openCreateAccountActivity"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="@string/create_account"
