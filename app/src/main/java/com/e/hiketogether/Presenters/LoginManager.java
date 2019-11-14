@@ -46,7 +46,7 @@ public class LoginManager {
     private Account findAccount(String username) throws Exception {
         // I think this works....
         // TODO throw exception if account not found
-        return new Account().loadAccount(username);
+        return new FireBaseHelper(username).loadAccount();
     }
 
     // TODO Confirm account and confirm passwords

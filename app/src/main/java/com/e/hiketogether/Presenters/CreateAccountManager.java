@@ -23,7 +23,7 @@ public class CreateAccountManager {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        new Account(username,password,email).saveAccount();
+        new FireBaseHelper(username).saveAccount(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match

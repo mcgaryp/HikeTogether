@@ -29,9 +29,9 @@ public class FireBaseHelper {
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
     // TODO make this async task or call in an async task?
-    public void saveAccount() {
+    public void saveAccount(Account account) {
         // Convert the account to gson string
-        gson.toJson(Account.class);
+        gson.toJson(account);
         String gsonString = gson.toString();
 
         // Upload to the cloud storage FIRESTORE
@@ -53,7 +53,7 @@ public class FireBaseHelper {
 
     // Idea is to pull the date from the account and return it in account form
     // TODO make async task or thread?
-    public Account loadAccount(String username) {
+    public Account loadAccount() {
         // Need an account to save the info to
         Account account;
         // Start the search in the dataBase
