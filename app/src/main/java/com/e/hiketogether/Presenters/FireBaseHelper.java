@@ -1,5 +1,6 @@
 package com.e.hiketogether.Presenters;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
+// TODO Make Class into async or runnable or thread
 public class FireBaseHelper {
     private Gson gson = null;
     private static final String TAG = "FIRE_BASE_HELPER";
@@ -29,6 +31,7 @@ public class FireBaseHelper {
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
     // TODO make this async task or call in an async task?
+    // TODO when we create an account make sure the username is unique
     public void saveAccount(Account account) {
         // Convert the account to gson string
         gson.toJson(account);
