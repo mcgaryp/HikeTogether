@@ -26,6 +26,7 @@ public class FireBaseHelper {
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
     private String username;
+    private FirebaseListener listener;
 
     // Constructor for the firebase helper. We need to know the username to find the account
     public FireBaseHelper(String username) {
@@ -89,7 +90,7 @@ public class FireBaseHelper {
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-                        
+
                         return;
                     }
                 } else {
