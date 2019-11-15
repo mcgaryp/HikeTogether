@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 
 /**
  * PURPOSE:
@@ -31,6 +32,7 @@ public class Account {
     private TrailList trailList;
     private String email;
     private Settings settings;
+    private TrailList favoriteTrails;
 
     // Default Constructor
     public Account() {
