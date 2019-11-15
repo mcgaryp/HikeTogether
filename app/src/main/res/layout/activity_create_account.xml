@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/createUsername"
         android:layout_width="315dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
@@ -22,6 +22,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,9 +30,9 @@
     <EditText
         android:id="@+id/createPassword"
         android:layout_width="315dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
@@ -42,6 +43,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createUsername" />
@@ -49,9 +51,9 @@
     <EditText
         android:id="@+id/createVerifyPassword"
         android:layout_width="315dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
@@ -62,17 +64,17 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createPassword" />
 
     <EditText
         android:id="@+id/createEmail"
         android:layout_width="315dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
@@ -83,15 +85,15 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createVerifyPassword" />
 
     <Button
         android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/rounded_button"
         android:onClick="onCreateAccount"
