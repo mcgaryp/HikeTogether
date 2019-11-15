@@ -32,11 +32,10 @@ public class Account {
     private TrailList trailList;
     private String email;
     private Settings settings;
-    private TrailList favoriteTrails;
 
     // Default Constructor
     public Account() {
-
+        Log.d(TAG, "Created account Object with no set variables.");
     }
 
     // Optional Constructor for creating account
@@ -47,9 +46,10 @@ public class Account {
         trailList = new TrailList();
         settings = new Settings();
         Log.d(TAG, "Succesful creation of account.");
-        Log.d(TAG, "Username: " + username);
+        Log.d(TAG, "Username: " + this.username);
+        Log.d(TAG, "Hashed password: " + this.password);
         Log.d(TAG, "Password: " + password);
-        Log.d(TAG, "Email: " + email);
+        Log.d(TAG, "Email: " + this.email);
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
@@ -71,7 +71,8 @@ public class Account {
         }
 
         // Display in the log just to make sure that it worked right!
-        Log.i(TAG, hashTemp);
+        Log.d(TAG, "Successfully created hashed password");
+        Log.d(TAG, "Hasehd password: " + hashTemp);
 
         return hashTemp;
     }
@@ -79,7 +80,7 @@ public class Account {
     // ADD a Trail to the accounts trail list
     public void addTrail() {
         // TODO add new trail to the account
-
+        Log.d(TAG, "Successfully added a Favorites Trail.");
     }
 
     // Getter functions

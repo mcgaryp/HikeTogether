@@ -15,31 +15,44 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
-// TODO Make Class into async or runnable or thread
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * FireBase uses a different thread on it's own!
+ */
 public class FireBaseHelper {
-    private Gson gson = null;
+    private Gson gson;
     private static final String TAG = "FIRE_BASE_HELPER";
-    private FirebaseFirestore dataBase = null;
+    private FirebaseFirestore dataBase;
     private String username;
 
+    // Constructor for the firebase helper. We need to know the username to find the account
     public FireBaseHelper(String username) {
         this.username = username;
+        gson = new Gson();
+        dataBase = FirebaseFirestore.getInstance();
     }
 
     // Save the account to the location that we have in the firebase
     // .set(gsonObject or string) creates the document if there isn't one or updates.
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
-    // TODO make this async task or call in an async task?
     // TODO when we create an account make sure the username is unique
     public void saveAccount(Account account) {
         // Convert the account to gson string
-        gson.toJson(account);
-        String gsonString = gson.toString();
+//        String gsonString = gson.toJson(account);
+//        Log.d(TAG, "Successfully created gsonString.");
+        Map<String, Object> user  = new HashMap<>();
+        user.put("username", account.getUsername());
+        user.put("password", account.getPassword());
+        user.put("email", account.getEmail());
+        user.put("trails", account.getTrailList());
+//        user.put("settings", account.getSettings());
 
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
-                .set(gsonString)
+                .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -52,10 +65,10 @@ public class FireBaseHelper {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
+        Log.d(TAG, "Successful Save to FireBase.");
     }
 
     // Idea is to pull the date from the account and return it in account form
-    // TODO make async task or thread?
     public Account loadAccount() {
         // Need an account to save the info to
         Account account;
@@ -86,6 +99,7 @@ public class FireBaseHelper {
         // Set the gson to the account
         account = gson.fromJson(gsonString, Account.class);
         // Return the account we found
+        Log.d(TAG, "Successful Load from FireBase.");
         return account;
     }
 
@@ -96,5 +110,6 @@ public class FireBaseHelper {
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
         }
+        Log.d(TAG, "Successful update to FireBase.");
     }
 }
