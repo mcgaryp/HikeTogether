@@ -84,8 +84,12 @@ public class FireBaseHelper {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
+                        // notify the login activity that we have logged in to the logged in activity
+
                     } else {
                         Log.d(TAG, "No such document");
+                        // notify the login activity that we have not logged in.
+                        
                         return;
                     }
                 } else {

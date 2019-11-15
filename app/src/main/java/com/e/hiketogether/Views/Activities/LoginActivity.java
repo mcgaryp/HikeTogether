@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         // reset the setError
         text.setError(null);
-
         // Set the password
         password = text.getText().toString();
 
