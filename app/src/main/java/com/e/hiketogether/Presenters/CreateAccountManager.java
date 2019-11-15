@@ -42,7 +42,7 @@ public class CreateAccountManager {
         }
 
         // Check that the string is at least 8 char
-        if (editText.toString().length() <= 7 ) {
+        if (editText.toString().length() >= 7 ) {
             editText.setError(error + " must be at least 8 characters");
             throw new Exception("Password has less than 8 characters.");
         }
@@ -65,7 +65,7 @@ public class CreateAccountManager {
 
         // check to make sure it has at least '@' character
         if (!editText.toString().matches("@{1}")) {
-            editText.setError(error + " invalid.");
+            editText.setError(error + " invalid");
             throw new Exception("Email invalid.");
         }
     }
@@ -84,7 +84,7 @@ public class CreateAccountManager {
 
     // Checks input to make sure its not empty
     private void checkInput(EditText editText, String error) throws Exception {
-        if (editText.toString().isEmpty()) {
+        if (editText.getText().toString().isEmpty()) {
             editText.setError("Empty " + error + " field.");
             throw new Exception("Empty " + error + " field.");
         }
