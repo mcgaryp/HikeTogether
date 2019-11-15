@@ -51,7 +51,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         // reset the setError
         editText.setError(null);
         // Set username
-        username = editText.toString();
+        username = editText.getText().toString();
 
         // point to the first password
         editText = findViewById(R.id.createPassword);
@@ -65,7 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         // reset setError
         editText.setError(null);
         // Set password
-        password = editText.toString();
+        password = editText.getText().toString();
 
         // point to verifyPassword
         editText = findViewById(R.id.createVerifyPassword);
@@ -79,7 +79,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         // reset the setError
         editText.setError(null);
         // Set SecondPassword
-        secondPassword = editText.toString();
+        secondPassword = editText.getText().toString();
 
         // Set the edit text to email
         editText = findViewById(R.id.createEmail);
@@ -93,10 +93,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         // reset the setError
         editText.setError(null);
         // Set email
-        email = editText.toString();
+        email = editText.getText().toString();
 
         // Check to make sure the two passwords match
         try {
+            Log.d(TAG,"First password: " + password);
+            Log.d(TAG, "Second password: " + secondPassword);
             accountManager.crossCheckPasswords(password, secondPassword);
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());

@@ -46,6 +46,10 @@ public class Account {
         this.email = email;
         trailList = new TrailList();
         settings = new Settings();
+        Log.d(TAG, "Succesful creation of account.");
+        Log.d(TAG, "Username: " + username);
+        Log.d(TAG, "Password: " + password);
+        Log.d(TAG, "Email: " + email);
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED

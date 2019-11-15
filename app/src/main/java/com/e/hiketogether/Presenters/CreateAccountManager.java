@@ -28,7 +28,7 @@ public class CreateAccountManager {
 
     // Checks to make sure that the password and verifying password match
     public void crossCheckPasswords(String p1, String p2) throws Exception{
-        if (p1 != p2)
+        if (!p1.matches(p2))
             throw new Exception("Passwords do not match.");
     }
 
@@ -48,7 +48,7 @@ public class CreateAccountManager {
         }
 
         // Check that the password has at least 1 number
-        if (!editText.getText().toString().matches("\\d[0-9]++ | \\p{Punct}++")) {
+        if (!editText.getText().toString().matches(".*[\\d\\p{Punct}].*")) {
             editText.setError(error + " must contain at least one number or symbol");
             throw new Exception("Password does not have a symbol.");
         }
@@ -64,7 +64,7 @@ public class CreateAccountManager {
         }
 
         // check to make sure it has at least '@' character
-        if (editText.getText().toString().matches("@{1}")) {
+        if (!editText.getText().toString().matches(".*@.*")) {
             editText.setError(error + " invalid");
             throw new Exception("Email invalid.");
         }
