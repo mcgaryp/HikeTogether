@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.R;
 
 /**
@@ -18,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for HomeActivity
     private static final int LOGIN_SUCCESSFUL = 1; //resultCode for HomeActivity
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,9 @@ public class HomeActivity extends AppCompatActivity {
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
 
-                //TODO- do something with the intent here
+                //TODO do something with the intent here
+                // maybe save the account?
+//                account = data.getAccount()
             }
         }
     }
