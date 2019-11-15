@@ -70,13 +70,8 @@
     <Button
         android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
-<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
-=======
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
->>>>>>> 104e6b813389aa159f4ef177053055e138868b1d
         android:background="@drawable/rounded_button"
         android:onClick="openCreateAccountActivity"
         android:paddingStart="10dp"
