@@ -42,13 +42,13 @@ public class CreateAccountManager {
         }
 
         // Check that the string is at least 8 char
-        if (editText.toString().length() >= 7 ) {
+        if (editText.getText().toString().length() < 8 ) {
             editText.setError(error + " must be at least 8 characters");
             throw new Exception("Password has less than 8 characters.");
         }
 
         // Check that the password has at least 1 number
-        if (!editText.toString().matches("[^0-9]++ | [{Punct}]++")) {
+        if (!editText.getText().toString().matches("\\d[0-9]++ | \\p{Punct}++")) {
             editText.setError(error + " must contain at least one number or symbol");
             throw new Exception("Password does not have a symbol.");
         }
@@ -64,7 +64,7 @@ public class CreateAccountManager {
         }
 
         // check to make sure it has at least '@' character
-        if (!editText.toString().matches("@{1}")) {
+        if (editText.getText().toString().matches("@{1}")) {
             editText.setError(error + " invalid");
             throw new Exception("Email invalid.");
         }
