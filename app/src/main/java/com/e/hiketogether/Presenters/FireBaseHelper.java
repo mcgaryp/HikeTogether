@@ -38,7 +38,7 @@ public class FireBaseHelper {
     // .set(gsonObject or string) creates the document if there isn't one or updates.
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
-    // TODO when we create an account make sure the username is unique
+    // TODO When we create an account make sure the username is unique
     public void saveAccount(Account account) {
         // Convert the account to gson string
 //        String gsonString = gson.toJson(account);
@@ -47,9 +47,11 @@ public class FireBaseHelper {
         user.put("username", account.getUsername());
         user.put("password", account.getPassword());
         user.put("email", account.getEmail());
-        user.put("trails", account.getTrailList());
+        // TODO Covert the list and settings to something storable
+//        user.put("trails", account.getTrailList());
+        Log.d(TAG, "Created HashMap.");
 //        user.put("settings", account.getSettings());
-    // TODO actually save something... no errors but seems like it isnt saving anything
+    // TODO actually save something... no errors but seems like it isn't saving anything
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
                 .set(user)
@@ -72,6 +74,7 @@ public class FireBaseHelper {
     public Account loadAccount() {
         // Need an account to save the info to
         Account account;
+        Log.d(TAG, "Attempting to load account.");
         // Start the search in the dataBase
         DocumentReference documentReference = dataBase.collection("accounts").document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -111,5 +114,32 @@ public class FireBaseHelper {
             Log.d(TAG, "Failed to update account.");
         }
         Log.d(TAG, "Successful update to FireBase.");
+    }
+
+    // Delete user account
+    public void deleteAccount() {
+        dataBase.collection("account").document(username)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    //TODO Check to see if the username is taken
+    // not sure if this is going to work. it might not compare the string correctly
+    public void exists() throws Exception {
+        if (dataBase.collection("accounts").document(username).equals(username)) {
+            Log.d(TAG, "Username is already taken.");
+            throw new Exception("Username already exists.");
+        }
     }
 }

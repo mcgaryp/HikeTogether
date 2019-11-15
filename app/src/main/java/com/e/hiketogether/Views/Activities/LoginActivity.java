@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
             new Toast(getApplicationContext()).makeText(getApplicationContext(), "Account does not exist", Toast.LENGTH_LONG).show();
             return;
         }
+
         //They logged in!  Return to HomeActivity with their data
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", LOGIN_SUCCESSFUL);

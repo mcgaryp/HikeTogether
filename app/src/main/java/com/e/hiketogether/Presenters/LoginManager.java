@@ -42,14 +42,12 @@ public class LoginManager {
         }
     }
 
-    // TODO Search for account in dataBase
-    private Account findAccount(String username) throws Exception {
-        // I think this works....
-        // TODO throw exception if account not found
+    // Search for account in dataBase
+    private Account findAccount(String username) {
         return new FireBaseHelper(username).loadAccount();
     }
 
-    // TODO Confirm account and confirm passwords
+    // Confirm account and confirm passwords
     public void confirmAccount(String username, String password) throws Exception {
         // Start by creating an account
         Account account;
@@ -57,8 +55,6 @@ public class LoginManager {
         try {
             account = findAccount(username);
         } catch (Exception e) {
-            // TODO Notify that the account was not found with a toast
-
             throw e;
         }
 

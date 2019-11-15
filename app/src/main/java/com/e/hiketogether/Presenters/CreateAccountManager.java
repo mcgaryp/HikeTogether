@@ -80,7 +80,11 @@ public class CreateAccountManager {
         }
 
         // TODO Check to make sure the username is not already used
-        FireBaseHelper fire = new FireBaseHelper(editText.getText().toString());
+//        try {
+//            new FireBaseHelper(editText.getText().toString()).exists();
+//        } catch (Exception e) {
+//            throw e;
+//        }
         
     }
 
