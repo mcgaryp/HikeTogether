@@ -39,20 +39,18 @@ public class FireBaseHelper {
     // .set(gsonObject or string) creates the document if there isn't one or updates.
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
-    // TODO When we create an account make sure the username is unique
     public void saveAccount(Account account) {
-        // Convert the account to gson string
-//        String gsonString = gson.toJson(account);
-//        Log.d(TAG, "Successfully created gsonString.");
+        // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
         user.put("password", account.getPassword());
         user.put("email", account.getEmail());
         // TODO Covert the list and settings to something storable
 //        user.put("trails", account.getTrailList());
-        Log.d(TAG, "Created HashMap.");
 //        user.put("settings", account.getSettings());
-    // TODO actually save something... no errors but seems like it isn't saving anything
+        Log.d(TAG, "Created HashMap.");
+
+        // TODO actually save something... no errors but seems like it isn't saving anything
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
                 .set(user)
@@ -60,15 +58,16 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
+                        listener.onSaveSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
+                        listener.onSaveFail();
                     }
                 });
-//        Log.d(TAG, "Successful Save to FireBase.");
     }
 
     // Idea is to pull the date from the account and return it in account form
@@ -86,12 +85,11 @@ public class FireBaseHelper {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         // notify the login activity that we have logged in to the logged in activity
-
+                        listener.onLoadSuccess();
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-
-                        return;
+                        listener.onLoadFail();
                     }
                 } else {
                     Log.d(TAG, "'Get' failed with ", task.getException());
@@ -117,8 +115,10 @@ public class FireBaseHelper {
             dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
+            listener.onUpdateFail();
         }
         Log.d(TAG, "Successful update to FireBase.");
+        listener.onUpdateSuccess();
     }
 
     // Delete user account
@@ -129,12 +129,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        listener.onDeleteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
+                        listener.onDeleteFail();
                     }
                 });
     }
