@@ -49,7 +49,7 @@ public class FireBaseHelper {
         user.put("email", account.getEmail());
         user.put("trails", account.getTrailList());
 //        user.put("settings", account.getSettings());
-
+    // TODO actually save something... no errors but seems like it isnt saving anything
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
                 .set(user)
@@ -65,7 +65,7 @@ public class FireBaseHelper {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
-        Log.d(TAG, "Successful Save to FireBase.");
+//        Log.d(TAG, "Successful Save to FireBase.");
     }
 
     // Idea is to pull the date from the account and return it in account form
