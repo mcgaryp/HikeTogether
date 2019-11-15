@@ -1,6 +1,5 @@
 package com.e.hiketogether.Views.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.e.hiketogether.Presenters.LoginManager;
+import com.e.hiketogether.Presenters.Managers.LoginManager;
 import com.e.hiketogether.R;
 
 /**
@@ -80,11 +79,13 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Something with the listener has to happen here
+
         //They logged in!  Return to HomeActivity with their data
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
-        setResult(Activity.RESULT_OK, returnIntent);
-        finish();
+//        Intent returnIntent = new Intent();
+//        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
+//        setResult(Activity.RESULT_OK, returnIntent);
+//        finish();
     }
 
     // Start the CreateAccountActivity to create a personal account

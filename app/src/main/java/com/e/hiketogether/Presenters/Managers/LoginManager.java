@@ -1,30 +1,26 @@
-package com.e.hiketogether.Presenters;
+package com.e.hiketogether.Presenters.Managers;
 
 import android.util.Log;
 import android.widget.EditText;
 
-import com.e.hiketogether.Views.Activities.LoginActivity;
 import com.e.hiketogether.Models.Account;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
+import com.e.hiketogether.Presenters.Interfaces.FirebaseListenerObserver;
+import com.e.hiketogether.Views.Activities.LoginActivity;
 
 /**
  * PURPOSE:
  *      This class will handle the logic behind login into our database and create a unique
  *      environment for the apps users.
  */
-public class LoginManager {
+public class LoginManager implements FirebaseListenerObserver {
     // Variables
     private static final String TAG = "LOGIN_MANAGER"; //Log tag
+    private LoginActivity activity;
 
     // Constructor
-    public LoginManager() {
-
+    public LoginManager() { //LoginActivity activity) {
+//        this.activity = activity;
     }
 
     // Check the input to make sure it's not empty
@@ -71,12 +67,25 @@ public class LoginManager {
     }
 
     // **OPTIONAL** helper function to reset password
-    private void resetPassword() {
-
+    private void resetPassword(String username, String password) {
+        new FireBaseHelper(username).updateAccount("password", password);
     }
 
     // **OPTIONAL** forgot password option
     public void forgotPassword(String email) {
+        // Firebase Firestore search for account with that username and password?
+//      Account account = findAccount(email);???
+        // Prompt to reset & Verify new password
+
+        // Check password
+
+        // Reset the password
+//      resetPassword(account.getUsername(), account.getPassword);???
+    }
+
+    // FIREBASE LISTENERS
+    @Override
+    public void notifyListener() {
 
     }
 }

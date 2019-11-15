@@ -1,4 +1,4 @@
-package com.e.hiketogether.Presenters;
+package com.e.hiketogether.Presenters.Helpers;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -26,7 +26,6 @@ public class FireBaseHelper {
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
     private String username;
-    private FirebaseListener listener;
 
     // Constructor for the firebase helper. We need to know the username to find the account
     public FireBaseHelper(String username) {
@@ -39,6 +38,7 @@ public class FireBaseHelper {
     // .set(gsonObject or string) creates the document if there isn't one or updates.
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
+    // TODO update listener and decide what it will do
     public void saveAccount(Account account) {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
@@ -58,19 +58,20 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        listener.onSaveSuccess();
+//                        new FirebaseListener().onSaveSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
-                        listener.onSaveFail();
+//                        listener.onSaveFail();
                     }
                 });
     }
 
     // Idea is to pull the date from the account and return it in account form
+    // TODO update listener and decide what it will do
     public Account loadAccount() {
         // Need an account to save the info to
         Account account;
@@ -85,11 +86,11 @@ public class FireBaseHelper {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         // notify the login activity that we have logged in to the logged in activity
-                        listener.onLoadSuccess();
+//                        listener.onLoadSuccess();
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-                        listener.onLoadFail();
+//                        listener.onLoadFail();
                     }
                 } else {
                     Log.d(TAG, "'Get' failed with ", task.getException());
@@ -110,18 +111,20 @@ public class FireBaseHelper {
     }
 
     // Idea is to adjust and make changes to the account as necessary
+    // TODO update listener and decide what it will do
     public void updateAccount(String fieldToUpdate, String update) {
         try {
             dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
-            listener.onUpdateFail();
+//            listener.onUpdateFail();
         }
         Log.d(TAG, "Successful update to FireBase.");
-        listener.onUpdateSuccess();
+//        listener.onUpdateSuccess();
     }
 
     // Delete user account
+    // TODO update listener and decide what it will do
     public void deleteAccount() {
         dataBase.collection("account").document(username)
                 .delete()
@@ -129,14 +132,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        listener.onDeleteSuccess();
+//                        listener.onDeleteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
-                        listener.onDeleteFail();
+//                        listener.onDeleteFail();
                     }
                 });
     }

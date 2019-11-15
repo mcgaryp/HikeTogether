@@ -1,10 +1,9 @@
-package com.e.hiketogether.Presenters;
+package com.e.hiketogether.Presenters.Managers;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
 
 /**
  * PURPOSE:

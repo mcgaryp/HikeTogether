@@ -1,7 +1,8 @@
-package com.e.hiketogether.Presenters;
+package com.e.hiketogether.Presenters.Managers;
 
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Helpers.HTTPHelper;
 import com.google.gson.Gson;
 
 public class TrailManager {
