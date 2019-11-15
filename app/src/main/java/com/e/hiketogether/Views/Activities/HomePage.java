@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.e.hiketogether.R;
+
 public class HomePage extends AppCompatActivity {
 
     @Override

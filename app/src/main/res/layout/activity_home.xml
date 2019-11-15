@@ -4,8 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_spring"
     tools:context=".Views.Activities.HomeActivity">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="567dp"
+        android:layout_height="746dp"
+        android:layout_marginBottom="91dp"
+        android:contentDescription="blueBackground"
+        android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toStartOf="parent"></ImageView>
 
     <Button
         android:id="@+id/loginButton"
