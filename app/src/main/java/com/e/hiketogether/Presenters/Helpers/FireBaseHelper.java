@@ -1,11 +1,11 @@
 package com.e.hiketogether.Presenters.Helpers;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Presenters.Listeners.FirebaseListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,14 +58,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-//                        new FirebaseListener().onSaveSuccess();
+                        new FirebaseListener().onSaveSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
-//                        listener.onSaveFail();
+                        new FirebaseListener().onSaveFail();
                     }
                 });
     }
@@ -86,15 +86,15 @@ public class FireBaseHelper {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         // notify the login activity that we have logged in to the logged in activity
-//                        listener.onLoadSuccess();
+                        new FirebaseListener().onLoadSuccess();
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-//                        listener.onLoadFail();
+                        new FirebaseListener().onLoadFail();
                     }
                 } else {
                     Log.d(TAG, "'Get' failed with ", task.getException());
-                    return;
+                    new FirebaseListener().onLoadFail();
                 }
             }
         });
@@ -117,10 +117,10 @@ public class FireBaseHelper {
             dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
-//            listener.onUpdateFail();
+            new FirebaseListener().onUpdateSuccess();
         }
         Log.d(TAG, "Successful update to FireBase.");
-//        listener.onUpdateSuccess();
+        new FirebaseListener().onUpdateFail();
     }
 
     // Delete user account
@@ -132,14 +132,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
-//                        listener.onDeleteSuccess();
+                        new FirebaseListener().onDeleteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
-//                        listener.onDeleteFail();
+                        new FirebaseListener().onDeleteFail();
                     }
                 });
     }
