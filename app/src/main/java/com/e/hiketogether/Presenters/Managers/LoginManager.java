@@ -5,15 +5,16 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.FirebaseListenerObserver;
+import com.e.hiketogether.Presenters.Interfaces.FirebaseObserver;
 import com.e.hiketogether.Views.Activities.LoginActivity;
+import com.google.common.base.Optional;
 
 /**
  * PURPOSE:
  *      This class will handle the logic behind login into our database and create a unique
  *      environment for the apps users.
  */
-public class LoginManager implements FirebaseListenerObserver {
+public class LoginManager implements FirebaseObserver {
     // Variables
     private static final String TAG = "LOGIN_MANAGER"; //Log tag
     private LoginActivity activity;
@@ -83,9 +84,8 @@ public class LoginManager implements FirebaseListenerObserver {
 //      resetPassword(account.getUsername(), account.getPassword);???
     }
 
-    // FIREBASE LISTENERS
     @Override
-    public void notifyListener() {
+    public void notifyListener(boolean message, Optional<Object> objectOptional) {
 
     }
 }

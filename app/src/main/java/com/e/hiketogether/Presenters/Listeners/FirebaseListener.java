@@ -39,6 +39,6 @@ public class FirebaseListener implements FirebaseObserver {
 
     @Override
     public void notifyListener(boolean message, Optional<Object> objectOptional) {
-        
+
     }
 }
