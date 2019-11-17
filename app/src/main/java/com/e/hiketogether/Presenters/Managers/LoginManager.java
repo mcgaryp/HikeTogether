@@ -15,10 +15,8 @@ import com.e.hiketogether.Views.Activities.LoginActivity;
  */
 public class LoginManager implements FirebaseListener {
     // Variables
-    private static final String TAG = "LOGIN_MANAGER"; //Log tag
+    private static final String TAG = "LOGIN_MANAGER"; // Log TAG
     private LoginActivity activity;
-    private String password;
-    private Account account;
 
     // Constructor
     public LoginManager(LoginActivity activity) {
@@ -33,38 +31,20 @@ public class LoginManager implements FirebaseListener {
         }
     }
 
-    // Confirm passwordsare the same with that in our database
-    private void confirmPassword(String p1, String p2) throws Exception {
-        if (p1 != p2) {
-            throw new Exception("Passwords do not match");
-        }
-    }
-
-    // Search for account in dataBase
-    private void findAccount(String username) {
-        new FireBaseHelper(username, this).loadAccount();
-    }
-
     // Confirm account and confirm passwords
     public void confirmAccount(String username) {
         // Find the account
         findAccount(username);
     }
 
+    // check to make sure the password matches with the one on file
     public void confirmPassword(Account account, String password) throws Exception {
-        // Confirm the passwords are the same
-        try {
-            // Confirm passwords
-            confirmPassword(account.getPassword(), account.hashPassword(password));
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            throw e;
-        }
-    }
-
-    // **OPTIONAL** helper function to reset password
-    private void resetPassword(String username, String password) {
-        new FireBaseHelper(username, this).updateAccount("password", password);
+        // Confirm passwords
+        // TODO LOOKS like the hashing function is just not working right?
+        Log.d(TAG, "Password on file: " + account.getPassword());
+        Log.d(TAG, "Password by user: " + account.hashPassword(password));
+        if (account.getPassword() != account.hashPassword(password))
+            throw new Exception("Password is incorrect.");
     }
 
     // **OPTIONAL** forgot password option
@@ -79,6 +59,17 @@ public class LoginManager implements FirebaseListener {
 //      resetPassword(account.getUsername(), account.getPassword);???
     }
 
+    // **OPTIONAL** helper function to reset password
+    private void resetPassword(String username, String password) {
+        new FireBaseHelper(username, this).updateAccount("password", password);
+    }
+
+    // Search for account in dataBase
+    private void findAccount(String username) {
+        new FireBaseHelper(username, this).loadAccount();
+    }
+
+    // IMPLEMENTATIONS OF INTERFACE
     @Override
     public void onSaveSuccess() {
     }
@@ -89,15 +80,15 @@ public class LoginManager implements FirebaseListener {
 
     @Override
     public void onLoadSuccess(Account account) {
-//        if (account != null)
-//            this.account = account;
         Log.d(TAG, "We found the account!");
         try {
-            confirmPassword(account, password);
+            Log.d(TAG, "Checking if passwords match.");
+            confirmPassword(account, activity.getPassword());
         } catch (Exception e) {
-            Log.d(TAG, "Passwords are incorrect.");
+            Log.d(TAG, e.getMessage());
+            activity.toastFailedPasswords();
         }
-        activity.notify();
+        activity.setLoginSuccessful();
     }
 
     @Override

@@ -75,22 +75,22 @@ public class FireBaseHelper {
         // Need an account to save the info to
         Log.d(TAG, "Attempting to load account.");
         // Start the search in the dataBase
-        final DocumentReference documentReference = dataBase.collection("accounts").document(username);
+        DocumentReference documentReference = dataBase.collection("accounts").document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        // What did we find?
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
-                        // notify the login activity that we have logged in to the logged in activity
-                        // if we have gotten this far we should add the document to a string
-                        String gsonString = documentReference.get().toString();
-
-                        // What did we just save??
-                        Log.d(TAG, gsonString);
-                        // Set the gson to the account
-                        Account account = gson.fromJson(gsonString, Account.class);
+                        Map<String, Object> temp = document.getData();
+                        Account account = new Account();
+                        account.setEmail(temp.get("email").toString());
+                        account.setPassword(temp.get("password").toString());
+                        account.setUsername(temp.get("password").toString());
+//                        account.setTrailList(temp.get("trailsList"));
+//                        account.setSettings(temp.get("settings"));
                         listener.onLoadSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");

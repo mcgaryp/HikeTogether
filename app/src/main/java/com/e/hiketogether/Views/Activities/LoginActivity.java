@@ -1,5 +1,6 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,20 +87,16 @@ public class LoginActivity extends AppCompatActivity {
 
     // TODO confirm the passwords match in the account.
     // Something changed
-    private void doSomething() {
-//        account = account;
-//        try {
-//            loginManager.confirmPassword(password);
-//        } catch (Exception e) {
-//            Log.d(TAG, e.getMessage());
-//        }
-        // Something with the listener has to happen here
-
+    public void setLoginSuccessful() {
         //They logged in!  Return to HomeActivity with their data
-//        Intent returnIntent = new Intent();
-//        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
-//        setResult(Activity.RESULT_OK, returnIntent);
-//        finish();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
+        setResult(Activity.RESULT_OK, returnIntent);
+        finish();
+    }
+
+    public void toastFailedPasswords() {
+        new Toast(getApplicationContext()).makeText(getApplicationContext(), "Invalid password.", Toast.LENGTH_LONG).show();
     }
     // Something with the listener has to happen here and a notify action
 
@@ -129,4 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+    // GETTERS
+    public String getPassword() { return password; }
 }

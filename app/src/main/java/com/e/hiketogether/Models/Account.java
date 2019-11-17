@@ -89,4 +89,24 @@ public class Account {
     public String getEmail()        { return email;     }
     public Settings getSettings()   { return settings;  }
     public TrailList getTrailList() { return trailList; }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setTrailList(TrailList trailList) {
+        this.trailList = trailList;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
 }
