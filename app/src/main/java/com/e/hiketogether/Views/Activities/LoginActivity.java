@@ -95,9 +95,6 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    public void toastFailedPasswords() {
-        new Toast(getApplicationContext()).makeText(getApplicationContext(), "Invalid password.", Toast.LENGTH_LONG).show();
-    }
     // Something with the listener has to happen here and a notify action
 
 
@@ -129,4 +126,14 @@ public class LoginActivity extends AppCompatActivity {
 
     // GETTERS
     public String getPassword() { return password; }
+
+    // Toast to let the user know the account was not found
+    public void toastFailedAccount() {
+        new Toast(getApplicationContext()).makeText(getApplicationContext(),"Username is invalid.", Toast.LENGTH_LONG);
+    }
+
+    // Toast to let the user know the password is incorrect
+    public void toastFailedPasswords() {
+        new Toast(getApplicationContext()).makeText(getApplicationContext(), "Invalid password.", Toast.LENGTH_LONG).show();
+    }
 }

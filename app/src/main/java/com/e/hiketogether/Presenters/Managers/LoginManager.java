@@ -33,8 +33,7 @@ public class LoginManager implements FirebaseListener {
 
     // Confirm account and confirm passwords
     public void confirmAccount(String username) {
-        // Find the account
-        findAccount(username);
+        new FireBaseHelper(username, this).loadAccount();
     }
 
     // check to make sure the password matches with the one on file
@@ -64,11 +63,6 @@ public class LoginManager implements FirebaseListener {
         new FireBaseHelper(username, this).updateAccount("password", password);
     }
 
-    // Search for account in dataBase
-    private void findAccount(String username) {
-        new FireBaseHelper(username, this).loadAccount();
-    }
-
     // IMPLEMENTATIONS OF INTERFACE
     @Override
     public void onSaveSuccess() {
@@ -83,6 +77,7 @@ public class LoginManager implements FirebaseListener {
         Log.d(TAG, "We found the account!");
         try {
             Log.d(TAG, "Checking if passwords match.");
+            Log.d(TAG, "Password from the Activity: " + activity.getPassword());
             confirmPassword(account, activity.getPassword());
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
@@ -94,7 +89,7 @@ public class LoginManager implements FirebaseListener {
     @Override
     public void onLoadFail() {
         Log.d(TAG, "We did not find the account!");
-        activity.notify();
+        activity.toastFailedAccount();
     }
 
     @Override
