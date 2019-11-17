@@ -96,9 +96,10 @@ public class CreateAccountManager implements FirebaseListener {
         }
     }
 
+    // FIREBASE LISTENER METHODS
     @Override
     public void onSaveSuccess() {
-        
+
     }
 
     @Override
@@ -107,7 +108,7 @@ public class CreateAccountManager implements FirebaseListener {
     }
 
     @Override
-    public void onLoadSuccess() {
+    public void onLoadSuccess(Account account) {
 
     }
 

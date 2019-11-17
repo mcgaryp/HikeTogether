@@ -1,14 +1,11 @@
 package com.e.hiketogether.Presenters.Interfaces;
 
-import com.google.common.base.Optional;
+import com.e.hiketogether.Models.Account;
 
-/**
- * SHOULD we make a listener for each of the fails and successes?
- */
 public interface FirebaseListener {
     void onSaveSuccess();
     void onSaveFail();
-    void onLoadSuccess();
+    void onLoadSuccess(Account account);
     void onLoadFail();
     void onDeleteSuccess();
     void onDeleteFail();

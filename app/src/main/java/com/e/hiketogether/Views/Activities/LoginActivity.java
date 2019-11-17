@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Managers.LoginManager;
 import com.e.hiketogether.R;
 
@@ -30,20 +31,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private String username;
     private String password;
+    private LoginManager loginManager;
+    private EditText text;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Send information to Manager
+        loginManager = new LoginManager(this);
     }
 
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
-        // Send information to Manager
-        LoginManager loginManager = new LoginManager();
-
         // Point to Username input
-        EditText text = findViewById(R.id.usernameInput);
+        text = findViewById(R.id.usernameInput);
         // Check to see if the username is empty
         try {
             loginManager.checkInput(text, "Username");
@@ -72,13 +76,23 @@ public class LoginActivity extends AppCompatActivity {
 
         // Get information back from LoginManager and return to the HomeActivity
         try {
-            loginManager.confirmAccount(username, password);
+            loginManager.confirmAccount(username);
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
             new Toast(getApplicationContext()).makeText(getApplicationContext(), "Account does not exist", Toast.LENGTH_LONG).show();
             return;
         }
+    }
 
+    // TODO confirm the passwords match in the account.
+    // Something changed
+    private void doSomething() {
+//        account = account;
+//        try {
+//            loginManager.confirmPassword(password);
+//        } catch (Exception e) {
+//            Log.d(TAG, e.getMessage());
+//        }
         // Something with the listener has to happen here
 
         //They logged in!  Return to HomeActivity with their data
@@ -87,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
 //        setResult(Activity.RESULT_OK, returnIntent);
 //        finish();
     }
+    // Something with the listener has to happen here and a notify action
+
 
     // Start the CreateAccountActivity to create a personal account
     public void openCreateAccountActivity(View view) {

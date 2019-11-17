@@ -17,10 +17,12 @@ public class LoginManager implements FirebaseListener {
     // Variables
     private static final String TAG = "LOGIN_MANAGER"; //Log tag
     private LoginActivity activity;
+    private String password;
+    private Account account;
 
     // Constructor
-    public LoginManager() { //LoginActivity activity) {
-//        this.activity = activity;
+    public LoginManager(LoginActivity activity) {
+        this.activity = activity;
     }
 
     // Check the input to make sure it's not empty
@@ -39,28 +41,23 @@ public class LoginManager implements FirebaseListener {
     }
 
     // Search for account in dataBase
-    private Account findAccount(String username) {
-        return new FireBaseHelper(username, this).loadAccount();
+    private void findAccount(String username) {
+        new FireBaseHelper(username, this).loadAccount();
     }
 
     // Confirm account and confirm passwords
-    public void confirmAccount(String username, String password) throws Exception {
-        // Start by creating an account
-        Account account;
+    public void confirmAccount(String username) {
         // Find the account
-        try {
-            account = findAccount(username);
-        } catch (Exception e) {
-            throw e;
-        }
+        findAccount(username);
+    }
 
+    public void confirmPassword(Account account, String password) throws Exception {
         // Confirm the passwords are the same
         try {
             // Confirm passwords
             confirmPassword(account.getPassword(), account.hashPassword(password));
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            // TODO Send notification to user that password was not found with toast
             throw e;
         }
     }
@@ -84,22 +81,29 @@ public class LoginManager implements FirebaseListener {
 
     @Override
     public void onSaveSuccess() {
-
     }
 
     @Override
     public void onSaveFail() {
-
     }
 
     @Override
-    public void onLoadSuccess() {
-
+    public void onLoadSuccess(Account account) {
+//        if (account != null)
+//            this.account = account;
+        Log.d(TAG, "We found the account!");
+        try {
+            confirmPassword(account, password);
+        } catch (Exception e) {
+            Log.d(TAG, "Passwords are incorrect.");
+        }
+        activity.notify();
     }
 
     @Override
     public void onLoadFail() {
-
+        Log.d(TAG, "We did not find the account!");
+        activity.notify();
     }
 
     @Override

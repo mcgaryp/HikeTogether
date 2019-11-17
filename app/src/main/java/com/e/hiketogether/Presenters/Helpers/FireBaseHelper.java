@@ -71,12 +71,11 @@ public class FireBaseHelper {
     }
 
     // Idea is to pull the date from the account and return it in account form
-    public Account loadAccount() {
+    public void loadAccount() {
         // Need an account to save the info to
-        Account account;
         Log.d(TAG, "Attempting to load account.");
         // Start the search in the dataBase
-        DocumentReference documentReference = dataBase.collection("accounts").document(username);
+        final DocumentReference documentReference = dataBase.collection("accounts").document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -85,7 +84,14 @@ public class FireBaseHelper {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         // notify the login activity that we have logged in to the logged in activity
-                        listener.onLoadSuccess();
+                        // if we have gotten this far we should add the document to a string
+                        String gsonString = documentReference.get().toString();
+
+                        // What did we just save??
+                        Log.d(TAG, gsonString);
+                        // Set the gson to the account
+                        Account account = gson.fromJson(gsonString, Account.class);
+                        listener.onLoadSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
@@ -97,16 +103,6 @@ public class FireBaseHelper {
                 }
             }
         });
-        // if we have gotten this far we should add the document to a string
-        String gsonString = documentReference.get().toString();
-
-        // What did we just save??
-        Log.d(TAG, gsonString);
-        // Set the gson to the account
-        account = gson.fromJson(gsonString, Account.class);
-        // Return the account we found
-        Log.d(TAG, "Successful Load from FireBase.");
-        return account;
     }
 
     // Idea is to adjust and make changes to the account as necessary
