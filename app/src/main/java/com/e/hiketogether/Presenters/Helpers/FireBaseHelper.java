@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Presenters.Listeners.FirebaseListener;
+import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,19 +26,20 @@ public class FireBaseHelper {
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
     private String username;
+    private FirebaseListener listener;
 
     // Constructor for the firebase helper. We need to know the username to find the account
-    public FireBaseHelper(String username) {
+    public FireBaseHelper(String username, FirebaseListener listener) {
         this.username = username;
         gson = new Gson();
         dataBase = FirebaseFirestore.getInstance();
+        this.listener = listener;
     }
 
     // Save the account to the location that we have in the firebase
     // .set(gsonObject or string) creates the document if there isn't one or updates.
     // .update() updates a specific part ie .update("username", "newUsername").
     // .add(gsonObject or string) creates document id for you.
-    // TODO update listener and decide what it will do
     public void saveAccount(Account account) {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
@@ -50,7 +51,6 @@ public class FireBaseHelper {
 //        user.put("settings", account.getSettings());
         Log.d(TAG, "Created HashMap.");
 
-        // TODO actually save something... no errors but seems like it isn't saving anything
         // Upload to the cloud storage FIRESTORE
         dataBase.collection("accounts").document(username)
                 .set(user)
@@ -58,20 +58,19 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        new FirebaseListener().onSaveSuccess();
+                        listener.onSaveSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
-                        new FirebaseListener().onSaveFail();
+                        listener.onSaveFail();
                     }
                 });
     }
 
     // Idea is to pull the date from the account and return it in account form
-    // TODO update listener and decide what it will do
     public Account loadAccount() {
         // Need an account to save the info to
         Account account;
@@ -86,15 +85,15 @@ public class FireBaseHelper {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         // notify the login activity that we have logged in to the logged in activity
-                        new FirebaseListener().onLoadSuccess();
+                        listener.onLoadSuccess();
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-                        new FirebaseListener().onLoadFail();
+                        listener.onLoadFail();
                     }
                 } else {
                     Log.d(TAG, "'Get' failed with ", task.getException());
-                    new FirebaseListener().onLoadFail();
+                    listener.onLoadFail();
                 }
             }
         });
@@ -111,20 +110,18 @@ public class FireBaseHelper {
     }
 
     // Idea is to adjust and make changes to the account as necessary
-    // TODO update listener and decide what it will do
     public void updateAccount(String fieldToUpdate, String update) {
         try {
             dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
-            new FirebaseListener().onUpdateSuccess();
+            listener.onUpdateSuccess();
         }
         Log.d(TAG, "Successful update to FireBase.");
-        new FirebaseListener().onUpdateFail();
+        listener.onUpdateFail();
     }
 
     // Delete user account
-    // TODO update listener and decide what it will do
     public void deleteAccount() {
         dataBase.collection("account").document(username)
                 .delete()
@@ -132,14 +129,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        new FirebaseListener().onDeleteSuccess();
+                        listener.onDeleteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
-                        new FirebaseListener().onDeleteFail();
+                        listener.onDeleteFail();
                     }
                 });
     }

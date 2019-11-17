@@ -5,16 +5,15 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.FirebaseObserver;
+import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
 import com.e.hiketogether.Views.Activities.LoginActivity;
-import com.google.common.base.Optional;
 
 /**
  * PURPOSE:
  *      This class will handle the logic behind login into our database and create a unique
  *      environment for the apps users.
  */
-public class LoginManager implements FirebaseObserver {
+public class LoginManager implements FirebaseListener {
     // Variables
     private static final String TAG = "LOGIN_MANAGER"; //Log tag
     private LoginActivity activity;
@@ -41,7 +40,7 @@ public class LoginManager implements FirebaseObserver {
 
     // Search for account in dataBase
     private Account findAccount(String username) {
-        return new FireBaseHelper(username).loadAccount();
+        return new FireBaseHelper(username, this).loadAccount();
     }
 
     // Confirm account and confirm passwords
@@ -62,14 +61,13 @@ public class LoginManager implements FirebaseObserver {
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             // TODO Send notification to user that password was not found with toast
-
             throw e;
         }
     }
 
     // **OPTIONAL** helper function to reset password
     private void resetPassword(String username, String password) {
-        new FireBaseHelper(username).updateAccount("password", password);
+        new FireBaseHelper(username, this).updateAccount("password", password);
     }
 
     // **OPTIONAL** forgot password option
@@ -85,7 +83,42 @@ public class LoginManager implements FirebaseObserver {
     }
 
     @Override
-    public void notifyListener(boolean message, Optional<Object> objectOptional) {
+    public void onSaveSuccess() {
+
+    }
+
+    @Override
+    public void onSaveFail() {
+
+    }
+
+    @Override
+    public void onLoadSuccess() {
+
+    }
+
+    @Override
+    public void onLoadFail() {
+
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+
+    }
+
+    @Override
+    public void onDeleteFail() {
+
+    }
+
+    @Override
+    public void onUpdateSuccess() {
+
+    }
+
+    @Override
+    public void onUpdateFail() {
 
     }
 }

@@ -4,6 +4,7 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
+import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
 
 /**
  * PURPOSE:
@@ -11,7 +12,7 @@ import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
  *      I, Porter have thought about merging this class with the login class...
  *      or implementing a hashing interface or something of the sort.
  */
-public class CreateAccountManager {
+public class CreateAccountManager implements FirebaseListener {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_MANAGER";
 
@@ -22,7 +23,7 @@ public class CreateAccountManager {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        new FireBaseHelper(username).saveAccount(new Account(username,password,email));
+        new FireBaseHelper(username, this).saveAccount(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match
@@ -93,5 +94,45 @@ public class CreateAccountManager {
             editText.setError("Empty " + error + " field.");
             throw new Exception("Empty " + error + " field.");
         }
+    }
+
+    @Override
+    public void onSaveSuccess() {
+        
+    }
+
+    @Override
+    public void onSaveFail() {
+
+    }
+
+    @Override
+    public void onLoadSuccess() {
+
+    }
+
+    @Override
+    public void onLoadFail() {
+
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+
+    }
+
+    @Override
+    public void onDeleteFail() {
+
+    }
+
+    @Override
+    public void onUpdateSuccess() {
+
+    }
+
+    @Override
+    public void onUpdateFail() {
+
     }
 }
