@@ -17,6 +17,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.interfaces.RSAKey;
+import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.List;
 
 /**
@@ -54,27 +56,35 @@ public class Account {
 
     // Hashing Password Function RETURN SOMETHING HASHED
     public String hashPassword(String password) {
-        // implement hashing algorithm
-        String hashTemp = null;
-
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-            messageDigest.update(salt);
-            byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-            hashTemp = hashedPassword.toString();
-        } catch (NoSuchAlgorithmException e) {
+            return new Encryption().encrypt(password);
+        } catch (Exception e) {
             e.printStackTrace();
+            Log.d(TAG, e.getMessage());
+            return null;
         }
-
-        // Display in the log just to make sure that it worked right!
-        Log.d(TAG, "Successfully created hashed password");
-        Log.d(TAG, "Hasehd password: " + hashTemp);
-
-        return hashTemp;
+//
+//        // implement hashing algorithm
+//        String hashTemp = null;
+//
+//        SecureRandom random = new SecureRandom();
+//        byte[] salt = new byte[16];
+//        random.nextBytes(salt);
+//
+//        try {
+//            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+//            messageDigest.update(salt);
+//            byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
+//            hashTemp = hashedPassword.toString();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Display in the log just to make sure that it worked right!
+//        Log.d(TAG, "Successfully created hashed password");
+//        Log.d(TAG, "Hasehd password: " + hashTemp);
+//
+//        return hashTemp;
     }
 
     // ADD a Trail to the accounts trail list
