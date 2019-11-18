@@ -81,7 +81,7 @@ public class LoginManager implements FirebaseListener {
             confirmPassword(account, activity.getPassword());
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            activity.toastFailedPasswords();
+            activity.displayToast("Password is Invalid");
         }
         activity.setLoginSuccessful();
     }
@@ -89,7 +89,7 @@ public class LoginManager implements FirebaseListener {
     @Override
     public void onLoadFail() {
         Log.d(TAG, "We did not find the account!");
-        activity.toastFailedAccount();
+        activity.displayToast("Account not Found");
     }
 
     @Override
