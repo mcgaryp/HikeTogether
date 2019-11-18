@@ -10,13 +10,13 @@
         android:id="@+id/background"
         android:layout_width="567dp"
         android:layout_height="746dp"
-        android:layout_marginBottom="91dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="blueBackground"
         android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.403"
-        app:layout_constraintStart_toStartOf="parent"></ImageView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loginButton"
@@ -35,14 +35,12 @@
         android:id="@+id/homepage_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:text="Welcome to your homepage!"
+        android:layout_marginTop="28dp"
+        android:text="Welcome!"
         android:textAlignment="textStart"
         android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +65,9 @@
         android:ems="10"
         android:hint="Location"
         android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/trailSearch_button"
         app:layout_constraintHorizontal_bias="0.42"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,12 +77,22 @@
         android:id="@+id/trailSearch_button"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="18dp"
         android:background="@drawable/rounded_button"
         android:text="@android:string/search_go"
+        app:layout_constraintBaseline_toBaselineOf="@+id/trailSearch_editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/trailSearch_editText"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintStart_toEndOf="@+id/trailSearch_editText" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

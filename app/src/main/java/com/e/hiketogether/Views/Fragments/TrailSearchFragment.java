@@ -64,10 +64,10 @@ public class TrailSearchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trail_search, container, false);
+        return inflater.inflate(R.layout.fragment_trail_search, parent, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
