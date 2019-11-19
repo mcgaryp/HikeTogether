@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.e.hiketogether.Presenters.CreateAccountManager;
+import com.e.hiketogether.Presenters.Managers.CreateAccountManager;
 import com.e.hiketogether.R;
 
 /**

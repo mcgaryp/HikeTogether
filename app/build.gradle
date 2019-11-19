@@ -34,7 +34,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 //    implementation 'com.google.firebase:firebase-auth:19.1.0'         // Authentication
     implementation 'com.google.firebase:firebase-firestore:21.2.1'      // Firestore CLOUD SERVICES
-    implementation 'com.google.firebase:firebase-storage:19.1.0'        // Firebase Cloud Storage
+    implementation 'com.google.firebase:firebase-storage:19.1.0'        // Firebase Cloud Storage\
 }
 
 // FOR Firebase
