@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.R;
@@ -25,6 +26,16 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+//        if (savedInstanceState == null) {
+//            // Let's first dynamically add a fragment into a frame container
+//            getSupportFragmentManager().beginTransaction().
+//                    replace(R.id.menuBar_frameLayout, new MenuBarFragment(), "MENU_BAR").
+//                    commit();
+//            // Now later we can lookup the fragment by tag
+//            MenuBarFragment menuBar = (MenuBarFragment)
+//                    getSupportFragmentManager().findFragmentByTag("MENU_BAR");
+//        }
     }
 
     //When user clicks "Login", this function will create the Activity and receive the user's account
