@@ -23,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LOGIN_ACTIVITY"; //Log tag
 
-    private static final int LOGIN_FAILED = 0;  //resultCode for HomeActivity
-    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for HomeActivity
+    private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
+    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
     private static final int CREATE_ACCOUNT_REQUEST = 200; //requestCode
     private static final int ACCOUNT_CREATION_FAILED = 0; //resultCode
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set the password
         password = text.getText().toString();
 
-        // Get information back from LoginManager and return to the HomeActivity
+        // Get information back from LoginManager and return to the MainActivity
         try {
             loginManager.confirmAccount(username);
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
     // TODO confirm the passwords match in the account.
     // Something changed
     public void setLoginSuccessful() {
-        //They logged in!  Return to HomeActivity with their data
+        //They logged in!  Return to MainActivity with their data
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
         setResult(Activity.RESULT_OK, returnIntent);
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //TODO- do something with the intent here
                 //TODO- Log the user in AUTOMATICALLY with the account they just created
-                //TODO- Return that info to the HomeActivity, the same as if they had logged in normally
+                //TODO- Return that info to the MainActivity, the same as if they had logged in normally
 
             }
         }

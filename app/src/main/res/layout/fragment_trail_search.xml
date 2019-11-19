@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Views.Fragments.TrailSearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/searchTrail_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="To begin, enter a location:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/trailSearch_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/trailSearch_button"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/trailSearch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:background="@drawable/rounded_button"
+        android:text="@android:string/search_go"
+        app:layout_constraintBaseline_toBaselineOf="@+id/trailSearch_editText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/trailSearch_editText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

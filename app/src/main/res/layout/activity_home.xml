@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.Activities.HomeActivity">
+    tools:context=".Views.Activities.MainActivity">
 
     <ImageView
         android:id="@+id/background"
@@ -16,73 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/loginButton"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rounded_button"
-        android:onClick="openLoginActivity"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/homepage_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Welcome!"
-        android:textAlignment="textStart"
-        android:textSize="27sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/searchTrail_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
-        android:text="To begin, enter a location:"
-        android:textAlignment="textStart"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/trailSearch_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/rounded_edittext"
-        android:ems="10"
-        android:hint="Location"
-        android:inputType="textPersonName"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/trailSearch_button"
-        app:layout_constraintHorizontal_bias="0.42"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
-    <Button
-        android:id="@+id/trailSearch_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="18dp"
-        android:background="@drawable/rounded_button"
-        android:text="@android:string/search_go"
-        app:layout_constraintBaseline_toBaselineOf="@+id/trailSearch_editText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/trailSearch_editText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -169,6 +104,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
