@@ -100,6 +100,7 @@
         android:id="@+id/toolbar_button1"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
+        android:onClick="changeView"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button2"
@@ -113,6 +114,7 @@
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginStart="80dp"
+        android:onClick="changeView"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button3"
@@ -126,6 +128,7 @@
         android:id="@+id/toolbar_button3"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
+        android:onClick="changeView"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button4"
@@ -138,6 +141,7 @@
         android:id="@+id/toolbar_button4"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
+        android:onClick="changeView"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button5"
@@ -150,11 +154,22 @@
         android:id="@+id/toolbar_button5"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
+        android:onClick="changeView"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button4"
         tools:srcCompat="@tools:sample/avatars[1]" />
+
+    <FrameLayout
+        android:id="@+id/template_fragment"
+        android:name="com.e.hiketogether.Views.Fragments.MenuBarFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,12 +15,12 @@ import com.e.hiketogether.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MenuBarFragment.OnFragmentInteractionListener} interface
+ * {@link FavoritesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MenuBarFragment#newInstance} factory method to
+ * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuBarFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +32,7 @@ public class MenuBarFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MenuBarFragment() {
+    public FavoritesFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +42,11 @@ public class MenuBarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MenuBarFragment.
+     * @return A new instance of fragment FavoritesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MenuBarFragment newInstance(String param1, String param2) {
-        MenuBarFragment fragment = new MenuBarFragment();
+    public static FavoritesFragment newInstance(String param1, String param2) {
+        FavoritesFragment fragment = new FavoritesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +67,7 @@ public class MenuBarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu_bar, container, false);
+        return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -108,16 +108,4 @@ public class MenuBarFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    /**
-     * These functions govern the buttons on the toolbar, and open the appropriate
-     * fragment or activity when they are pressed.
-     */
-    public void openFavoritesFragment(View view) {}
-
-    public void openSettingsFragment(View view) {}
-
-    public void openSearchFragment(View view) {}
-
-    public void returnToHomeActivity(View view) {}
 }

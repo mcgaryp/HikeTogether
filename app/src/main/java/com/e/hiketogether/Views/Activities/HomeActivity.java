@@ -1,14 +1,19 @@
 package com.e.hiketogether.Views.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.R;
+import com.e.hiketogether.Views.Fragments.FavoritesFragment;
+import com.e.hiketogether.Views.Fragments.MapTrailFragment;
+import com.e.hiketogether.Views.Fragments.TrailSearchFragment;
 
 /**
  * PURPOSE:
@@ -21,22 +26,62 @@ public class HomeActivity extends AppCompatActivity {
     private static final int LOGIN_FAILED = 0;  //resultCode for HomeActivity
     private static final int LOGIN_SUCCESSFUL = 1; //resultCode for HomeActivity
     private Account account;
+    private Fragment template_fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        if (savedInstanceState == null) {
-//            // Let's first dynamically add a fragment into a frame container
-//            getSupportFragmentManager().beginTransaction().
-//                    replace(R.id.menuBar_frameLayout, new MenuBarFragment(), "MENU_BAR").
-//                    commit();
-//            // Now later we can lookup the fragment by tag
-//            MenuBarFragment menuBar = (MenuBarFragment)
-//                    getSupportFragmentManager().findFragmentByTag("MENU_BAR");
-//        }
+
+        //FragmentManager fm = getFragmentManager();
+        //FragmentTransaction ft = fm.beginTransaction();
+        //ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        //ft.hide(template_fragment);  //make the fragment hidden when the activity starts so we can see the home page
+        //ft.commit();
     }
+
+    //When a button in the toolbar is clicked, this will open the correct fragment/ activity
+    public void changeView(View view) {
+        template_fragment = new Fragment();
+
+        //They clicked the home button, open the home activity
+        //TODO- See if it's possible to avoid opening a new HomeActivity if they are already there
+        if (view == findViewById(R.id.toolbar_button1)) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
+        //They clicked the trail search button, open the search fragment
+        else if (view == findViewById(R.id.toolbar_button2)) {
+            //fragment = new TrailSearchFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.template_fragment, template_fragment);
+            ft.commit();
+        }
+        //They clicked the favorites button, open the favorites fragment
+        else if (view == findViewById(R.id.toolbar_button3)) {
+            //fragment = new MapTrailFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.template_fragment, template_fragment);
+            ft.commit();
+        }
+        //They clicked the map button, open the map trail fragment
+        else if (view == findViewById(R.id.toolbar_button4)) {
+            //fragment = new FavoritesFragment();
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.template_fragment, template_fragment);
+            ft.commit();
+        }
+        //They clicked the settings icon, open the settings activity
+        else if (view == findViewById(R.id.toolbar_button5)) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+    }
+
 
     //When user clicks "Login", this function will create the Activity and receive the user's account
     public void openLoginActivity(View view) {
