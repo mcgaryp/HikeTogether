@@ -13,4 +13,8 @@ public class TrailList {
     public List<Trail> getTrailList() {
         return trailList;
     }
+
+    public void addTrail(Trail trail) {
+        trailList.add(trail);
+    }
 }

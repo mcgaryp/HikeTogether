@@ -5,11 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.e.hiketogether.Models.Trail;
+import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.R;
 
 /**
@@ -29,6 +34,11 @@ public class TrailViewFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RecyclerView recyclerView;
+    TrailAdapter adapter;
+    TrailList tl;
+    View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,8 +76,26 @@ public class TrailViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //Implement everything needed for the recyclerView to work
+        tl = new TrailList();
+
+        for (int i = 0; i < 3; i++) {
+            tl.addTrail(new Trail(
+                "Pioneer Cabin Loop",
+                "A rugged, steep climb and descent taking you to and from the Pioneer Cabin",
+                "Intermediate/Difficult",
+                5.0f,
+                4,
+                "Hyndman Peak",
+                8.8f,
+                "https://www.hikingproject.com/photo/7028488/lupine-are-abundant-along-the-pioneer-cabin-trail"));
+        }
+
+        this.rootView = inflater.inflate(R.layout.fragment_trail_view, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trail_view, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,6 +114,19 @@ public class TrailViewFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        recyclerView = rootView.findViewById(R.id.trailList_recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new TrailAdapter(getActivity(), tl);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override

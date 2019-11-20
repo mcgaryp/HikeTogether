@@ -50,16 +50,6 @@ public class TrailManager {
         return gson.fromJson(tl, TrailList.class);
     }
 
-    public void displayTrailList() {
-
-        for (Trail t : tl.getTrailList()) {
-            System.out.println("");
-            t.displayTrail();
-            System.out.println("");
-            System.out.println("--------------------------------------");
-        }
-    }
-
     //Gets the conditions of the trails
     public TrailList getConditions() {
         String url = apiURL + "get-conditions?ids=" + "&" + key;

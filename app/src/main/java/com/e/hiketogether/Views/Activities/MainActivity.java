@@ -18,6 +18,7 @@ import com.e.hiketogether.Views.Fragments.FavoritesFragment;
 import com.e.hiketogether.Views.Fragments.HomeFragment;
 import com.e.hiketogether.Views.Fragments.MapTrailFragment;
 import com.e.hiketogether.Views.Fragments.TrailSearchFragment;
+import com.e.hiketogether.Views.Fragments.TrailViewFragment;
 
 /**
  * PURPOSE:
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity
                           implements TrailSearchFragment.OnFragmentInteractionListener,
                                      HomeFragment.OnFragmentInteractionListener,
                                      FavoritesFragment.OnFragmentInteractionListener,
-                                     MapTrailFragment.OnFragmentInteractionListener {
+                                     MapTrailFragment.OnFragmentInteractionListener,
+                                     TrailViewFragment.OnFragmentInteractionListener {
+
     private static final String TAG = "HOME_ACTIVITY"; //Log tag
 
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the favorites button, open the favorites fragment
         else if (view == findViewById(R.id.toolbar_button3) && !currentFragment.equals("FAVORITES")) {
-            //fragment = new MapTrailFragment();
+            template_fragment = new FavoritesFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
@@ -86,7 +89,8 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the map button, open the map trail fragment
         else if (view == findViewById(R.id.toolbar_button4) && !currentFragment.equals("MAP_TRAIL")) {
-            //fragment = new FavoritesFragment();
+//            template_fragment = new MapTrailFragment();
+            template_fragment = new TrailViewFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
