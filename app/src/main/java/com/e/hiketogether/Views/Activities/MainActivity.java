@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
     private Account account;
+    private String currentFragment = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,38 +55,52 @@ public class MainActivity extends AppCompatActivity
         ft.add(R.id.template_fragment, template_fragment);
 
         //They clicked the home button, open the home fragment
-        //TODO- See if it's possible to avoid opening a new MainActivity if they are already there
-        if (view == findViewById(R.id.toolbar_button1)) {
+        if (view == findViewById(R.id.toolbar_button1) && !currentFragment.equals("HOME")) {
             template_fragment = new HomeFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
+
+            Toast.makeText(this, "HomeFragment created", Toast.LENGTH_SHORT).show();
+            currentFragment = "HOME";
         }
         //They clicked the trail search button, open the search fragment
-        else if (view == findViewById(R.id.toolbar_button2)) {
+        else if (view == findViewById(R.id.toolbar_button2) && !currentFragment.equals("TRAIL_SEARCH")) {
             template_fragment = new TrailSearchFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
+
+            Toast.makeText(this, "TrailSearchFragment created", Toast.LENGTH_SHORT).show();
+            currentFragment = "TRAIL_SEARCH";
         }
         //They clicked the favorites button, open the favorites fragment
-        else if (view == findViewById(R.id.toolbar_button3)) {
+        else if (view == findViewById(R.id.toolbar_button3) && !currentFragment.equals("FAVORITES")) {
             //fragment = new MapTrailFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
+
+            Toast.makeText(this, "FavoritesFragment created", Toast.LENGTH_SHORT).show();
+            currentFragment = "FAVORITES";
         }
         //They clicked the map button, open the map trail fragment
-        else if (view == findViewById(R.id.toolbar_button4)) {
+        else if (view == findViewById(R.id.toolbar_button4) && !currentFragment.equals("MAP_TRAIL")) {
             //fragment = new FavoritesFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
+
+            Toast.makeText(this, "MapTrailFragment created", Toast.LENGTH_SHORT).show();
+            currentFragment = "MAP_TRAIL";
         }
         //They clicked the settings icon, open the settings activity
-        else if (view == findViewById(R.id.toolbar_button5)) {
+        else if (view == findViewById(R.id.toolbar_button5) && !currentFragment.equals("SETTINGS")) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+
+            Toast.makeText(this, "SettingsActivity created", Toast.LENGTH_SHORT).show();
+            currentFragment = "SETTINGS";
         }
     }
 
