@@ -15,8 +15,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
+import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.crypto.SealedObject;
 
 /**
  * FireBase uses a different thread on it's own!
@@ -28,12 +31,14 @@ public class FireBaseHelper {
     private String username;
     private FirebaseListener listener;
 
-    // Constructor for the firebase helper. We need to know the username to find the account
+    // Constructor for the firebase helper. We need to know the username to find
+    // the account
     public FireBaseHelper(String username, FirebaseListener listener) {
         this.username = username;
         gson = new Gson();
         dataBase = FirebaseFirestore.getInstance();
         this.listener = listener;
+        gson = new Gson();
     }
 
     // Save the account to the location that we have in the firebase
@@ -44,15 +49,17 @@ public class FireBaseHelper {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
-        user.put("password", account.getPassword());
+        user.put("password", gson.toJson(account.getSealedPassword()));
         user.put("email", account.getEmail());
-        // TODO Covert the list and settings to something storable
+        user.put("key", gson.toJson(account.getKey()));
 //        user.put("trails", account.getTrailList());
+        // TODO Covert the settings to something storable
 //        user.put("settings", account.getSettings());
-        Log.d(TAG, "Created HashMap.");
+        Log.d(TAG, "Created HashMap: " + user.values());
 
         // Upload to the cloud storage FIRESTORE
-        dataBase.collection("accounts").document(username)
+        dataBase.collection("accounts")
+                .document(username)
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -75,7 +82,8 @@ public class FireBaseHelper {
         // Need an account to save the info to
         Log.d(TAG, "Attempting to load account.");
         // Start the search in the dataBase
-        DocumentReference documentReference = dataBase.collection("accounts").document(username);
+        DocumentReference documentReference = dataBase.collection("accounts")
+                .document(username);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -85,12 +93,14 @@ public class FireBaseHelper {
                         // What did we find?
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         Map<String, Object> temp = document.getData();
-                        Account account = new Account();
+                        Account account = new Account(gson.fromJson(temp.get("key").toString(), KeyPair.class));
                         account.setEmail(temp.get("email").toString());
-                        account.setPassword(temp.get("password").toString());
+                        account.setSealedPassword(gson.fromJson(temp.get("password").toString(), SealedObject.class));
+                        account.setPassword(account.decryptPassword(account.getSealedPassword()));
                         account.setUsername(temp.get("password").toString());
 //                        account.setTrailList(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
+
                         listener.onLoadSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
@@ -108,7 +118,8 @@ public class FireBaseHelper {
     // Idea is to adjust and make changes to the account as necessary
     public void updateAccount(String fieldToUpdate, String update) {
         try {
-            dataBase.collection("accounts").document(username).update(fieldToUpdate, update);
+            dataBase.collection("accounts").document(username)
+                    .update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
             listener.onUpdateSuccess();

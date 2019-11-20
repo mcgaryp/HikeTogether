@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // TODO confirm the passwords match in the account.
     // Something changed
     public void setLoginSuccessful() {
         //They logged in!  Return to HomeActivity with their data
@@ -129,6 +128,6 @@ public class LoginActivity extends AppCompatActivity {
 
     // Toast to let the user know the account was not found
     public void displayToast(String message) {
-        new Toast(getApplicationContext()).makeText(getApplicationContext(),message, Toast.LENGTH_LONG);
+        new Toast(getApplicationContext()).makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
     }
 }
