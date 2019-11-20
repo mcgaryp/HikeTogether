@@ -41,8 +41,9 @@ public class LoginManager implements FirebaseListener {
         // Confirm passwords
         // TODO LOOKS like the hashing function is just not working right?
         Log.d(TAG, "Password on file: " + account.getPassword());
-        Log.d(TAG, "Password by user: " + account.hashPassword(password));
-        if (account.getPassword() != account.hashPassword(password))
+        Log.d(TAG, "Password by user: " + password);
+        if (account.getPassword() != password)
+            activity.displayToast("Password Invalid!");
             throw new Exception("Password is incorrect.");
     }
 
@@ -77,11 +78,10 @@ public class LoginManager implements FirebaseListener {
         Log.d(TAG, "We found the account!");
         try {
             Log.d(TAG, "Checking if passwords match.");
-            Log.d(TAG, "Password from the Activity: " + activity.getPassword());
             confirmPassword(account, activity.getPassword());
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            activity.displayToast("Password is Invalid");
+            return;
         }
         activity.setLoginSuccessful();
     }
