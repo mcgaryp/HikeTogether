@@ -23,7 +23,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_light"
+        android:background="#F3EAEA"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,13 +36,14 @@
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:onClick="changeView"
+        android:src="@drawable/icon_home_small"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button2"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        tools:srcCompat="@drawable/icon_home_large" />
 
     <ImageButton
         android:id="@+id/toolbar_button2"
@@ -50,6 +51,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_marginStart="80dp"
         android:onClick="changeView"
+        android:src="@drawable/icon_search_small"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button3"
@@ -57,45 +59,48 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button1"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        tools:srcCompat="@drawable/icon_search_small" />
 
     <ImageButton
         android:id="@+id/toolbar_button3"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:onClick="changeView"
+        android:src="@drawable/icon_heart_small"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button2"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        tools:srcCompat="@drawable/icon_heart_small" />
 
     <ImageButton
         android:id="@+id/toolbar_button4"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:onClick="changeView"
+        android:src="@drawable/icon_world_small"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button3"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        tools:srcCompat="@drawable/icon_world_small" />
 
     <ImageButton
         android:id="@+id/toolbar_button5"
         android:layout_width="?attr/actionBarSize"
         android:layout_height="?attr/actionBarSize"
         android:onClick="changeView"
+        android:src="@drawable/icon_settings_small"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button4"
-        tools:srcCompat="@tools:sample/avatars[1]" />
+        tools:srcCompat="@drawable/icon_settings_small" />
 
     <FrameLayout
         android:id="@+id/template_fragment"

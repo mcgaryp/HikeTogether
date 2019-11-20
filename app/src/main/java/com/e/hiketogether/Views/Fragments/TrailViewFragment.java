@@ -80,7 +80,7 @@ public class TrailViewFragment extends Fragment {
         //Implement everything needed for the recyclerView to work
         tl = new TrailList();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             tl.addTrail(new Trail(
                 "Pioneer Cabin Loop",
                 "A rugged, steep climb and descent taking you to and from the Pioneer Cabin",
