@@ -13,6 +13,7 @@ import javax.crypto.SealedObject;
 // This class was taken from online and edited for encription purposes
 public class Encryption {
 
+    // TODO findout if this is a unique key each time.
     private static final String TAG = "ENCRYPTION";
     private KeyPair myPair;
 
@@ -28,8 +29,17 @@ public class Encryption {
         }
     }
 
+    // Setter and Getter
+    public void setMyPair(KeyPair myPair) {
+        this.myPair = myPair;
+    }
+
+    public KeyPair getMyPair() {
+        return myPair;
+    }
+
     // Encrypts the message
-    public String encrypt(String message) throws Exception {
+    public SealedObject encrypt(String message) throws Exception {
         try {
             // Get an instance of the Cipher for RSA encryption/decryption
             Cipher c = Cipher.getInstance("RSA");
@@ -37,8 +47,8 @@ public class Encryption {
             c.init(Cipher.ENCRYPT_MODE, myPair.getPublic());
             // Encrypt that message using a new SealedObject and the Cipher we created before
             SealedObject myEncryptedMessage= new SealedObject(message, c);
-            Log.d(TAG, myEncryptedMessage.toString());
-            return myEncryptedMessage.toString();
+            Log.d(TAG, "Encrypted message Object: " + myEncryptedMessage.toString());
+            return myEncryptedMessage;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new Exception("Failed to encrypt");
@@ -46,16 +56,18 @@ public class Encryption {
     }
 
     // Decrypt the message
-    public String decrypt(String message) throws Exception {
+    public String decrypt(SealedObject myEncryptedMessage) throws Exception {
         // Get an instance of the Cipher for RSA encryption/decryption
         Cipher dec;
         try {
+            Log.d(TAG, "Attempting to decrypt message.");
             dec = Cipher.getInstance("RSA");
-        // Initiate the Cipher, telling it that it is going to Decrypt, giving it the private key
-        dec.init(Cipher.DECRYPT_MODE, myPair.getPrivate());
-        // Tell the SealedObject we created before to decrypt the data and return it
-//        String message = (String) myEncryptedMessage.getObject(dec);
-        return message;
+            // Initiate the Cipher, telling it that it is going to Decrypt, giving it the private key
+            dec.init(Cipher.DECRYPT_MODE, myPair.getPrivate());
+            // Tell the SealedObject we created before to decrypt the data and return it
+            String message = (String) myEncryptedMessage.getObject(dec);
+            Log.d(TAG, "This is the decrypted message: " + message);
+            return message;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             throw new Exception("Failed to decrypt message.");
