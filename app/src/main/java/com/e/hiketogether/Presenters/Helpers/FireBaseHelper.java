@@ -5,60 +5,73 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
+import com.e.hiketogether.Presenters.Interfaces.LoadListener;
+import com.e.hiketogether.Presenters.Interfaces.Listener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
-import java.security.KeyPair;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.SealedObject;
+import javax.annotation.Nonnull;
 
 /**
- * FireBase uses a different thread on it's own!
+ * PURPOSE
+ *      Helper class to help out with the usage of the cloud storage
+ *
+ * THINGS TO KNOW ABOUT THIS CLASS AS YOU USE IT
+ *      FireBase uses a different thread on it's own!
+ *      .set(gsonObject or string) creates the document if there isn't one or updates.
+ *      .update() updates a specific part ie .update("username", "newUsername").
+ *      .add(gsonObject or string) creates document id for you.
  */
 public class FireBaseHelper {
-    private Gson gson;
+    // VARIABLES
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
+    private Listener listener;
+    private LoadListener load;
     private String username;
-    private FirebaseListener listener;
+    private Gson gson;
 
-    // Constructor for the firebase helper. We need to know the username to find
-    // the account
-    public FireBaseHelper(String username, FirebaseListener listener) {
-        this.username = username;
-        gson = new Gson();
+    // Constructor for the firebase helper, We need to know the username to find the account
+    public FireBaseHelper(String username, Listener listener) {
         dataBase = FirebaseFirestore.getInstance();
-        this.listener = listener;
+        setUsername(username);
+        gson = new Gson();
+        // Determine the type of listener and set accordingly
+//        if (listener instanceof LoadListener)
+//            setLoad(listener);
+//        else
+            setListener(listener);
     }
 
     // Save the account to the location that we have in the firebase
-    // .set(gsonObject or string) creates the document if there isn't one or updates.
-    // .update() updates a specific part ie .update("username", "newUsername").
-    // .add(gsonObject or string) creates document id for you.
     public void saveAccount(Account account) {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
-        // temp storage of password
-        user.put("password", account.getPassword());
-//        user.put("password", gson.toJson(account.getSealedPassword()));
+        user.put("password", account.getPassword());                        // temp storage of password
+//        user.put("password", gson.toJson(account.getSealedPassword()));   // Hopefully the future wat to store a password
         user.put("email", account.getEmail());
-//        user.put("key", gson.toJson(account.getKey()));
-//        user.put("trails", account.getTrailList());
-        // TODO Covert the settings to something storable
+//        user.put("key", gson.toJson(account.getKey()));                   // Hopefully the way to store the key OR come up with better implementation
+        user.put("trails", account.getFavTrails());
 //        user.put("settings", account.getSettings());
+
         Log.d(TAG, "Created HashMap: " + user.values());
 
-        // Upload to the cloud storage FIRESTORE
+        // Push to cloud storage FIRESTORE
         dataBase.collection("accounts")
                 .document(username)
                 .set(user)
@@ -66,14 +79,14 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        listener.onSaveSuccess();
+                        listener.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error writing document", e);
-                        listener.onSaveFail();
+                        listener.onFail();
                     }
                 });
     }
@@ -105,16 +118,17 @@ public class FireBaseHelper {
                         account.setUsername(temp.get("username").toString());
 //                        account.setTrailList(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
-
-                        listener.onLoadSuccess(account);
+                        if (listener instanceof LoadListener) {
+                            load.onLoadSuccess(account);
+                        }
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
-                        listener.onLoadFail();
+                        listener.onFail();
                     }
                 } else {
                     Log.d(TAG, "'Get' failed with ", task.getException());
-                    listener.onLoadFail();
+                    listener.onFail();
                 }
             }
         });
@@ -127,10 +141,10 @@ public class FireBaseHelper {
                     .update(fieldToUpdate, update);
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
-            listener.onUpdateSuccess();
+            listener.onSuccess();
         }
         Log.d(TAG, "Successful update to FireBase.");
-        listener.onUpdateFail();
+        listener.onFail();
     }
 
     // Delete user account
@@ -141,26 +155,41 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        listener.onDeleteSuccess();
+                        listener.onSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error deleting document", e);
-                        listener.onDeleteFail();
+                        listener.onFail();
                     }
                 });
     }
 
-    //TODO Check to see if the username is taken
-    // not sure if this is going to work. it might not compare the string correctly
-    public void exists() throws Exception {
-        if (dataBase.collection("accounts").document(username).equals(username)) {
-            Log.d(TAG, "Username is already taken.");
-            throw new Exception("Username already exists.");
-        }
-    }
-    // TODO Setter functions for listener and Activity
+    // Check to see if the username is taken
+    public void exists(final Account account) {
+        // Create a reference to the accounts
+        CollectionReference reference = dataBase.collection("accounts");
+        // Make a search query to try and find the username
+        reference.whereEqualTo("username", username).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, username + " has already been taken");
+                            listener.onFail();
+                        } else {
+                            Log.d(TAG, username = " was not found so continue");
+                            saveAccount(account);
+                        }
+                    }
+                });
 
+    }
+
+    // Setter Functions
+    private void setListener(Listener listener) { this.listener = listener; }
+    private void setUsername(String username)   { this.username = username; }
+    private void setLoad(LoadListener load)     { this.load = load;         }
 }

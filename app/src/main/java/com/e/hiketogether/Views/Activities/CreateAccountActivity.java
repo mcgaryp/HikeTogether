@@ -14,20 +14,21 @@ import com.e.hiketogether.Presenters.Managers.CreateAccountManager;
 import com.e.hiketogether.R;
 
 /**
- * PURPOSE OF THE CLASS
+ * PURPOSE
  *      Intent is to present the user with a user friendly display and allow them to create a
  *      personal account that will allow them to do special things with the account.
  *      After creating an account it will send them to the login page.
  */
 public class CreateAccountActivity extends AppCompatActivity {
-    // Variables
+    // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_ACTIVITY";
+    private String secondPassword;
+    private EditText editText;
     private String password;
     private String username;
     private String email;
-    private EditText editText;
-    private String secondPassword;
 
+    // OnCreate Function
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     // Takes input and creates account!
     public void onCreateAccount(View view) {
         // Need some managing of accounts happening
-        CreateAccountManager accountManager = new CreateAccountManager();
+        CreateAccountManager accountManager = new CreateAccountManager(this);
 
         // Set editText to username
         editText = findViewById(R.id.createUsername);
@@ -108,9 +109,19 @@ public class CreateAccountActivity extends AppCompatActivity {
         // reset the setError
         editText.setError(null);
 
-        // Create the account
+        // Attempt to Create the account
         accountManager.createAccount(username, password, email);
+    }
 
+    // Display a toast
+    public void displayToast(String message) {
+        new Toast(getApplicationContext())
+                .makeText(getApplicationContext(),message,Toast.LENGTH_LONG)
+                .show();
+    }
+
+    // Now that we created an account lets go HOME
+    public void onSuccess() {
         //Account created successfully!  Return to LoginActivity with their data
         //TODO- return the account info in the intent, so they can be logged in
         Intent returnIntent = new Intent();

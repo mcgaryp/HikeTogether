@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.security.KeyPair;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.SealedObject;
@@ -19,30 +20,31 @@ public class Account {
     private static final String TAG = "ACCOUNT";
     private String password;
     private String username;
-    private TrailList trailList;
     private String email;
     private Settings settings;
     private Encryption encrypter;
     private Gson gson;
     private SealedObject sealedPassword;
     private KeyPair key;
-    private List<Integer> favTrails;        //stores the ID values of favorited trails
+    private List<Integer> favTrails;                                //stores the ID values of favorite trails
 
     // Default Constructor
     public  Account() {}
+
+    // Idea is to create this with a new account from loading from the cloud
     public Account(KeyPair key) {
-        setKey(key);
-        encrypter.setMyPair(key);
+        setKey(key);                                                // Not sure this is needed value...
+        encrypter.setMyPair(key);                                   // Setting the value of the key in the encrypter
         Log.d(TAG, "Created account Object with a key.");
     }
 
-    // Optional Constructor for creating account
+    // Creating a new account from the create account manager
     public Account(String username, String password, String email) {
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
-        trailList = new TrailList();
-        settings = new Settings();
+        setUsername(username);          // Set the Username
+        setPassword(password);          // Set the Password
+        setEmail(email);                // Set the email
+        settings = new Settings();      // Set new Settings
+        favTrails = new ArrayList<>();  // Set the trails to and empty list
 
 //        encryptor = new Encryption();
 //        try {
@@ -59,8 +61,8 @@ public class Account {
 //        Log.d(TAG, "SealedPasword: " + getSealedPassword());
     }
 
-    // Hashing Password Function RETURN SOMETHING HASHED
-//    public String encryptPassword(String password) {
+          // Encryption Function to call the encrypter for the password safe storage
+//        public String encryptPassword(String password) {
 //        try {
 //            sealedPassword = encrypter.encrypt(password);
 //            String gsonString = gson.toJson(sealedPassword);
@@ -73,7 +75,7 @@ public class Account {
 //        }
 //    }
 
-    // Decrypt the object
+    // Decrypt the Sealed object to a password we can compare to the user input
     public String decryptPassword(SealedObject myPassword) {
         try {
             Log.d(TAG, "Attempting to Decrypt Password.");
@@ -85,56 +87,41 @@ public class Account {
         return null;
     }
 
-    // ADD a Trail to the accounts trail list
-    public void addTrail() {
-        // TODO add new trail to the account
-        Log.d(TAG, "Successfully added a Favorites Trail.");
+    // ADD a Trail to the accounts favTrails
+    public void addTrail(Integer trailID) throws Exception {
+        // Try to add a trail
+        if (favTrails.add(trailID))
+            Log.d(TAG, "Successfully added a Favorites Trail.");
+        else
+            throw new Exception("Failed to add Trail to Favorites");
     }
 
     // Getter functions
     public String getPassword()             { return password;       }
-    public SealedObject getSealedPassword() { return sealedPassword; }
     public String getUsername()             { return username;       }
     public String getEmail()                { return email;          }
     public Settings getSettings()           { return settings;       }
-    public TrailList getTrailList()         { return trailList;      }
+    public List<Integer> getFavTrails()     { return favTrails;      }
     public KeyPair getKey()                 { return key;            }
+    public SealedObject getSealedPassword() { return sealedPassword; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setTrailList(TrailList trailList) {
-        this.trailList = trailList;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
-
-    public void setSealedPassword(SealedObject sealedPassword) {
-        this.sealedPassword = sealedPassword;
-    }
-
-    public void setKey(KeyPair key) { this.key = key; }
+    // Setter Functions
+    public void setPassword(String password)                    { this.password = password;             }
+    public void setUsername(String username)                    { this.username = username;             }
+    public void setEmail(String email)                          { this.email = email;                   }
+    public void setSettings(Settings settings)                  { this.settings = settings;             }
+    public void setFavTrails(List<Integer> trailList)           { this.favTrails = trailList;           }
+    public void setKey(KeyPair key)                             { this.key = key;                       }
+    public void setSealedPassword(SealedObject sealedPassword)  { this.sealedPassword = sealedPassword; }
 }
 
-//
-//        // implement hashing algorithm
+//        // The old implementation fo the hashing algorithem... it didn't work
+//        // because the hashing was never the same when you created a new account....
+
 //        String hashTemp = null;
-//
 //        SecureRandom random = new SecureRandom();
 //        byte[] salt = new byte[16];
 //        random.nextBytes(salt);
-//
 //        try {
 //            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
 //            messageDigest.update(salt);
@@ -143,9 +130,7 @@ public class Account {
 //        } catch (NoSuchAlgorithmException e) {
 //            e.printStackTrace();
 //        }
-//
 //        // Display in the log just to make sure that it worked right!
 //        Log.d(TAG, "Successfully created hashed password");
 //        Log.d(TAG, "Hasehd password: " + hashTemp);
-//
 //        return hashTemp;

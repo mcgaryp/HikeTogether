@@ -5,22 +5,22 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
+import com.e.hiketogether.Presenters.Interfaces.LoadListener;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 
 /**
  * PURPOSE:
- *      This class will handle the logic behind login into our database and create a unique
- *      environment for the apps users.
+ *      This class will handle the logic behind login into our database and
+ *      send the user to their own unique environment.
  */
-public class LoginManager implements FirebaseListener {
-    // Variables
+public class LoginManager implements LoadListener {
+    // VARIABLES
     private static final String TAG = "LOGIN_MANAGER"; // Log TAG
     private LoginActivity activity;
 
     // Constructor
     public LoginManager(LoginActivity activity) {
-        this.activity = activity;
+        setActivity(activity);
     }
 
     // Check the input to make sure it's not empty
@@ -36,10 +36,9 @@ public class LoginManager implements FirebaseListener {
         new FireBaseHelper(username, this).loadAccount();
     }
 
-    // check to make sure the password matches with the one on file
+    // check to make sure the password matches with the one on
     public void confirmPassword(Account account, String password) throws Exception {
         // Confirm passwords
-        // TODO LOOKS like the hashing function is just not working right?
         Log.d(TAG, "Password on file: " + account.getPassword());
         Log.d(TAG, "Password by user: " + password);
         if (!account.getPassword().matches(password)) {
@@ -65,15 +64,7 @@ public class LoginManager implements FirebaseListener {
         new FireBaseHelper(username, this).updateAccount("password", password);
     }
 
-    // IMPLEMENTATIONS OF INTERFACE
-    @Override
-    public void onSaveSuccess() {
-    }
-
-    @Override
-    public void onSaveFail() {
-    }
-
+    // Listener Functions
     @Override
     public void onLoadSuccess(Account account) {
         Log.d(TAG, "We found the account!");
@@ -88,28 +79,14 @@ public class LoginManager implements FirebaseListener {
     }
 
     @Override
-    public void onLoadFail() {
+    public void onSuccess() { }
+
+    @Override
+    public void onFail() {
         Log.d(TAG, "We did not find the account!");
         activity.displayToast("Account not Found");
     }
 
-    @Override
-    public void onDeleteSuccess() {
-
-    }
-
-    @Override
-    public void onDeleteFail() {
-
-    }
-
-    @Override
-    public void onUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUpdateFail() {
-
-    }
+    // Setter Functions
+    private void setActivity(LoginActivity activity) { this.activity = activity; }
 }

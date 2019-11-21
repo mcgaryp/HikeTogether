@@ -4,26 +4,28 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.FirebaseListener;
+import com.e.hiketogether.Presenters.Interfaces.Listener;
+import com.e.hiketogether.Views.Activities.CreateAccountActivity;
 
 /**
  * PURPOSE:
- *      This is to manage all of the logic that is needed manage an account.
- *      I, Porter have thought about merging this class with the login class...
- *      or implementing a hashing interface or something of the sort.
+ *      This class will manage the basic logic and logistics when a user is creating and account
+ *      in our database. It will send an intent to the calling activity with information like the
+ *      users account that was created in the data base and then tell the activity to end.
  */
-public class CreateAccountManager implements FirebaseListener {
+public class CreateAccountManager implements Listener {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_MANAGER";
+    private CreateAccountActivity activity;
 
     // Constructor
-    public CreateAccountManager() {
-
+    public CreateAccountManager(CreateAccountActivity activity) {
+        setActivity(activity);
     }
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        new FireBaseHelper(username, this).saveAccount(new Account(username,password,email));
+        new FireBaseHelper(username, this).exists(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match
@@ -78,14 +80,6 @@ public class CreateAccountManager implements FirebaseListener {
         } catch (Exception e) {
             throw e;
         }
-
-        // TODO Check to make sure the username is not already used
-//        try {
-//            new FireBaseHelper(editText.getText().toString()).exists();
-//        } catch (Exception e) {
-//            throw e;
-//        }
-        
     }
 
     // Checks input to make sure its not empty
@@ -96,44 +90,16 @@ public class CreateAccountManager implements FirebaseListener {
         }
     }
 
-    // FIREBASE LISTENER METHODS
-    @Override
-    public void onSaveSuccess() {
-
+    // Listener Functions
+    @Override public void onSuccess() {
+        activity.displayToast("Account Created!");
+        activity.onSuccess();
     }
 
-    @Override
-    public void onSaveFail() {
-
+    @Override public void onFail() {
+        activity.displayToast("Could not Create Account.");
     }
 
-    @Override
-    public void onLoadSuccess(Account account) {
-
-    }
-
-    @Override
-    public void onLoadFail() {
-
-    }
-
-    @Override
-    public void onDeleteSuccess() {
-
-    }
-
-    @Override
-    public void onDeleteFail() {
-
-    }
-
-    @Override
-    public void onUpdateSuccess() {
-
-    }
-
-    @Override
-    public void onUpdateFail() {
-
-    }
+    // Setter Functions
+    private void setActivity(CreateAccountActivity activity) { this.activity = activity; }
 }
