@@ -2,30 +2,31 @@ package com.e.hiketogether.Presenters.Managers;
 
 import android.util.Log;
 
+import com.e.hiketogether.BuildConfig;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.HTTPHelper;
 import com.google.gson.Gson;
 
+import java.util.concurrent.ExecutionException;
+
+
 public class TrailManager {
+    //Hiking Project API Key
+    private static final String KEY = "key=" + BuildConfig.HPKEY;
 
-    //Needed to store JSOn data
+    //Needed to store JSON data
     private TrailList tl;
-
-    //Fetches JSON data and returns it as a string
-    private HTTPHelper helper = new HTTPHelper();
 
     //Needed to request JSON data from HikingProject API
     private String apiURL = "https://www.hikingproject.com/data/";
     private String lat;
-    private String lon ;
+    private String lon;
     private String maxDistance = "maxDistance=30";
     private String maxResults;
     private String sort = "quality";
     private String minLength;
     private String minStars;
-    private String key = "key=SECRET";
-
 
     public void setTL(TrailList tl) {
         this.tl = tl;
@@ -59,38 +60,56 @@ public class TrailManager {
         this.minStars = minStars;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    private String requestURL(String url) throws ExecutionException, InterruptedException {
+        String tlJson = "";
+        tlJson = new HTTPHelper().execute(url, tlJson).get();
+
+        return tlJson;
     }
 
     //Gets trails through the latitude and longitude
     public TrailList getTrails() {
-        String url = apiURL + "get-trails?" + lat + "&" + lon + "&" + maxDistance + "&" + key;
-        String tl = helper.readHTTP(url);
+        String url = apiURL + "get-trails?" + lat + "&" + lon + "&" + maxDistance + "&" + KEY;
+        String tlJson = null;
+        try {
+            tlJson = requestURL(url);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Gson gson = new Gson();
-        Log.d("TRAIL_MANAGER", tl);
-        return gson.fromJson(tl, TrailList.class);
+        Log.d("TRAIL_MANAGER", tlJson);
+        return gson.fromJson(tlJson, TrailList.class);
     }
 
 
     //Gets the trails by ID
     public TrailList getTrailsById() {
-        String url = apiURL + "get-trails-by-id?ids=" + "&" + key;
-        String tl = helper.readHTTP(url);
+        String url = apiURL + "get-trails-by-id?ids=" + "&" + KEY;
+        String tlJson = null;
+        try {
+            tlJson = requestURL(url);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Gson gson = new Gson();
 
-        return gson.fromJson(tl, TrailList.class);
+        return gson.fromJson(tlJson, TrailList.class);
     }
 
     //Gets the conditions of the trails
     public TrailList getConditions() {
-        String url = apiURL + "get-conditions?ids=" + "&" + key;
-        String tl = helper.readHTTP(url);
+        String url = apiURL + "get-conditions?ids=" + "&" + KEY;
+        String tlJson = null;
+        try {
+            tlJson = requestURL(url);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
         Gson gson = new Gson();
 
-        return gson.fromJson(tl, TrailList.class);
+        return gson.fromJson(tlJson, TrailList.class);
     }
 }

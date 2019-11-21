@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e.hiketogether.BuildConfig;
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.R;

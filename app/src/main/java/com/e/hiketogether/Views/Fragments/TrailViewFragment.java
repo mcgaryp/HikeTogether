@@ -42,7 +42,7 @@ public class TrailViewFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
-    private TrailList tl;
+    private TrailList tl = new TrailList();
     private View rootView;
 
     private OnFragmentInteractionListener mListener;
@@ -83,32 +83,24 @@ public class TrailViewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         //Implement everything needed for the recyclerView to work
+        TrailManager tm = new TrailManager();
+        tm.setLat("lat=" + 43.826069);
+        tm.setLon("lon=" + -111.789528);
+        Log.d("TRAIL_VIEW_FRAGMENT", "Getting Trails");
+        tl = tm.getTrails();
 
-//        TrailManager tm = new TrailManager();
-//        tm.setLat("lat=" + 43.826069);
-//        tm.setLon("lon=" + -111.789528);
-//        Log.d("TRAIL_VIEW_FRAGMENT", "Getting Trails");
-//        tl = tm.getTrails();
-
-        tl = new TrailList();
-        for (int i = 0; i < 10; i++) {
-            tl.addTrail(new Trail(
-                "Pioneer Cabin Loop",
-                "A rugged, steep climb and descent taking you to and from the Pioneer Cabin",
-                "Intermediate/Difficult",
-                5.0f,
-                4,
-                "Hyndman Peak",
-                8.8f,
-                "https://www.hikingproject.com/photo/7028488/lupine-are-abundant-along-the-pioneer-cabin-trail"));
-
-
-            //Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.divider);
-            //RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
-            //recyclerView.addItemDecoration(dividerItemDecoration);
-
-
-        }
+//        tl = new TrailList();
+//        for (int i = 0; i < 10; i++) {
+//            tl.addTrail(new Trail(
+//                "Pioneer Cabin Loop",
+//                "A rugged, steep climb and descent taking you to and from the Pioneer Cabin",
+//                "Intermediate/Difficult",
+//                5.0f,
+//                4,
+//                "Hyndman Peak",
+//                8.8f,
+//                "https://www.hikingproject.com/photo/7028488/lupine-are-abundant-along-the-pioneer-cabin-trail"));
+        //}
 
         this.rootView = inflater.inflate(R.layout.fragment_trail_view, container, false);
 
