@@ -38,7 +38,6 @@ public class FireBaseHelper {
         gson = new Gson();
         dataBase = FirebaseFirestore.getInstance();
         this.listener = listener;
-        gson = new Gson();
     }
 
     // Save the account to the location that we have in the firebase
@@ -49,9 +48,11 @@ public class FireBaseHelper {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
-        user.put("password", gson.toJson(account.getSealedPassword()));
+        // temp storage of password
+        user.put("password", account.getPassword());
+//        user.put("password", gson.toJson(account.getSealedPassword()));
         user.put("email", account.getEmail());
-        user.put("key", gson.toJson(account.getKey()));
+//        user.put("key", gson.toJson(account.getKey()));
 //        user.put("trails", account.getTrailList());
         // TODO Covert the settings to something storable
 //        user.put("settings", account.getSettings());
@@ -78,6 +79,7 @@ public class FireBaseHelper {
     }
 
     // Idea is to pull the date from the account and return it in account form
+    // TODO solve the encryption saving of a key
     public void loadAccount() {
         // Need an account to save the info to
         Log.d(TAG, "Attempting to load account.");
@@ -93,11 +95,14 @@ public class FireBaseHelper {
                         // What did we find?
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         Map<String, Object> temp = document.getData();
-                        Account account = new Account(gson.fromJson(temp.get("key").toString(), KeyPair.class));
+                        // this next line is broken
+//                        Account account = new Account(gson.fromJson(temp.get("key").toString(), KeyPair.class));
+                        Account account = new Account();
                         account.setEmail(temp.get("email").toString());
-                        account.setSealedPassword(gson.fromJson(temp.get("password").toString(), SealedObject.class));
-                        account.setPassword(account.decryptPassword(account.getSealedPassword()));
-                        account.setUsername(temp.get("password").toString());
+//                        account.setSealedPassword(gson.fromJson(temp.get("password").toString(), SealedObject.class));
+//                        account.setPassword(account.decryptPassword(account.getSealedPassword()));
+                        account.setPassword(temp.get("password").toString());
+                        account.setUsername(temp.get("username").toString());
 //                        account.setTrailList(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
 
@@ -156,4 +161,6 @@ public class FireBaseHelper {
             throw new Exception("Username already exists.");
         }
     }
+    // TODO Setter functions for listener and Activity
+
 }

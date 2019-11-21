@@ -27,6 +27,7 @@ public class Account {
     private KeyPair key;
 
     // Default Constructor
+    public  Account() {}
     public Account(KeyPair key) {
         setKey(key);
         encryptor.setMyPair(key);
@@ -40,19 +41,19 @@ public class Account {
         setEmail(email);
         trailList = new TrailList();
         settings = new Settings();
-        encryptor = new Encryption();
-        try {
-            setSealedPassword(encryptor.encrypt(password));
-            key = encryptor.getMyPair();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, e.getMessage());
-        }
+//        encryptor = new Encryption();
+//        try {
+//            setSealedPassword(encryptor.encrypt(password));
+//            key = encryptor.getMyPair();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d(TAG, e.getMessage());
+//        }
         Log.d(TAG, "Succesful creation of account.");
         Log.d(TAG, "Username: " + getUsername());
         Log.d(TAG, "Password: " + getPassword());
         Log.d(TAG, "Email: " + getEmail());
-        Log.d(TAG, "SealedPasword: " + getSealedPassword());
+//        Log.d(TAG, "SealedPasword: " + getSealedPassword());
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
