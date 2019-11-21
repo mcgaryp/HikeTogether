@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
                                      MapTrailFragment.OnFragmentInteractionListener,
                                      TrailViewFragment.OnFragmentInteractionListener {
 
+    // VARIABLES
     private static final String TAG = "HOME_ACTIVITY"; //Log tag
 
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity

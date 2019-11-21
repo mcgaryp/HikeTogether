@@ -21,6 +21,7 @@ import com.e.hiketogether.R;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    // VARIABLES
     private static final String TAG = "LOGIN_ACTIVITY"; //Log tag
 
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
@@ -80,22 +81,21 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.confirmAccount(username);
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
-            new Toast(getApplicationContext()).makeText(getApplicationContext(), "Account does not exist", Toast.LENGTH_LONG).show();
+            displayToast("Account does not exist");
             return;
         }
     }
 
-    // Something changed
+    // This will be called from the manager to let us know that the thread is complete.
+    // We can login in now!
     public void setLoginSuccessful() {
-        //They logged in!  Return to MainActivity with their data
+        // They logged in!  Return to MainActivity with their data
+        // TODO sent the account info to the MainActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
-
-    // Something with the listener has to happen here and a notify action
-
 
     // Start the CreateAccountActivity to create a personal account
     public void openCreateAccountActivity(View view) {
@@ -103,9 +103,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(loginIntent, CREATE_ACCOUNT_REQUEST);
     }
 
-    //When the CreateAccountActivity is closed, it will return information to this function
-    //Two codes indicate whether the process was successful, and any important data
-    //Is returned through the intent
+    // When the CreateAccountActivity is closed, it will return information to this function
+    // Two codes indicate whether the process was successful, and any important data
+    // Is returned through the intent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     // GETTERS
     public String getPassword() { return password; }
 
-    // Toast to let the user know the account was not found
+    // Display any general toast
     public void displayToast(String message) {
         new Toast(getApplicationContext()).makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
     }

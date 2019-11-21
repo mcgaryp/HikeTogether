@@ -12,8 +12,8 @@ import javax.crypto.SealedObject;
 
 // This class was taken from online and edited for encription purposes
 public class Encryption {
-
     // TODO findout if this is a unique key each time.
+    // VARIABLES
     private static final String TAG = "ENCRYPTION";
     private KeyPair myPair;
 
@@ -27,15 +27,6 @@ public class Encryption {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-    }
-
-    // Setter and Getter
-    public void setMyPair(KeyPair myPair) {
-        this.myPair = myPair;
-    }
-
-    public KeyPair getMyPair() {
-        return myPair;
     }
 
     // Encrypts the message
@@ -76,4 +67,10 @@ public class Encryption {
             throw new Exception("Failed to decrypt message.");
         }
     }
+
+    // Setter functions
+    public void setMyPair(KeyPair myPair)   { this.myPair = myPair; }
+
+    // Getter functions
+    public KeyPair getMyPair()              { return myPair; }
 }
