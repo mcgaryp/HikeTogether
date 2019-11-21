@@ -42,9 +42,10 @@ public class LoginManager implements FirebaseListener {
         // TODO LOOKS like the hashing function is just not working right?
         Log.d(TAG, "Password on file: " + account.getPassword());
         Log.d(TAG, "Password by user: " + password);
-        if (account.getPassword() != password)
+        if (!account.getPassword().matches(password)) {
             activity.displayToast("Password Invalid!");
             throw new Exception("Password is incorrect.");
+        }
     }
 
     // **OPTIONAL** forgot password option

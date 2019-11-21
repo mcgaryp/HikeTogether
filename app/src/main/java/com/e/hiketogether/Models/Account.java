@@ -29,6 +29,7 @@ public class Account {
     private List<Integer> favTrails;        //stores the ID values of favorited trails
 
     // Default Constructor
+    public  Account() {}
     public Account(KeyPair key) {
         setKey(key);
         encrypter.setMyPair(key);
@@ -42,19 +43,20 @@ public class Account {
         setEmail(email);
         trailList = new TrailList();
         settings = new Settings();
-        encrypter = new Encryption();
-        try {
-            setSealedPassword(encrypter.encrypt(password));
-            key = encrypter.getMyPair();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, e.getMessage());
-        }
+
+//        encryptor = new Encryption();
+//        try {
+//            setSealedPassword(encryptor.encrypt(password));
+//            key = encryptor.getMyPair();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d(TAG, e.getMessage());
+//        }
         Log.d(TAG, "Succesful creation of account.");
         Log.d(TAG, "Username: " + getUsername());
         Log.d(TAG, "Password: " + getPassword());
         Log.d(TAG, "Email: " + getEmail());
-        Log.d(TAG, "SealedPasword: " + getSealedPassword());
+//        Log.d(TAG, "SealedPasword: " + getSealedPassword());
     }
 
     // Hashing Password Function RETURN SOMETHING HASHED
