@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
 import com.e.hiketogether.Views.Fragments.HomeFragment;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
     private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
-    private Account account;
+    FragmentManager fm;
     private String currentFragment = "";
 
     @Override
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        fm = getSupportFragmentManager();
         //Initialize the screen to be on the home fragment initially
         changeView(findViewById(R.id.toolbar_button1));
     }
@@ -53,18 +55,19 @@ public class MainActivity extends AppCompatActivity
     //When a button in the toolbar is clicked, this will open the correct fragment/ activity
     public void changeView(View view) {
         Fragment template_fragment = new Fragment();
-        FragmentManager fm = getSupportFragmentManager();
+
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.template_fragment, template_fragment);
 
         //They clicked the home button, open the home fragment
         if (view == findViewById(R.id.toolbar_button1) && !currentFragment.equals("HOME")) {
             template_fragment = new HomeFragment();
+            fm.findFragmentByTag("HOME");
+
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
 
-            Toast.makeText(this, "HomeFragment created", Toast.LENGTH_SHORT).show();
             currentFragment = "HOME";
         }
         //They clicked the trail search button, open the search fragment
@@ -74,7 +77,6 @@ public class MainActivity extends AppCompatActivity
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
 
-            Toast.makeText(this, "TrailSearchFragment created", Toast.LENGTH_SHORT).show();
             currentFragment = "TRAIL_SEARCH";
         }
         //They clicked the favorites button, open the favorites fragment
@@ -84,18 +86,15 @@ public class MainActivity extends AppCompatActivity
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
 
-            Toast.makeText(this, "FavoritesFragment created", Toast.LENGTH_SHORT).show();
             currentFragment = "FAVORITES";
         }
         //They clicked the map button, open the map trail fragment
         else if (view == findViewById(R.id.toolbar_button4) && !currentFragment.equals("MAP_TRAIL")) {
-//            template_fragment = new MapTrailFragment();
             template_fragment = new TrailViewFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
 
-            Toast.makeText(this, "MapTrailFragment created", Toast.LENGTH_SHORT).show();
             currentFragment = "MAP_TRAIL";
         }
         //They clicked the settings icon, open the settings activity
@@ -103,9 +102,16 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
 
-            Toast.makeText(this, "SettingsActivity created", Toast.LENGTH_SHORT).show();
             currentFragment = "SETTINGS";
         }
+    }
+
+    public void initiateTrailSearch(TrailList tl) {
+        Fragment template_fragment = new TrailViewFragment();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.template_fragment, template_fragment);
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        ft.commit();
     }
 
 

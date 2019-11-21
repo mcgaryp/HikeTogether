@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.security.KeyPair;
+import java.util.List;
 
 import javax.crypto.SealedObject;
 
@@ -21,15 +22,16 @@ public class Account {
     private TrailList trailList;
     private String email;
     private Settings settings;
-    private Encryption encryptor;
+    private Encryption encrypter;
     private Gson gson;
     private SealedObject sealedPassword;
     private KeyPair key;
+    private List<Integer> favTrails;        //stores the ID values of favorited trails
 
     // Default Constructor
     public Account(KeyPair key) {
         setKey(key);
-        encryptor.setMyPair(key);
+        encrypter.setMyPair(key);
         Log.d(TAG, "Created account Object with a key.");
     }
 
@@ -40,10 +42,10 @@ public class Account {
         setEmail(email);
         trailList = new TrailList();
         settings = new Settings();
-        encryptor = new Encryption();
+        encrypter = new Encryption();
         try {
-            setSealedPassword(encryptor.encrypt(password));
-            key = encryptor.getMyPair();
+            setSealedPassword(encrypter.encrypt(password));
+            key = encrypter.getMyPair();
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, e.getMessage());
@@ -58,7 +60,7 @@ public class Account {
     // Hashing Password Function RETURN SOMETHING HASHED
 //    public String encryptPassword(String password) {
 //        try {
-//            sealedPassword = encryptor.encrypt(password);
+//            sealedPassword = encrypter.encrypt(password);
 //            String gsonString = gson.toJson(sealedPassword);
 //            Log.d(TAG, "Gson String of password SealedObject: " + gsonString);
 //            return gsonString;
@@ -73,7 +75,7 @@ public class Account {
     public String decryptPassword(SealedObject myPassword) {
         try {
             Log.d(TAG, "Attempting to Decrypt Password.");
-            return encryptor.decrypt(myPassword);
+            return encrypter.decrypt(myPassword);
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG, "Failed to decrypt Password.");

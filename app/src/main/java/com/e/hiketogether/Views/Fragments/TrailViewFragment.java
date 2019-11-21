@@ -1,20 +1,25 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.e.hiketogether.Models.DividerItemDecoration;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
 /**
@@ -35,10 +40,10 @@ public class TrailViewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    RecyclerView recyclerView;
-    TrailAdapter adapter;
-    TrailList tl;
-    View rootView;
+    private RecyclerView recyclerView;
+    private TrailAdapter adapter;
+    private TrailList tl;
+    private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -78,8 +83,14 @@ public class TrailViewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         //Implement everything needed for the recyclerView to work
-        tl = new TrailList();
 
+//        TrailManager tm = new TrailManager();
+//        tm.setLat("lat=" + 43.826069);
+//        tm.setLon("lon=" + -111.789528);
+//        Log.d("TRAIL_VIEW_FRAGMENT", "Getting Trails");
+//        tl = tm.getTrails();
+
+        tl = new TrailList();
         for (int i = 0; i < 10; i++) {
             tl.addTrail(new Trail(
                 "Pioneer Cabin Loop",
@@ -90,6 +101,13 @@ public class TrailViewFragment extends Fragment {
                 "Hyndman Peak",
                 8.8f,
                 "https://www.hikingproject.com/photo/7028488/lupine-are-abundant-along-the-pioneer-cabin-trail"));
+
+
+            //Drawable dividerDrawable = ContextCompat.getDrawable(this, R.drawable.divider);
+            //RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(dividerDrawable);
+            //recyclerView.addItemDecoration(dividerItemDecoration);
+
+
         }
 
         this.rootView = inflater.inflate(R.layout.fragment_trail_view, container, false);

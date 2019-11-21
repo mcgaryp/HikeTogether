@@ -14,7 +14,7 @@ import java.net.URL;
      *
      * Note that the URL provided can also have parameters including keys.
      */
-    public class HTTPHelper {
+    public class HTTPHelper implements Runnable {
 
         /**
          * Will send the HTTP GET Request per the URL provided and listen for the the response.
@@ -62,5 +62,10 @@ import java.net.URL;
                 System.out.println("ERROR: " + ioe);
                 return null;
             }
+        }
+
+        @Override
+        public void run() {
+
         }
     }

@@ -32,7 +32,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     @Override
     public TrailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_trail_list, null);
+        View view = inflater.inflate(R.layout.layout_trail_card, null);
         return new TrailViewHolder(view);
     }
 
@@ -43,7 +43,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.textViewTitle.setText(trail.getName());
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
-        holder.textViewPrice.setText(String.valueOf(trail.getRatingVotes()));
+        holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
 
         //TODO- Figure out how to convert this image URL to a Drawable
         //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(trail.getImgSmall(), null));

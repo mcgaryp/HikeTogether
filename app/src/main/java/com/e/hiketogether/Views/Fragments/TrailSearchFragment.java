@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
 /**
@@ -29,6 +32,8 @@ public class TrailSearchFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TrailManager tm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,5 +112,15 @@ public class TrailSearchFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    //This is called when the search button is pressed
+    public void onSearch(View view) {
+        tm.setLat("lat=" + 43.826069);
+        tm.setLon("lon=" + -111.789528);
+
+        TrailList tl = tm.getTrails();
+
+
     }
 }
