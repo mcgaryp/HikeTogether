@@ -121,12 +121,16 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // Now that we created an account lets go HOME
+    // TODO Receive the account
     public void onSuccess() {
         //Account created successfully!  Return to LoginActivity with their data
         //TODO- return the account info in the intent, so they can be logged in
+        // input extra
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", 1);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
+
+    // TODO Create spinner to let user know we are thinking
 }

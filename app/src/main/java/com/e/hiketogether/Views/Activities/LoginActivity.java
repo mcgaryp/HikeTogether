@@ -88,14 +88,17 @@ public class LoginActivity extends AppCompatActivity {
 
     // This will be called from the manager to let us know that the thread is complete.
     // We can login in now!
+    // TODO Receive the account
     public void setLoginSuccessful() {
         // They logged in!  Return to MainActivity with their data
-        // TODO sent the account info to the MainActivity
+        // TODO sent the account info to the MainActivity in extra in the intent
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
     }
+
+    // TODO Create spinner to let user know we are thinking
 
     // Start the CreateAccountActivity to create a personal account
     public void openCreateAccountActivity(View view) {
