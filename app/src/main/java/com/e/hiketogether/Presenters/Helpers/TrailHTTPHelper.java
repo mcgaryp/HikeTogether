@@ -12,13 +12,13 @@ import java.net.URL;
     /**
      * Helper class to send HTTP requests (the url) and receive responses.  Example use of the class:
      *
-     * HTTPHelper http = new HTTPHelper();
+     * TrailHTTPHelper http = new TrailHTTPHelper();
      * String result = http.readHTTP("http://api.open-notify.org/iss-now.json");
      *
      * Note that the URL provided can also have parameters including keys.
      */
-    public class HTTPHelper extends AsyncTask<String, Void, String> {
-        private static String TAG = "HTTP_HELPER";
+    public class TrailHTTPHelper extends AsyncTask<String, Void, String> {
+        private static String TAG = "Trail_HTTP_HELPER";
 
         /**
          * Will send the HTTP GET Request per the URL provided and listen for the the response.

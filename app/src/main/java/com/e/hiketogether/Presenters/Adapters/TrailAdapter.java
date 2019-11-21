@@ -1,6 +1,8 @@
 package com.e.hiketogether.Presenters.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
+import com.e.hiketogether.Presenters.Helpers.TrailHTTPHelper;
 import com.e.hiketogether.R;
+
+import java.util.concurrent.ExecutionException;
 
 /*
  * RecyclerView.Adapter
@@ -22,6 +28,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     private Context mCtx;
     private TrailList tl;
+    private DrawableHTTPHelper drawableHelper;
 
     public TrailAdapter(Context mCtx, TrailList tl) {
         this.mCtx = mCtx;
@@ -45,13 +52,27 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
 
-        //TODO- Figure out how to convert this image URL to a Drawable
-        //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(trail.getImgSmall(), null));
+        try {
+            Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
+            holder.imageView.setImageDrawable(trailImage);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
         return tl.getTrailList().size();
+    }
+
+    //This method goes through the new trail list and adds the items to the
+    //one owned by the adapter, so they are all visible
+    public void newAddeddata(TrailList newTl) {
+
+        for (int i = 0; i < newTl.getTrailList().size(); i++)
+            tl.addTrail(newTl.getTrailList().get(i));
+
+        notifyDataSetChanged();
     }
 
     class TrailViewHolder extends RecyclerView.ViewHolder{

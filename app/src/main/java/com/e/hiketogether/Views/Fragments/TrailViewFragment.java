@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,21 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.e.hiketogether.Models.DividerItemDecoration;
-import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TrailViewFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TrailViewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TrailViewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,31 +31,13 @@ public class TrailViewFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
-    private TrailList tl = new TrailList();
+    private TrailList tl;
     private View rootView;
 
     private OnFragmentInteractionListener mListener;
 
     public TrailViewFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrailViewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TrailViewFragment newInstance(String param1, String param2) {
-        TrailViewFragment fragment = new TrailViewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -86,21 +57,8 @@ public class TrailViewFragment extends Fragment {
         TrailManager tm = new TrailManager();
         tm.setLat("lat=" + 43.826069);
         tm.setLon("lon=" + -111.789528);
-        Log.d("TRAIL_VIEW_FRAGMENT", "Getting Trails");
+        tl = new TrailList();
         tl = tm.getTrails();
-
-//        tl = new TrailList();
-//        for (int i = 0; i < 10; i++) {
-//            tl.addTrail(new Trail(
-//                "Pioneer Cabin Loop",
-//                "A rugged, steep climb and descent taking you to and from the Pioneer Cabin",
-//                "Intermediate/Difficult",
-//                5.0f,
-//                4,
-//                "Hyndman Peak",
-//                8.8f,
-//                "https://www.hikingproject.com/photo/7028488/lupine-are-abundant-along-the-pioneer-cabin-trail"));
-        //}
 
         this.rootView = inflater.inflate(R.layout.fragment_trail_view, container, false);
 
@@ -112,6 +70,7 @@ public class TrailViewFragment extends Fragment {
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+            //adapter.newAddedData(tl);
         }
     }
 

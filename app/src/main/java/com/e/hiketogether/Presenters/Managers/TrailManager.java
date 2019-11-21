@@ -3,9 +3,8 @@ package com.e.hiketogether.Presenters.Managers;
 import android.util.Log;
 
 import com.e.hiketogether.BuildConfig;
-import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
-import com.e.hiketogether.Presenters.Helpers.HTTPHelper;
+import com.e.hiketogether.Presenters.Helpers.TrailHTTPHelper;
 import com.google.gson.Gson;
 
 import java.util.concurrent.ExecutionException;
@@ -61,10 +60,7 @@ public class TrailManager {
     }
 
     private String requestURL(String url) throws ExecutionException, InterruptedException {
-        String tlJson = "";
-        tlJson = new HTTPHelper().execute(url, tlJson).get();
-
-        return tlJson;
+        return new TrailHTTPHelper().execute(url).get();
     }
 
     //Gets trails through the latitude and longitude
