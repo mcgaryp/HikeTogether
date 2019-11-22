@@ -165,6 +165,7 @@ public class FireBaseHelper {
     }
 
     // Check to see if the username is taken
+    // TODO BROKEN
     public void exists(final Account account) {
         // Create a reference to the accounts
         CollectionReference reference = dataBase.collection("accounts");
@@ -173,6 +174,7 @@ public class FireBaseHelper {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //here?
                         if (task.isSuccessful()) {
                             Log.d(TAG, username + " has already been taken");
                             listener.onFail();
