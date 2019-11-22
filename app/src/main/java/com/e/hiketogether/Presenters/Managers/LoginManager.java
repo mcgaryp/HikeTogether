@@ -6,7 +6,6 @@ import android.widget.EditText;
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
 import com.e.hiketogether.Presenters.Interfaces.Listener;
-import com.e.hiketogether.Presenters.Interfaces.LoadListener;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 
 /**
@@ -76,8 +75,8 @@ public class LoginManager implements Listener {
             Log.d(TAG, e.getMessage());
             return;
         }
-        // TODO Send account to activity
-        activity.setLoginSuccessful();
+        // Send account to activity
+        activity.setLoginSuccessful(account);
     }
 
     @Override

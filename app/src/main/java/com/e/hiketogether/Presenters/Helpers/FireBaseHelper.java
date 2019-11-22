@@ -5,7 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Presenters.Interfaces.LoadListener;
 import com.e.hiketogether.Presenters.Interfaces.Listener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -15,16 +14,10 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.Gson;
 
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 /**
  * PURPOSE
@@ -41,22 +34,14 @@ public class FireBaseHelper {
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
     private Listener listener;
-    private LoadListener load;
     private String username;
-    private Gson gson;
 
     // Constructor for the firebase helper, We need to know the username to find the account
     public FireBaseHelper(String username,
                           Listener listener) {
         dataBase = FirebaseFirestore.getInstance();
         setUsername(username);
-        gson = new Gson();
-        // TODO fix bug
-        // Determine the type of listener and set accordingly
-//        if (listener instanceof LoadListener)
-//            setLoad(listener);
-//        else
-            setListener(listener);
+        setListener(listener);
     }
 
     // Save the account to the location that we have in the firebase
@@ -65,9 +50,7 @@ public class FireBaseHelper {
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
         user.put("password", account.getPassword());                        // temp storage of password
-//        user.put("password", gson.toJson(account.getSealedPassword()));   // Hopefully the future wat to store a password
         user.put("email", account.getEmail());
-//        user.put("key", gson.toJson(account.getKey()));                   // Hopefully the way to store the key OR come up with better implementation
         user.put("trails", account.getFavTrails());
 //        user.put("settings", account.getSettings());
 
@@ -115,9 +98,6 @@ public class FireBaseHelper {
                         account.setUsername(temp.get("username").toString());
 //                        account.setFavTrails(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
-//                        if (listener instanceof LoadListener) {
-//                            load.onLoadSuccess(account);
-//                        }
                         listener.onLoadSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
@@ -190,5 +170,4 @@ public class FireBaseHelper {
     // Setter Functions
     private void setListener(Listener listener) { this.listener = listener; }
     private void setUsername(String username)   { this.username = username; }
-    private void setLoad(LoadListener load)     { this.load = load;         }
 }

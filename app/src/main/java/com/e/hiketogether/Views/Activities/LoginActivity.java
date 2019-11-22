@@ -88,8 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // This will be called from the manager to let us know that the thread is complete.
     // We can login in now!
-    // TODO Receive the account
-    public void setLoginSuccessful() {
+    public void setLoginSuccessful(Account account) {
         // They logged in!  Return to MainActivity with their data
         // TODO sent the account info to the MainActivity in extra in the intent
         Intent returnIntent = new Intent();
