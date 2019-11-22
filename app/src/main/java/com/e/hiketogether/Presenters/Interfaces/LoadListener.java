@@ -10,4 +10,5 @@ import com.e.hiketogether.Models.Account;
  */
 public interface LoadListener extends Listener {
     void onLoadSuccess(Account account);
+
 }

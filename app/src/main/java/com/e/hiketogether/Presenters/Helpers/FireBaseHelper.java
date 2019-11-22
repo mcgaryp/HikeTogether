@@ -46,10 +46,12 @@ public class FireBaseHelper {
     private Gson gson;
 
     // Constructor for the firebase helper, We need to know the username to find the account
-    public FireBaseHelper(String username, Listener listener) {
+    public FireBaseHelper(String username,
+                          Listener listener) {
         dataBase = FirebaseFirestore.getInstance();
         setUsername(username);
         gson = new Gson();
+        // TODO fix bug
         // Determine the type of listener and set accordingly
 //        if (listener instanceof LoadListener)
 //            setLoad(listener);
@@ -92,7 +94,6 @@ public class FireBaseHelper {
     }
 
     // Idea is to pull the date from the account and return it in account form
-    // TODO solve the encryption saving of a key
     public void loadAccount() {
         // Need an account to save the info to
         Log.d(TAG, "Attempting to load account.");
@@ -108,15 +109,11 @@ public class FireBaseHelper {
                         // What did we find?
                         Log.d(TAG, "DocumentSnapshot data:\n" + document.getData());
                         Map<String, Object> temp = document.getData();
-                        // this next line is broken
-//                        Account account = new Account(gson.fromJson(temp.get("key").toString(), KeyPair.class));
                         Account account = new Account();
                         account.setEmail(temp.get("email").toString());
-//                        account.setSealedPassword(gson.fromJson(temp.get("password").toString(), SealedObject.class));
-//                        account.setPassword(account.decryptPassword(account.getSealedPassword()));
                         account.setPassword(temp.get("password").toString());
                         account.setUsername(temp.get("username").toString());
-//                        account.setTrailList(temp.get("trailsList"));
+//                        account.setFavTrails(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
                         if (listener instanceof LoadListener) {
                             load.onLoadSuccess(account);

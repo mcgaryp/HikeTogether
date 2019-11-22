@@ -75,6 +75,7 @@ public class LoginManager implements LoadListener {
             Log.d(TAG, e.getMessage());
             return;
         }
+        // TODO Send account to activity
         activity.setLoginSuccessful();
     }
 
