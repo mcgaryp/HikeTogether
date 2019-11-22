@@ -1,5 +1,7 @@
 package com.e.hiketogether.Presenters.Interfaces;
 
+import com.e.hiketogether.Models.Account;
+
 /**
  * PURPOSE
  *      This is a listener interface intended to listen and let managers know if some
@@ -8,4 +10,5 @@ package com.e.hiketogether.Presenters.Interfaces;
 public interface Listener {
     void onSuccess();
     void onFail();
+    void onLoadSuccess(Account account);
 }

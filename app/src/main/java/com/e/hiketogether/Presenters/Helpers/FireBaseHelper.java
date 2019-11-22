@@ -115,9 +115,10 @@ public class FireBaseHelper {
                         account.setUsername(temp.get("username").toString());
 //                        account.setFavTrails(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
-                        if (listener instanceof LoadListener) {
-                            load.onLoadSuccess(account);
-                        }
+//                        if (listener instanceof LoadListener) {
+//                            load.onLoadSuccess(account);
+//                        }
+                        listener.onLoadSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.

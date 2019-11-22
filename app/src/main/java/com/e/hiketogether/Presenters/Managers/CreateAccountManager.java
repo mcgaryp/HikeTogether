@@ -100,6 +100,11 @@ public class CreateAccountManager implements Listener {
         activity.displayToast("Could not Create Account.");
     }
 
+    @Override
+    public void onLoadSuccess(Account account) {
+
+    }
+
     // Setter Functions
     private void setActivity(CreateAccountActivity activity) { this.activity = activity; }
 }

@@ -27,11 +27,15 @@ public class Account {
 
     // Creating a new account from the create account manager
     public Account(String username, String password, String email) {
-        setUsername(username);                  // Set the Username
-        setPassword(hashPassword(password));    // Set the Password
-        setEmail(email);                        // Set the email
-        settings = new Settings();              // Set new Settings
-        favTrails = new ArrayList<>();          // Set the trails to and empty list
+        favTrails = new ArrayList<>();              // Set the trails to and empty list
+        settings = new Settings();                  // Set new Settings
+        setUsername(username);                      // Set the Username
+        setEmail(email);                            // Set the email
+        try {
+            setPassword(hashPassword(password));    // Set the Password
+        } catch (Exception e) {
+            Log.d(TAG, e.getMessage());
+        }
 
         Log.d(TAG, "Succesful creation of account.");
         Log.d(TAG, "Username: " + getUsername());
@@ -40,24 +44,29 @@ public class Account {
         Log.d(TAG, "Email: " + getEmail());
     }
 
-    public String hashPassword(String password) {
-        String hashTemp = null;
-//        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-//        random.nextBytes(salt);
-        Log.d(TAG, "Attempting to hash password");
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-            messageDigest.update(salt);
-            byte[] hashedPassword = messageDigest.digest(password.getBytes(StandardCharsets.UTF_8));
-            hashTemp = hashedPassword.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+    private static String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
         }
-        // Display in the log just to make sure that it worked right!
-        Log.d(TAG, "Successfully created hashed password");
-        Log.d(TAG, "Hasehd password: " + hashTemp);
-        return hashTemp;
+        return hexString.toString();
+    }
+
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest; {
+            try {
+                digest = MessageDigest.getInstance("SHA-256");
+            } catch (NoSuchAlgorithmException e) {
+                throw e;
+            }
+        }
+
+        byte[] encodedhash = digest.digest(
+                password.getBytes(StandardCharsets.UTF_8));
+        password = bytesToHex(encodedhash);
+        return password;
     }
 
     // ADD a Trail to the accounts favTrails
