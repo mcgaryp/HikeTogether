@@ -47,7 +47,7 @@ public class FireBaseHelper {
     }
 
     // Save the account to the location that we have in the firebase
-    public void saveAccount(Account account) {
+    public void saveAccount(final Account account) {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
@@ -66,7 +66,7 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        listener.onSuccess();
+                        listener.onLoadSuccess(account);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

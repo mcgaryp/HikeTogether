@@ -86,6 +86,7 @@ public class LoginManager implements Listener {
     public void onFail() {
         Log.d(TAG, "We did not find the account!");
         activity.displayToast("Account not Found");
+        activity.hideProgressBar();
     }
 
     // Setter Functions

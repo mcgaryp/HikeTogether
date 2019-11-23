@@ -1,15 +1,18 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Managers.CreateAccountManager;
 import com.e.hiketogether.R;
 
@@ -22,6 +25,7 @@ import com.e.hiketogether.R;
 public class CreateAccountActivity extends AppCompatActivity {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_ACTIVITY";
+    private ProgressBar progressBar;
     private String secondPassword;
     private EditText editText;
     private String password;
@@ -33,6 +37,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        progressBar = findViewById(R.id.createAccountProgressBar);
+        hideProgessBar();
     }
 
     // Takes input and creates account!
@@ -103,7 +109,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             accountManager.crossCheckPasswords(password, secondPassword);
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
-            new Toast(getApplicationContext()).makeText(getApplicationContext(),"Pass words do not match", Toast.LENGTH_LONG).show();
+            displayToast("Passwords do not match");
             return;
         }
         // reset the setError
@@ -111,6 +117,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // Attempt to Create the account
         accountManager.createAccount(username, password, email);
+        displayProgressBar();
     }
 
     // Display a toast
@@ -120,17 +127,30 @@ public class CreateAccountActivity extends AppCompatActivity {
                 .show();
     }
 
-    // Now that we created an account lets go HOME
-    // TODO Receive the account
-    public void onSuccess() {
-        //Account created successfully!  Return to LoginActivity with their data
-        //TODO- return the account info in the intent, so they can be logged in
-        // input extra
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", 1);
-        setResult(Activity.RESULT_OK, returnIntent);
-        finish();
+    // Hide Progress bar
+    @SuppressLint("WrongConstant")
+    public void hideProgessBar() {
+        progressBar.setVisibility(8);
     }
 
-    // TODO Create spinner to let user know we are thinking
+    // Display Progress bar
+    @SuppressLint("WrongConstant")
+    public void displayProgressBar() {
+        progressBar.setVisibility(0);
+    }
+
+    // Now that we created an account lets go HOME
+    // TODO Something here is stooping once it getts to the Login activity
+    public void onSuccess(Account account) {
+        //Account created successfully!  Return to LoginActivity with their data
+        // Return the account info in the intent, so they can be logged in
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result", 1);
+        Bundle extra = account.bundleAccount();
+        returnIntent.putExtra("account", extra);
+        Log.d(TAG, "Bundle name is \'account\'");
+        setResult(Activity.RESULT_OK, returnIntent);
+        hideProgessBar();
+        finish();
+    }
 }

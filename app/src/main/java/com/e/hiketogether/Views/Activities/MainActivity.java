@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity
                                      TrailViewFragment.OnFragmentInteractionListener {
 
     // VARIABLES
-    private static final String TAG = "HOME_ACTIVITY"; //Log tag
+    private static final String TAG = "MAIN_ACTIVITY"; //Log tag
 
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
@@ -132,15 +133,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d(TAG, "on activity result success.");
+        // TODO fails to enter this if statement
         if (requestCode == LOGIN_SUCCESSFUL) {
+            Log.d(TAG, "LOGIN_Succcessful if statement");
             if (resultCode == RESULT_OK) {
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
-
+                Log.d(TAG, "RESULT oK beginning if.");
                 //TODO do something with the intent here
                 // maybe save the account
                 account = data.getBundleExtra("account");
+                Log.d(TAG, "Account username: " + account.getString("username"));
             }
         }
     }
