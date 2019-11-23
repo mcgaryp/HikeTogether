@@ -25,7 +25,8 @@ public class CreateAccountManager implements Listener {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        new FireBaseHelper(username, this).saveAccount(new Account(username,password,email));//exists(new Account(username,password,email));
+        new FireBaseHelper(username, this).exists(new Account(username,password,email));
+        //saveAccount(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match

@@ -1,5 +1,6 @@
 package com.e.hiketogether.Models;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
@@ -76,6 +77,17 @@ public class Account {
             Log.d(TAG, "Successfully added a Favorites Trail.");
         else
             throw new Exception("Failed to add Trail to Favorites");
+    }
+
+    // Bundle the account to sent to activity
+    public Bundle bundleAccount() {
+        Bundle extra = new Bundle();
+        extra.putString("username", getUsername());
+        extra.putString("password", getPassword());
+        extra.putString("email", getEmail());
+//        extra.putString("favoriteTrails", getFavTrails());
+//        extra.putString("settings", getSettings());
+        return extra;
     }
 
     // Getter functions

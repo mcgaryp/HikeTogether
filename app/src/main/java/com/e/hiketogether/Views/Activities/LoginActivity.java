@@ -1,11 +1,13 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,11 +33,12 @@ public class LoginActivity extends AppCompatActivity {
     private static final int ACCOUNT_CREATION_FAILED = 0; //resultCode
     private static final int ACCOUNT_CREATION_SUCCESSFUL = 1; //resultCode
 
+    private LoginManager loginManager;
+    private ProgressBar progressBar;
     private String username;
     private String password;
-    private LoginManager loginManager;
     private EditText text;
-    private Account account;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,20 @@ public class LoginActivity extends AppCompatActivity {
 
         // Send information to Manager
         loginManager = new LoginManager(this);
+        progressBar = findViewById(R.id.progressBar);
+        hideProgressBar();
+    }
+
+    // Start the CreateAccountActivity to create a personal account
+    public void openCreateAccountActivity(View view) {
+        Intent loginIntent = new Intent(this, CreateAccountActivity.class);
+        startActivityForResult(loginIntent, CREATE_ACCOUNT_REQUEST);
+    }
+
+    // BUTON ONCLICKS
+    // Return an empty account
+    public void onSkip(View view) {
+        setLoginSuccessful(new Account());
     }
 
     // After the user has entered the username and password then we need to find there account
@@ -79,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         // Get information back from LoginManager and return to the MainActivity
         try {
             loginManager.confirmAccount(username);
+            displayProgressBar();
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
             displayToast("Account does not exist");
@@ -90,19 +108,31 @@ public class LoginActivity extends AppCompatActivity {
     // We can login in now!
     public void setLoginSuccessful(Account account) {
         // They logged in!  Return to MainActivity with their data
-        // TODO sent the account info to the MainActivity in extra in the intent
         Intent returnIntent = new Intent();
         returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
+        // Sent the account info to the MainActivity in extra in the intent
+        Bundle extras = account.bundleAccount();
+        returnIntent.putExtra("account", extras);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
+        hideProgressBar();
     }
 
-    // TODO Create spinner to let user know we are thinking
+    // Display progress bar
+    @SuppressLint("WrongConstant")
+    public void displayProgressBar() {
+        progressBar.setVisibility(0);
+    }
 
-    // Start the CreateAccountActivity to create a personal account
-    public void openCreateAccountActivity(View view) {
-        Intent loginIntent = new Intent(this, CreateAccountActivity.class);
-        startActivityForResult(loginIntent, CREATE_ACCOUNT_REQUEST);
+    // Hide progress bar
+    @SuppressLint("WrongConstant")
+    public void  hideProgressBar() {
+        progressBar.setVisibility(8);
+    }
+
+    // Display any general toast
+    public void displayToast(String message) {
+        new Toast(getApplicationContext()).makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
     }
 
     // When the CreateAccountActivity is closed, it will return information to this function
@@ -127,9 +157,4 @@ public class LoginActivity extends AppCompatActivity {
 
     // GETTERS
     public String getPassword() { return password; }
-
-    // Display any general toast
-    public void displayToast(String message) {
-        new Toast(getApplicationContext()).makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
-    }
 }

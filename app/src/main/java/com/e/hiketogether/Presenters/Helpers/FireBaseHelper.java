@@ -29,6 +29,7 @@ import java.util.Map;
  *      .update() updates a specific part ie .update("username", "newUsername").
  *      .add(gsonObject or string) creates document id for you.
  */
+// TODO have the listener in each individual function instead of being a local variable
 public class FireBaseHelper {
     // VARIABLES
     private static final String TAG = "FIRE_BASE_HELPER";
@@ -49,10 +50,10 @@ public class FireBaseHelper {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
-        user.put("password", account.getPassword());                        // temp storage of password
+        user.put("password", account.getPassword());
         user.put("email", account.getEmail());
         user.put("trails", account.getFavTrails());
-//        user.put("settings", account.getSettings());
+        user.put("settings", account.getSettings());
 
         Log.d(TAG, "Created HashMap: " + user.values());
 
@@ -155,13 +156,18 @@ public class FireBaseHelper {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //here?
                         if (task.isSuccessful()) {
-                            Log.d(TAG, username + " has already been taken");
-                            listener.onFail();
+                            QuerySnapshot document = task.getResult();
+                            if (!document.isEmpty()) {
+                                Log.d(TAG, username + " has already been taken");
+                                listener.onFail();
+                            } else {
+                                Log.d(TAG, username + " was not found so continue");
+                                saveAccount(account);
+                            }
                         } else {
-                            Log.d(TAG, username = " was not found so continue");
-                            saveAccount(account);
+                            Log.d(TAG, "Error reading Firebase.");
+                            listener.onFail();
                         }
                     }
                 });

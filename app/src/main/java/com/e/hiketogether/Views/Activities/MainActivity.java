@@ -43,11 +43,15 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fm;
     private String currentFragment = "";
+    Bundle account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivityForResult(loginIntent, LOGIN_REQUEST);
 
         fm = getSupportFragmentManager();
         //Initialize the screen to be on the home fragment initially
@@ -119,8 +123,7 @@ public class MainActivity extends AppCompatActivity
 
     //When user clicks "Login", this function will create the Activity and receive the user's account
     public void openLoginActivity(View view) {
-        Intent loginIntent = new Intent(this, LoginActivity.class);
-        startActivityForResult(loginIntent, LOGIN_REQUEST);
+
     }
 
     //When the Login Activity is closed, it will return information to this function
@@ -136,8 +139,8 @@ public class MainActivity extends AppCompatActivity
                 //The intent will have pertinent information that needs to be passed back in it
 
                 //TODO do something with the intent here
-                // maybe save the account?
-//                account = data.getAccount()
+                // maybe save the account
+                account = data.getBundleExtra("account");
             }
         }
     }

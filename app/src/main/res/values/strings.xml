@@ -34,4 +34,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bluebackground">blueBackground</string>
+    <string name="create_your_own_account">Create Your Own Account</string>
+    <string name="enter_your_account_info_to_begin">Enter your account info to begin</string>
 </resources>
