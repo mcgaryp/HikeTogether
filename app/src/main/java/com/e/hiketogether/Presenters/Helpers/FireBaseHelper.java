@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -147,19 +148,19 @@ public class FireBaseHelper {
     }
 
     // Check to see if the username is taken
-    // TODO BROKEN
     public void exists(final Account account) {
         // Create a reference to the accounts
         CollectionReference reference = dataBase.collection("accounts");
         // Make a search query to try and find the username
-        reference.whereEqualTo("username", username).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        reference.whereEqualTo("username",username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             QuerySnapshot document = task.getResult();
-                            if (!document.isEmpty()) {
-                                Log.d(TAG, username + " has already been taken");
+                            List<DocumentSnapshot> list = document.getDocuments();
+                            // if the query list is larger than 0 then we found something
+                            if (list.size() > 0) {
+                                Log.d(TAG, username + " was found, choose new username.");
                                 listener.onFail();
                             } else {
                                 Log.d(TAG, username + " was not found so continue");
