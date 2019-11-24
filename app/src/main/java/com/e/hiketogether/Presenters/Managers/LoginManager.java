@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.LoadListener;
+import com.e.hiketogether.Presenters.Interfaces.Listener;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 
 /**
@@ -13,7 +13,7 @@ import com.e.hiketogether.Views.Activities.LoginActivity;
  *      This class will handle the logic behind login into our database and
  *      send the user to their own unique environment.
  */
-public class LoginManager implements LoadListener {
+public class LoginManager implements Listener {
     // VARIABLES
     private static final String TAG = "LOGIN_MANAGER"; // Log TAG
     private LoginActivity activity;
@@ -70,12 +70,13 @@ public class LoginManager implements LoadListener {
         Log.d(TAG, "We found the account!");
         try {
             Log.d(TAG, "Checking if passwords match.");
-            confirmPassword(account, activity.getPassword());
+            confirmPassword(account, account.hashPassword(activity.getPassword()));
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             return;
         }
-        activity.setLoginSuccessful();
+        // Send account to activity
+        activity.setLoginSuccessful(account);
     }
 
     @Override
@@ -85,6 +86,7 @@ public class LoginManager implements LoadListener {
     public void onFail() {
         Log.d(TAG, "We did not find the account!");
         activity.displayToast("Account not Found");
+        activity.hideProgressBar();
     }
 
     // Setter Functions

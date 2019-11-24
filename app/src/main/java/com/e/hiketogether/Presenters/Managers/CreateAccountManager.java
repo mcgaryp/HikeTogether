@@ -1,5 +1,6 @@
 package com.e.hiketogether.Presenters.Managers;
 
+import android.util.Log;
 import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
@@ -26,6 +27,7 @@ public class CreateAccountManager implements Listener {
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
         new FireBaseHelper(username, this).exists(new Account(username,password,email));
+        //saveAccount(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match
@@ -92,12 +94,19 @@ public class CreateAccountManager implements Listener {
 
     // Listener Functions
     @Override public void onSuccess() {
-        activity.displayToast("Account Created!");
-        activity.onSuccess();
+
     }
 
     @Override public void onFail() {
-        activity.displayToast("Could not Create Account.");
+        activity.displayToast("Username Already Taken.");
+        activity.hideProgessBar();
+    }
+
+    @Override
+    public void onLoadSuccess(Account account) {
+        Log.d(TAG,"");
+        activity.displayToast("Account Created!");
+        activity.onSuccess(account);
     }
 
     // Setter Functions

@@ -7,7 +7,7 @@
     tools:context=".Views.Activities.MainActivity">
 
     <ImageView
-        android:id="@+id/background"
+        android:id="@+id/backgroundLogin"
         android:layout_width="567dp"
         android:layout_height="746dp"
         android:layout_marginBottom="12dp"
