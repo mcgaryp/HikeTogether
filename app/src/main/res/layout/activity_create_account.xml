@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Views.Activities.CreateAccountActivity">
 
+    <ImageView
+        android:id="@+id/backgroundLogin3"
+        android:layout_width="567dp"
+        android:layout_height="746dp"
+        android:contentDescription="blueBackground"
+        android:src="@drawable/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-79dp" />
+
     <ProgressBar
         android:id="@+id/createAccountProgressBar"
         style="?android:attr/progressBarStyle"
@@ -18,16 +28,6 @@
         app:layout_constraintTop_toBottomOf="@+id/createEmail"
         app:layout_constraintVertical_bias="0.100000024"
         tools:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/backgroundLogin"
-        android:layout_width="567dp"
-        android:layout_height="746dp"
-        android:contentDescription="@string/bluebackground"
-        android:src="@drawable/background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -129,7 +129,7 @@
         android:id="@+id/createAccountButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/rounded_button"
         android:onClick="onCreateAccount"
         android:paddingStart="10dp"

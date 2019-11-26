@@ -10,20 +10,17 @@
         android:id="@+id/backgroundLogin"
         android:layout_width="567dp"
         android:layout_height="746dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="67dp"
         android:contentDescription="blueBackground"
         android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFF"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,27 +30,27 @@
 
     <ImageButton
         android:id="@+id/toolbar_button1"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="0"
         android:layout_height="?attr/actionBarSize"
         android:background="?android:selectableItemBackground"
         android:onClick="changeView"
-        android:src="@drawable/icon_home_small"
+        android:src="@drawable/ic_home_black_24dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button2"
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/icon_home_large" />
+        tools:srcCompat="@drawable/ic_home_black_24dp" />
 
     <ImageButton
         android:id="@+id/toolbar_button2"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="0"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginStart="80dp"
         android:background="?android:selectableItemBackground"
         android:onClick="changeView"
-        android:src="@drawable/icon_search_small"
+        android:src="@drawable/ic_search_black_50dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button3"
@@ -61,51 +58,52 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button1"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/icon_search_small" />
+        tools:srcCompat="@drawable/ic_search_black_50dp" />
 
     <ImageButton
         android:id="@+id/toolbar_button3"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?android:selectableItemBackground"
         android:onClick="changeView"
-        android:src="@drawable/icon_heart_small"
+        android:src="@drawable/ic_star_black_50dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button2"
-        tools:srcCompat="@drawable/icon_heart_small" />
+        tools:srcCompat="@drawable/ic_star_black_50dp" />
 
     <ImageButton
         android:id="@+id/toolbar_button4"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?android:selectableItemBackground"
         android:onClick="changeView"
-        android:src="@drawable/icon_world_small"
+        android:src="@drawable/ic_map_black_50dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toolbar_button5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button3"
-        tools:srcCompat="@drawable/icon_world_small" />
+        tools:srcCompat="@drawable/ic_map_black_50dp" />
 
     <ImageButton
         android:id="@+id/toolbar_button5"
-        android:layout_width="?attr/actionBarSize"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?android:selectableItemBackground"
         android:onClick="changeView"
-        android:src="@drawable/icon_settings_small"
+        android:src="@drawable/ic_settings_black_50dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbar_button4"
-        tools:srcCompat="@drawable/icon_settings_small" />
+        tools:src="@drawable/ic_settings_black_50dp"
+        tools:srcCompat="@drawable/ic_settings_black_50dp" />
 
     <FrameLayout
         android:id="@+id/template_fragment"
@@ -114,8 +112,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

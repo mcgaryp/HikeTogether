@@ -1,13 +1,7 @@
-<!-- TODO the passwordInput when hit enter goes to create account focus and not to login
-        basicly after hitting enter in the password block, if the user hits enter again
-        without just hitting login they will be taken to the create account activity.
-        The focus next or down or something like that on the password need to be set to the
-        login button not the create account button-->
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/backgroundLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Views.Activities.LoginActivity"
