@@ -10,11 +10,11 @@
         android:id="@+id/backgroundLogin3"
         android:layout_width="567dp"
         android:layout_height="746dp"
-        android:contentDescription="blueBackground"
+        android:layout_marginBottom="63dp"
         android:src="@drawable/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-79dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/createAccountProgressBar"

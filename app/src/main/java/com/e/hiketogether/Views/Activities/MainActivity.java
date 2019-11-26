@@ -9,12 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.e.hiketogether.BuildConfig;
-import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         fm = getSupportFragmentManager();
         //Initialize the screen to be on the home fragment initially
-        changeView(findViewById(R.id.toolbar_button1));
+        changeView(findViewById(R.id.toolbarHomeButton));
     }
 
     //When a button in the toolbar is clicked, this will open the correct fragment/ activity
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         ft.add(R.id.template_fragment, template_fragment);
 
         //They clicked the home button, open the home fragment
-        if (view == findViewById(R.id.toolbar_button1) && !currentFragment.equals("HOME")) {
+        if (view == findViewById(R.id.toolbarHomeButton) && !currentFragment.equals("HOME")) {
             template_fragment = new HomeFragment();
             fm.findFragmentByTag("HOME");
 
@@ -78,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "HOME";
         }
         //They clicked the trail search button, open the search fragment
-        else if (view == findViewById(R.id.toolbar_button2) && !currentFragment.equals("TRAIL_SEARCH")) {
+        else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment.equals("TRAIL_SEARCH")) {
             template_fragment = new TrailSearchFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -87,7 +84,7 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "TRAIL_SEARCH";
         }
         //They clicked the favorites button, open the favorites fragment
-        else if (view == findViewById(R.id.toolbar_button3) && !currentFragment.equals("FAVORITES")) {
+        else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
             template_fragment = new FavoritesFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -96,7 +93,7 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "FAVORITES";
         }
         //They clicked the map button, open the map trail fragment
-        else if (view == findViewById(R.id.toolbar_button4) && !currentFragment.equals("MAP_TRAIL")) {
+        else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
             template_fragment = new TrailViewFragment();
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "MAP_TRAIL";
         }
         //They clicked the settings icon, open the settings activity
-        else if (view == findViewById(R.id.toolbar_button5) && !currentFragment.equals("SETTINGS")) {
+        else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
 

@@ -37,4 +37,9 @@
     <string name="bluebackground">blueBackground</string>
     <string name="create_your_own_account">Create Your Own Account</string>
     <string name="enter_your_account_info_to_begin">Enter your account info to begin</string>
+    <string name="search_bar">Search Bar</string>
+    <string name="home_button">Home Button</string>
+    <string name="searchbutton">SearchButton</string>
+    <string name="map_button">Map Button</string>
+    <string name="settings_button">Settings Button</string>
 </resources>
