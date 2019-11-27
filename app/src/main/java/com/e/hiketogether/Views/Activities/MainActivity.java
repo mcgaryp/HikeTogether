@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,11 +39,10 @@ public class MainActivity extends AppCompatActivity
 
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
-    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
-    FragmentManager fm;
+    private FragmentManager fm;
     private String currentFragment = "";
-    Bundle account;
+    private Bundle account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,12 +121,6 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
-
-    //When user clicks "Login", this function will create the Activity and receive the user's account
-    public void openLoginActivity(View view) {
-
-    }
-
     //When the Login Activity is closed, it will return information to this function
     //Two codes indicate whether the process was successful, and any important data
     //Is return through the intent
@@ -135,19 +129,24 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "on activity result success.");
         Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
-        // TODO fails to enter this if statement
-        if (requestCode == LOGIN_SUCCESSFUL) {
+        if (requestCode == LOGIN_REQUEST) {
             Log.d(TAG, "LOGIN_Succcessful if statement");
             if (resultCode == RESULT_OK) {
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
                 Log.d(TAG, "RESULT oK beginning if.");
-                //TODO do something with the intent here
-                // maybe save the account
                 account = data.getBundleExtra("account");
                 Log.d(TAG, "Account username: " + account.getString("username"));
             }
+            if (resultCode == LOGIN_FAILED) {
+                displayToast("Failed to Login");
+            }
         }
+
+    }
+
+    private void displayToast(String message) {
+        new Toast(getApplicationContext()).makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
     }
 
     @Override

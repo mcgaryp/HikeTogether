@@ -30,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final int LOGIN_SUCCESSFUL = 1;              //resultCode for MainActivity
 
     private static final int CREATE_ACCOUNT_REQUEST = 200;      //requestCode
-    private static final int ACCOUNT_CREATION_FAILED = 0;       //resultCode
-    private static final int ACCOUNT_CREATION_SUCCESSFUL = 1;   //resultCode
 
     private LoginManager loginManager;
     private ProgressBar progressBar;
@@ -111,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     public void setLoginSuccessful(Account account) {
         // They logged in!  Return to MainActivity with their data
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
+        returnIntent.putExtra("requestCode", LOGIN_SUCCESSFUL);
         // Sent the account info to the MainActivity in extra in the intent
         Bundle extras = account.bundleAccount();
         returnIntent.putExtra("account", extras);
@@ -125,10 +123,9 @@ public class LoginActivity extends AppCompatActivity {
     public void setLoginSuccessful(Bundle account) {
         // They logged in!  Return to MainActivity with their data
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", LOGIN_SUCCESSFUL);
         // Sent the account info to the MainActivity in extra in the intent
         returnIntent.putExtra("account", account);
-        setResult(Activity.RESULT_OK, returnIntent);
+        setResult(RESULT_OK, returnIntent);
         finish();
         hideProgressBar();
         Log.d(TAG, "Login in from Create Account Screen.");
@@ -154,13 +151,12 @@ public class LoginActivity extends AppCompatActivity {
     // When the CreateAccountActivity is closed, it will return information to this function
     // Two codes indicate whether the process was successful, and any important data
     // Is returned through the intent
-    // TODO this where the activity goes after calling bundle set on login success
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "ON ACTIVITY RESULT");
-        // TODO not getting into the if statement
-        if (requestCode == ACCOUNT_CREATION_SUCCESSFUL) {
+        Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
+        if (requestCode == CREATE_ACCOUNT_REQUEST) {
             Log.d(TAG, "ON CREATION ACCOUNT SUCCESSFUL if statement");
             if (resultCode == RESULT_OK) {
                 //The user's account was created!
@@ -171,6 +167,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Log the user in AUTOMATICALLY with the account they just created
                 setLoginSuccessful(account);
             }
+            if (resultCode == LOGIN_FAILED)
+                displayToast("Login Failed While Attempting to Create Account");
         }
     }
 

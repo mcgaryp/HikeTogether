@@ -145,7 +145,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         //Account created successfully!  Return to LoginActivity with their data
         // Return the account info in the intent, so they can be logged in
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", 1);
         Bundle extra = account.bundleAccount();
         returnIntent.putExtra("account", extra);
         Log.d(TAG, "Bundle name is \'account\'");
