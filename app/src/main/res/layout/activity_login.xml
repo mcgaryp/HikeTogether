@@ -34,6 +34,7 @@
         android:paddingEnd="20dp"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +58,7 @@
         android:paddingEnd="20dp"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,6 +96,34 @@
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <Button
+        android:id="@+id/forgotUsernameButton"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button"
+        android:focusable="auto"
+        android:focusableInTouchMode="true"
+        android:onClick="onForgotPassword"
+        android:text="@string/forgot_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createAccountButton" />
+
+    <Button
+        android:id="@+id/forgotPasswordButton"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_button"
+        android:focusable="auto"
+        android:focusableInTouchMode="true"
+        android:onClick="onForgotPassword"
+        android:text="@string/forgot_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotUsernameButton" />
+
+    <Button
         android:id="@+id/skipButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -122,10 +152,10 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccountButton"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

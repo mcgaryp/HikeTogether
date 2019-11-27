@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         // Send information to Manager
         loginManager = new LoginManager(this);
         progressBar = findViewById(R.id.loginProgressBar);
+        progressBar.bringToFront();
         hideProgressBar();
     }
 
@@ -61,6 +62,18 @@ public class LoginActivity extends AppCompatActivity {
     // Return an empty account
     public void onSkip(View view) {
         setLoginSuccessful(new Account());
+    }
+
+    // The user forgot their username!!
+    @SuppressLint("ResourceType")
+    public void onForgotUsername(View view) {
+        setContentView(R.id.forgot_username);
+    }
+
+    // the user forgot their password!!
+    @SuppressLint("ResourceType")
+    public void onForgotPassword(View view) {
+        setContentView(R.id.forgot_password);
     }
 
     // After the user has entered the username and password then we need to find there account

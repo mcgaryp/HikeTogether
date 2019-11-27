@@ -38,6 +38,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         progressBar = findViewById(R.id.createAccountProgressBar);
+        progressBar.bringToFront();
         hideProgessBar();
     }
 
