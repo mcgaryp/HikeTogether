@@ -48,4 +48,9 @@
     <string name="new_password">New Password</string>
     <string name="verify_new_password">Verify New Password</string>
     <string name="recover_username">Recover Username</string>
+    <string name="settings">Settings</string>
+    <string name="change_background_style">Change Background Style</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="change_password">Change Password</string>
 </resources>

@@ -141,7 +141,6 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // Now that we created an account lets go HOME
-    // TODO Something here is stooping once it getts to the Login activity
     public void onSuccess(Account account) {
         //Account created successfully!  Return to LoginActivity with their data
         // Return the account info in the intent, so they can be logged in
