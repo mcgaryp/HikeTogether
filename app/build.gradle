@@ -42,8 +42,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.2.1'      // Firestore CLOUD SERVICES
     implementation 'com.google.firebase:firebase-storage:19.1.0'        // Firebase Cloud Storage
     implementation 'com.google.code.gson:gson:2.8.6'                    // GSON
-    implementation 'androidx.cardview:cardview:1.0.0'                   //CardView for TrailViewFragment
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'           //RecyclerView for TrailViewFragment
+    implementation 'androidx.cardview:cardview:1.0.0'
+    //CardView for TrailViewFragment
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //RecyclerView for TrailViewFragment
 
 }
 

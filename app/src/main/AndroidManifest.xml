@@ -19,9 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Views.Activities.CreateAccountActivity" />
-        <activity
-            android:name=".Views.Activities.SettingsActivity"
-            android:label="@string/title_activity_settings" />
         <activity android:name=".Views.Activities.LoginActivity">
         </activity>
     </application>

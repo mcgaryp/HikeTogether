@@ -17,6 +17,7 @@ import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
 import com.e.hiketogether.Views.Fragments.HomeFragment;
 import com.e.hiketogether.Views.Fragments.MapTrailFragment;
+import com.e.hiketogether.Views.Fragments.SettingsFragment;
 import com.e.hiketogether.Views.Fragments.TrailSearchFragment;
 import com.e.hiketogether.Views.Fragments.TrailViewFragment;
 
@@ -103,8 +104,10 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the settings icon, open the settings activity
         else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            template_fragment = new SettingsFragment();
+            ft.replace(R.id.template_fragment, template_fragment);
+            ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+            ft.commit();
 
             currentFragment = "SETTINGS";
         }
@@ -131,6 +134,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "on activity result success.");
+        Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
         // TODO fails to enter this if statement
         if (requestCode == LOGIN_SUCCESSFUL) {
             Log.d(TAG, "LOGIN_Succcessful if statement");
