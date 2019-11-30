@@ -47,11 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         // Send information to Manager
         loginManager = new LoginManager(this);
         progressBar = findViewById(R.id.loginProgressBar);
+        progressBar.bringToFront();
         hideProgressBar();
     }
 
     // Start the CreateAccountActivity to create a personal account
-    // TODO this is the start
     public void openCreateAccountActivity(View view) {
         Intent loginIntent = new Intent(this, CreateAccountActivity.class);
         startActivityForResult(loginIntent, CREATE_ACCOUNT_REQUEST);

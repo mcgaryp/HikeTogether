@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
 
     private FragmentManager fm;
-    private String currentFragment = "";
+    private String currentFragment = null;
     private Bundle account;
 
     @Override
