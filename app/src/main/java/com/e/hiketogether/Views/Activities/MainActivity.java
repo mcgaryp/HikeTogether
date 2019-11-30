@@ -127,8 +127,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        //Log the status of the result & request
         Log.d(TAG, "on activity result success.");
         Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
+
         if (requestCode == LOGIN_REQUEST) {
             Log.d(TAG, "LOGIN_Succcessful if statement");
             if (resultCode == RESULT_OK) {
@@ -151,6 +154,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        return;
     }
 }

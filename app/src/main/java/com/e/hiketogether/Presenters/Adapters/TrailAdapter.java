@@ -53,6 +53,13 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
 
         try {
+            //The trail has no image, fill it with the placeholder instead
+            if (trail.getImgSmall().equals("")) {
+                holder.imageView.setImageDrawable(Drawable.createFromPath("../../../../res/drawable/trail_placeholder.png"));
+                return;
+            }
+
+            //The trail has its own image, fetch the URL and convert to a drawable
             Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
             holder.imageView.setImageDrawable(trailImage);
         } catch (ExecutionException | InterruptedException e) {
