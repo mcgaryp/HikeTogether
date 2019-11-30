@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
 
     private FragmentManager fm;
-    private String currentFragment = null;
+    private String currentFragment = "";
     private Bundle account;
 
     @Override
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         changeView(findViewById(R.id.toolbarHomeButton));
     }
 
-    //When a button in the toolbar is clicked, this will open the correct fragment/ activity
+    // When a button in the toolbar is clicked, this will open the correct fragment/ activity
     public void changeView(View view) {
         Fragment template_fragment = new Fragment();
 
