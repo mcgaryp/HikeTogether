@@ -73,6 +73,8 @@ public class LoginManager implements Listener {
             confirmPassword(account, account.hashPassword(activity.getPassword()));
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            activity.setTouchEnabled();
+            activity.setFocus("password");
             return;
         }
         // Send account to activity
@@ -86,7 +88,7 @@ public class LoginManager implements Listener {
     public void onFail() {
         Log.d(TAG, "We did not find the account!");
         activity.displayToast("Account not Found");
-        activity.hideProgressBar();
+        activity.setTouchEnabled();
     }
 
     // Setter Functions

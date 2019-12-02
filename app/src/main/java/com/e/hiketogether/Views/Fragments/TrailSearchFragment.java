@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class TrailSearchFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private final static String TAG = "TRAIL_SEARCH_FRAGMENT";
 
     TrailManager tm;
 
@@ -71,6 +73,7 @@ public class TrailSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trail_search, parent, false);
     }

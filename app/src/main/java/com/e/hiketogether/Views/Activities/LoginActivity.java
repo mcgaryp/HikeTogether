@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         // Send information to Manager
         loginManager = new LoginManager(this);
         progressBar = findViewById(R.id.loginProgressBar);
-        progressBar.bringToFront();
         hideProgressBar();
     }
 
@@ -78,8 +78,22 @@ public class LoginActivity extends AppCompatActivity {
 //        setContentView(R.id.forgot_password);
     }
 
+    public void setTouchDisabled() {
+        Log.d(TAG, "Setting the touch screen disabled");
+        displayProgressBar();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public void setTouchEnabled() {
+        Log.d(TAG, "Setting the touch screen enabled");
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        hideProgressBar();
+    }
+
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
+        setTouchDisabled();
         // Point to Username input
         text = findViewById(R.id.usernameInput);
         // Check to see if the username is empty
@@ -87,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.checkInput(text, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
@@ -101,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
             loginManager.checkInput(text, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
@@ -111,13 +127,13 @@ public class LoginActivity extends AppCompatActivity {
         // Get information back from LoginManager and return to the MainActivity
         try {
             loginManager.confirmAccount(username);
-            displayProgressBar();
         } catch (Exception e) {
             Log.d(TAG, "Failed to find Account");
             displayToast("Account does not exist");
+            setTouchEnabled();
             return;
         }
-        // TODO make the keyboard disappear and push the progress bar to the front
+        // TODO make the keyboard disappear
     }
 
     // This will be called from the manager to let us know that the thread is complete.
@@ -131,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         returnIntent.putExtra("account", extras);
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
-        hideProgressBar();
+        setTouchEnabled();
         Log.d(TAG, "Login in from Login Screen.");
     }
 
@@ -143,15 +159,15 @@ public class LoginActivity extends AppCompatActivity {
         returnIntent.putExtra("account", account);
         setResult(RESULT_OK, returnIntent);
         finish();
-        hideProgressBar();
+        setTouchEnabled();
         Log.d(TAG, "Login in from Create Account Screen.");
     }
 
     // Display progress bar
     @SuppressLint("WrongConstant")
     public void displayProgressBar() {
-        progressBar.bringToFront();
         progressBar.setVisibility(0);
+        progressBar.bringToFront();
     }
 
     // Hide progress bar
@@ -186,6 +202,23 @@ public class LoginActivity extends AppCompatActivity {
             }
             if (resultCode == LOGIN_FAILED)
                 displayToast("Login Failed While Attempting to Create Account");
+        }
+    }
+
+    public void setFocus(String view) {
+        if (view == "password") {
+            text = findViewById(R.id.passwordInput);
+        }
+
+        if (view == "username") {
+            text = findViewById(R.id.usernameInput);
+        }
+
+        if (text != null)
+            text.requestFocus();
+        else {
+            Log.d(TAG, "Unable to set focus");
+            return;
         }
     }
 
