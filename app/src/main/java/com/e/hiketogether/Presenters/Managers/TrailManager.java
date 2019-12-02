@@ -64,6 +64,9 @@ public class TrailManager {
     }
 
     //Gets trails through the latitude and longitude
+    // TODO having trouble reading the json? or maybe just cant connect to www.hikingproject.com
+    //  we may need to add either a listener or exception so that this is done on a thread and that
+    //  notify's the user that it was complete....progressbar?
     public TrailList getTrails() {
         String url = apiURL + "get-trails?" + lat + "&" + lon + "&" + maxDistance + "&" + KEY;
         String tlJson = null;
@@ -74,7 +77,7 @@ public class TrailManager {
         }
 
         Gson gson = new Gson();
-        Log.d("TRAIL_MANAGER", tlJson);
+        Log.d("TRAIL_MANAGER", tlJson);             // TODO right here
         return gson.fromJson(tlJson, TrailList.class);
     }
 

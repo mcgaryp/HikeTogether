@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
     // When a button in the toolbar is clicked, this will open the correct fragment/ activity
     public void changeView(View view) {
+        Log.d(TAG, "Attempting to change view.");
         Fragment template_fragment = new Fragment();
 
         FragmentTransaction ft = fm.beginTransaction();
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
             currentFragment = "HOME";
+            Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the trail search button, open the search fragment
         else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment.equals("TRAIL_SEARCH")) {
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
             currentFragment = "TRAIL_SEARCH";
+            Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the favorites button, open the favorites fragment
         else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
             currentFragment = "FAVORITES";
+            Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the map button, open the map trail fragment
         else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
             currentFragment = "MAP_TRAIL";
+            Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the settings icon, open the settings activity
         else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
@@ -110,6 +115,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
 
             currentFragment = "SETTINGS";
+            Log.d(TAG, "Current fragment: " + currentFragment);
         }
     }
 

@@ -21,6 +21,9 @@ import com.e.hiketogether.R;
  *      Display the login activity for the user and communicate with the LoginManager to know what
  *      should and should not be executed and when to the user.
  */
+
+// TODO fix this "W/ManagedChannelImpl: [{0}] Failed to resolve name. status={1}"
+//  after people log in this will sometimes show up it repeats.
 public class LoginActivity extends AppCompatActivity {
 
     // VARIABLES
@@ -114,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
             displayToast("Account does not exist");
             return;
         }
+        // TODO make the keyboard disappear and push the progress bar to the front
     }
 
     // This will be called from the manager to let us know that the thread is complete.

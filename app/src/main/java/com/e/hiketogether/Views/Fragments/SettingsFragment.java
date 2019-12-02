@@ -89,6 +89,7 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    // TODO needing to fix this
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
