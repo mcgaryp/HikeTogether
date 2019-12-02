@@ -78,15 +78,17 @@ public class LoginActivity extends AppCompatActivity {
 //        setContentView(R.id.forgot_password);
     }
 
+    // disable the screen so users cannot touch it and interact
     public void setTouchDisabled() {
-        Log.d(TAG, "Setting the touch screen disabled");
+        Log.d(TAG, "Setting the touch screen to: DISABLED");
         displayProgressBar();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    // Enable the screen so users can touch it and interact
     public void setTouchEnabled() {
-        Log.d(TAG, "Setting the touch screen enabled");
+        Log.d(TAG, "Setting the touch screen to: ENABLED");
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         hideProgressBar();
     }

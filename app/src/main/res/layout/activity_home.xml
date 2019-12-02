@@ -43,7 +43,8 @@
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/ic_home_black_24dp" />
+        tools:srcCompat="@drawable/ic_home_black_24dp"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/toolbarSearchButton"
@@ -59,7 +60,8 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbarFavoritesButton"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@id/toolbarHomeButton"
-        tools:srcCompat="@drawable/ic_search_black_50dp" />
+        tools:srcCompat="@drawable/ic_search_black_50dp"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/toolbarFavoritesButton"
@@ -75,7 +77,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbarSearchButton"
-        tools:srcCompat="@drawable/ic_star_black_50dp" />
+        tools:srcCompat="@drawable/ic_star_black_50dp"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/toolbarMapButton"
@@ -91,7 +94,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbarFavoritesButton"
-        tools:srcCompat="@drawable/ic_map_black_50dp" />
+        tools:srcCompat="@drawable/ic_map_black_50dp"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/toolbarSettingButton"
@@ -107,7 +111,8 @@
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@+id/toolbarMapButton"
         tools:src="@drawable/ic_settings_black_50dp"
-        tools:srcCompat="@drawable/ic_settings_black_50dp" />
+        tools:srcCompat="@drawable/ic_settings_black_50dp"
+        android:elevation="2dp"/>
 
     <FrameLayout
         android:id="@+id/template_fragment"
