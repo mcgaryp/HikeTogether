@@ -45,6 +45,7 @@ dependencies {
     // Design method for the Tool Bar
     //CardView for TrailViewFragment
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     //RecyclerView for TrailViewFragment
 
 }
