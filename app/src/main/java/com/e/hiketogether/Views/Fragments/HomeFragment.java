@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private String username;
     private List<Integer> favTrails;
-    // TODO Settings type
+    // TODO Settings type String array list?
 //    private settings
 
     public HomeFragment() {
@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
+//            settings = getArguments().getStringArrayList("settings");
         }
         Log.d(TAG, "Account " + username + " recieved.");
     }

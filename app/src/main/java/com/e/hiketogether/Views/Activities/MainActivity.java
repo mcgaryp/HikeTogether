@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the favorites button, open the favorites fragment
         else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
-            template_fragment = new FavoritesFragment();
+            template_fragment = new FavoritesFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
