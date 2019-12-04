@@ -50,12 +50,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Start the login
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivityForResult(loginIntent, LOGIN_REQUEST);
 
         fm = getSupportFragmentManager();
-        //Initialize the screen to be on the home fragment initially
-        changeView(findViewById(R.id.toolbarHomeButton));
     }
 
     // When a button in the toolbar is clicked, this will open the correct fragment/ activity
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
         //They clicked the home button, open the home fragment
         if (view == findViewById(R.id.toolbarHomeButton) && !currentFragment.equals("HOME")) {
-            template_fragment = new HomeFragment();
+            template_fragment = new HomeFragment().newInstance(account);
             fm.findFragmentByTag("HOME");
 
             ft.replace(R.id.template_fragment, template_fragment);
@@ -147,6 +146,9 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "RESULT oK beginning if.");
                 account = data.getBundleExtra("account");
                 Log.d(TAG, "Account username: " + account.getString("username"));
+
+                //Initialize the screen to be on the home fragment initially
+                changeView(findViewById(R.id.toolbarHomeButton));
             }
             if (resultCode == LOGIN_FAILED) {
                 displayToast("Failed to Login");
@@ -163,4 +165,6 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
         return;
     }
+
+    public Bundle getAccount() { return account; }
 }

@@ -7,12 +7,16 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Activities.LoginActivity;
+import com.e.hiketogether.Views.Activities.MainActivity;
+
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -25,20 +29,18 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
+    // Static Final VARIABLES
+    private static final String TAG = "HOME_FRAGMENT";
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
     private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    // VARIABLES
     private OnFragmentInteractionListener mListener;
+    private String username;
+    private List<Integer> favTrails;
+    // TODO Settings type
+//    private settings
 
     public HomeFragment() {
         // Required empty public constructor
@@ -48,16 +50,12 @@ public class HomeFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param account Account from the activity
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance(Bundle account) {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        Bundle args = account;
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,9 +64,10 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
+            favTrails = getArguments().getIntegerArrayList("trails");
         }
+        Log.d(TAG, "Account " + username + " recieved.");
     }
 
     @Override
@@ -116,4 +115,6 @@ public class HomeFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
