@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.e.hiketogether.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,14 +26,13 @@ import com.e.hiketogether.R;
  * create an instance of this fragment.
  */
 public class SettingsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // Static VARIABLES
+    private static final String TAG = "SETTINGS_FRAGMENT";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // VARIABLES
+    private String username;
+    private List<Integer> favTrails;
+    private List<String> settings;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,17 +44,14 @@ public class SettingsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param account User Account
      * @return A new instance of fragment SettingsFragment.
      */
     // TODO: Rename and change types and number of parameters
     // Not sure this needs parameters right now...
-    public static SettingsFragment newInstance(String param1, String param2) {
+    public static SettingsFragment newInstance(Bundle account) {
         SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        Bundle args = account;
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,9 +60,11 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
+            favTrails = getArguments().getIntegerArrayList("trails");
+            settings = getArguments().getStringArrayList("settings");
         }
+        Log.d(TAG, "Account " + username + " received");
 
         Spinner spinner = getActivity().findViewById(R.id.backgroundSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -78,6 +79,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "Made it.");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
@@ -89,7 +91,6 @@ public class SettingsFragment extends Fragment {
         }
     }
 
-    // TODO needing to fix this
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
