@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Views.Activities.newSplash">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="302dp"
-        android:layout_height="252dp"
-        android:text="HELLOO"
-        android:textSize="30sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="207dp" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="239dp"
+        android:layout_height="273dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
