@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:elevation="2dp"/>
+        android:elevation="2dp" />
 
     <ImageButton
         android:id="@+id/toolbarHomeButton"
@@ -118,7 +118,7 @@
         android:id="@+id/template_fragment"
         android:name="com.e.hiketogether.Views.Fragments.MenuBarFragment"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundLogin"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
