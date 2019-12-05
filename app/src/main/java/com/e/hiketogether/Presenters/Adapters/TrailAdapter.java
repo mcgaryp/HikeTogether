@@ -3,6 +3,7 @@ package com.e.hiketogether.Presenters.Adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
@@ -20,11 +22,14 @@ import com.e.hiketogether.R;
 
 import java.util.concurrent.ExecutionException;
 
+import static android.graphics.drawable.Drawable.createFromPath;
+
 /*
  * RecyclerView.Adapter
  * RecyclerView.ViewHolder
  */
 public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHolder> {
+    public static final String TAG = "TRAIL_ADAPTER";
 
     private Context mCtx;
     private TrailList tl;
@@ -55,11 +60,13 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         try {
             //The trail has no image, fill it with the placeholder instead
             if (trail.getImgSmall().equals("")) {
-                holder.imageView.setImageDrawable(Drawable.createFromPath("../../../../res/drawable/trail_placeholder.png"));
-                return;
+                Log.d(TAG, trail.getName() + " has no image URL");
+                Drawable trailImage = Drawable.createFromPath("../../../../../../res/drawable/trail_placeholder.png");
+                holder.imageView.setImageDrawable(trailImage);
             }
 
             //The trail has its own image, fetch the URL and convert to a drawable
+            Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
             Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
             holder.imageView.setImageDrawable(trailImage);
         } catch (ExecutionException | InterruptedException e) {
@@ -69,15 +76,23 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     @Override
     public int getItemCount() {
-        return tl.getTrailList().size();
+        // TODO Added an if statement to set the length to either zero or the actual size to that
+        //  the program would not crash... i think the listen might be best implemented here and
+        //  set up in the manager that calls this class
+        int size = 0;
+        if (tl != null)
+            tl.getTrailList().size();
+        return size;
     }
 
     //This method goes through the new trail list and adds the items to the
     //one owned by the adapter, so they are all visible
     public void newAddeddata(TrailList newTl) {
 
-        for (int i = 0; i < newTl.getTrailList().size(); i++)
+        for (int i = 0; i < newTl.getTrailList().size(); i++) {
             tl.addTrail(newTl.getTrailList().get(i));
+        }
+
 
         notifyDataSetChanged();
     }
