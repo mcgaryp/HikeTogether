@@ -77,8 +77,10 @@ public class TrailManager {
         }
 
         Gson gson = new Gson();
+        // TODO Added this if statement so that if the trail is null the program won't break.
         if (tlJson != null)
-            Log.d("TRAIL_MANAGER", tlJson);             // TODO right here
+            // This was normally what broke when the trail length was zero or null
+            Log.d("TRAIL_MANAGER", tlJson);
         return gson.fromJson(tlJson, TrailList.class);
     }
 
