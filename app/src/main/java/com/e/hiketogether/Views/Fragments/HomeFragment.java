@@ -124,7 +124,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        recyclerView = rootView.findViewById(R.id.trailList_recyclerView);
         recyclerView.setHasFixedSize(true);
 
         adapter = new TrailAdapter(getActivity(), tl);
