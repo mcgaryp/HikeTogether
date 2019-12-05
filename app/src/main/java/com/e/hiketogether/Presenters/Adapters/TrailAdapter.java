@@ -1,7 +1,7 @@
 package com.e.hiketogether.Presenters.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,16 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
-import com.e.hiketogether.Presenters.Helpers.TrailHTTPHelper;
 import com.e.hiketogether.R;
 
 import java.util.concurrent.ExecutionException;
-
-import static android.graphics.drawable.Drawable.createFromPath;
 
 /*
  * RecyclerView.Adapter
@@ -33,7 +29,6 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     private Context mCtx;
     private TrailList tl;
-    private DrawableHTTPHelper drawableHelper;
 
     public TrailAdapter(Context mCtx, TrailList tl) {
         this.mCtx = mCtx;
@@ -57,18 +52,19 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
 
-        try {
-            //The trail has no image, fill it with the placeholder instead
-            if (trail.getImgSmall().equals("")) {
-                Log.d(TAG, trail.getName() + " has no image URL");
-                Drawable trailImage = Drawable.createFromPath("../../../../../../res/drawable/trail_placeholder.png");
-                holder.imageView.setImageDrawable(trailImage);
-            }
-
-            //The trail has its own image, fetch the URL and convert to a drawable
-            Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
-            Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
+        //The trail has no image, fill it with the placeholder instead
+        if (trail.getImgSmall().equals("")) {
+            Log.d(TAG, trail.getName() + " has no image URL");
+            Drawable trailImage = Drawable.createFromPath("trail_placeholder.jpg");
             holder.imageView.setImageDrawable(trailImage);
+            return;
+        }
+
+        try {
+            //The trail has its own image, fetch the URL and convert to a drawable
+                Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
+                Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
+                holder.imageView.setImageDrawable(trailImage);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -80,13 +76,15 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     }
 
     //This method goes through the new trail list and adds the items to the
-    //one owned by the adapter, so they are all visible
+    //one owned by the adapter, so they are all visible.
+    //
+    //This is only used for when the recyclerview has already been created, but
+    //needs to be updated with new trails
     public void newAddeddata(TrailList newTl) {
 
         for (int i = 0; i < newTl.getTrailList().size(); i++) {
             tl.addTrail(newTl.getTrailList().get(i));
         }
-
 
         notifyDataSetChanged();
     }
