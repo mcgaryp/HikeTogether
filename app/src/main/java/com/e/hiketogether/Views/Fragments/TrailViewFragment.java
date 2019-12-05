@@ -34,6 +34,7 @@ public class TrailViewFragment extends Fragment {
     private TrailAdapter adapter;
     private TrailList tl;
     private View rootView;
+    private TrailManager tm;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +66,7 @@ public class TrailViewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         //Implement everything needed for the recyclerView to work
-        TrailManager tm = new TrailManager();
+        tm = new TrailManager();
         tm.setLat("lat=" + 43.826069);
         tm.setLon("lon=" + -111.789528);
         tl = new TrailList();

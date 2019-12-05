@@ -72,7 +72,13 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     @Override
     public int getItemCount() {
-        return tl.getTrailList().size();
+        // TODO Added an if statement to set the length to either zero or the actual size to that
+        //  the program would not crash... i think the listen might be best implemented here and
+        //  set up in the manager that calls this class
+        int size = 0;
+        if (tl != null)
+            tl.getTrailList().size();
+        return size;
     }
 
     //This method goes through the new trail list and adds the items to the
