@@ -28,6 +28,9 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+// TODO Has a list of local trails in a drawer and a google map screen that is capable of
+//  displaying location of the trail on the map
 public class HomeFragment extends Fragment {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
