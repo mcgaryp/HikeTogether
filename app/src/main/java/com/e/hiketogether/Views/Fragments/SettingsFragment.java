@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class SettingsFragment extends Fragment {
     private String username;
     private List<Integer> favTrails;
     private List<String> settings;
+    private SettingsManager manager;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,6 +67,7 @@ public class SettingsFragment extends Fragment {
             settings = getArguments().getStringArrayList("settings");
         }
         Log.d(TAG, "Account " + username + " received");
+        manager = new SettingsManager(this);
 
 //        Spinner spinner = getActivity().findViewById(R.id.backgroundSpinner);
 //        // Create an ArrayAdapter using the string array and a default spinner layout
