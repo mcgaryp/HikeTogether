@@ -6,12 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 import com.e.hiketogether.Views.Activities.MainActivity;
@@ -34,15 +39,17 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragment extends Fragment {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
-    private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
-    private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
-    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
     // VARIABLES
     private OnFragmentInteractionListener mListener;
     private String username;
     private List<Integer> favTrails;
     private List<String> settings;
+    private RecyclerView recyclerView;
+    private TrailAdapter adapter;
+    private TrailList tl;
+    private View rootView;
+    private TrailManager tm;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,6 +69,7 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    // Set the variables, this is almost as if constructor
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,23 +79,29 @@ public class HomeFragment extends Fragment {
             settings = getArguments().getStringArrayList("settings");
         }
         Log.d(TAG, "Account " + username + " received.");
+        localTrailList = getActivity().findViewById(R.id.homeTrailListRecyclerView);
     }
 
+    // Initiates the Fragments view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "Made it.");
+        //Implement everything needed for the recyclerView to work
+        tm = new TrailManager();
+        // TODO Get local lat and long
+        tm.setLat("lat=" + 43.826069);
+        tm.setLon("lon=" + -111.789528);
+        tl = new TrailList();
+        tl = tm.getTrails();
+
+        this.rootView = inflater.inflate(R.layout.fragment_trail_view, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
+    // Not sure what this does haha!
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -99,10 +113,23 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    // Also not sure exactly what this does!
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        recyclerView = rootView.findViewById(R.id.trailList_recyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new TrailAdapter(getActivity(), tl);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     /**
