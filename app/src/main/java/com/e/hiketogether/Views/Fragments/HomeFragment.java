@@ -39,8 +39,7 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private String username;
     private List<Integer> favTrails;
-    // TODO Settings type
-//    private settings
+    private List<String> settings;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,13 +65,15 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
+            settings = getArguments().getStringArrayList("settings");
         }
-        Log.d(TAG, "Account " + username + " recieved.");
+        Log.d(TAG, "Account " + username + " received.");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "Made it.");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }

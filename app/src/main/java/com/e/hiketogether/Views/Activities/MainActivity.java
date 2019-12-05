@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity
                                      HomeFragment.OnFragmentInteractionListener,
                                      FavoritesFragment.OnFragmentInteractionListener,
                                      MapTrailFragment.OnFragmentInteractionListener,
-                                     TrailViewFragment.OnFragmentInteractionListener {
-
+                                     TrailViewFragment.OnFragmentInteractionListener,
+                                     SettingsFragment.OnFragmentInteractionListener {
     // VARIABLES
     private static final String TAG = "MAIN_ACTIVITY"; //Log tag
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the trail search button, open the search fragment
         else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment.equals("TRAIL_SEARCH")) {
-            template_fragment = new TrailSearchFragment();
+            template_fragment = new TrailSearchFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the favorites button, open the favorites fragment
         else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
-            template_fragment = new FavoritesFragment();
+            template_fragment = new FavoritesFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
@@ -98,8 +98,9 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the map button, open the map trail fragment
+        // TODO http needs a fixing!
         else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
-            template_fragment = new TrailViewFragment();
+            template_fragment = new TrailViewFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the settings icon, open the settings activity
         else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
-            template_fragment = new SettingsFragment();
+            template_fragment = new SettingsFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();

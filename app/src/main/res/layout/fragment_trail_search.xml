@@ -35,7 +35,7 @@
         app:layout_constraintStart_toEndOf="@+id/trailSearch_editText" />
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+        android:id="@+id/homeMapView"
         android:layout_width="412dp"
         android:layout_height="731dp"
         app:layout_constraintBottom_toBottomOf="parent"

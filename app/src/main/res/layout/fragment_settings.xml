@@ -1,60 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".Views.Fragments.SettingsFragment" >
-
-    <TextView
-        android:id="@+id/settingsTitle"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/settings"
-        app:autoSizeTextType="uniform" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:background="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/backgroundSettingView"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="15dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/change_background_style" />
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/settingsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/backgroundSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dropDownWidth="match_parent"
-        android:spinnerMode="dropdown" />
-
-    <TextView
-        android:id="@+id/firstNameView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/first_name" />
-
-    <TextView
-        android:id="@+id/lastNameView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/last_name" />
-
-    <TextView
-        android:id="@+id/emailView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/prompt_email" />
-
-    <TextView
-        android:id="@+id/changePasswordView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/change_password" />
-
-</LinearLayout>
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/profile_image" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- This is the view that tells you what the drop down for background-->
+                <TextView
+                    android:id="@+id/backgroundSettingView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_background_style" />
+                <!-- Drop down selector-->
+                <Spinner
+                    android:id="@+id/backgroundSpinner"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="match_parent"
+                    android:spinnerMode="dropdown"
+                    android:paddingStart="15dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/firstNameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/first_name" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lastNameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/last_name" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/emailView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prompt_email" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/changePasswordView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_password" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

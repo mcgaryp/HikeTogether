@@ -19,16 +19,16 @@ import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
+import java.util.List;
+
 public class TrailViewFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    // Static VARIABLES
+    private static final String TAG = "TRAIL_VIEW_FRAGMENT";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    // VARIABLES
+    private String username;
+    private List<Integer> favTrails;
+    private List<String> settings;
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
     private TrailList tl;
@@ -40,13 +40,23 @@ public class TrailViewFragment extends Fragment {
         // Required empty public constructor
     }
 
+    // Create a new instance of a trailView Fragment
+    public static TrailViewFragment newInstance(Bundle account) {
+        TrailViewFragment fragment = new TrailViewFragment();
+        Bundle args = account;
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            username = getArguments().getString("username");
+            favTrails = getArguments().getIntegerArrayList("trails");
+            settings = getArguments().getStringArrayList("settings");
         }
+        Log.d(TAG, "Account " + username + " received");
     }
 
     @Override
