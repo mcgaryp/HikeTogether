@@ -2,6 +2,8 @@ package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,10 +23,15 @@ import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 import com.e.hiketogether.Views.Activities.MainActivity;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +58,8 @@ public class HomeFragment extends Fragment {
     private TrailList tl;
     private View rootView;
     private TrailManager tm;
+    private LocationManager locationManager;
+    private FusedLocationProviderClient fusedLocationClient;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -90,8 +99,21 @@ public class HomeFragment extends Fragment {
         //Implement everything needed for the recyclerView to work
         tm = new TrailManager();
         // TODO Get local lat and long
-        tm.setLat("lat=" + 43.826069);
-        tm.setLon("lon=" + -111.789528);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            tm.setLat("lat=" + location.getLatitude());
+                            tm.setLon("lon=" + location.getLongitude());
+                        }
+                        else {
+                            tm.setLat("lat=" + 43.826069);
+                            tm.setLon("lon=" + -111.789528);
+                        }
+                    }
+                });
         tl = new TrailList();
         tl = tm.getTrails();
 

@@ -45,7 +45,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'       //RecyclerView for TrailViewFragment
     //noinspection GradleCompatible
-    implementation 'com.android.support:support-dynamic-animation:28.0.0'   // This is the animation library
+    implementation 'com.android.support:support-dynamic-animation:28.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+// This is the animation library
 }
 
 // FOR Firebase
