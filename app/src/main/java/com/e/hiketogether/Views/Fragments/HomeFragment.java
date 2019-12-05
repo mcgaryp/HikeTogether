@@ -80,7 +80,6 @@ public class HomeFragment extends Fragment {
             settings = getArguments().getStringArrayList("settings");
         }
         Log.d(TAG, "Account " + username + " received.");
-        recyclerView = getActivity().findViewById(R.id.homeTrailListRecyclerView);
     }
 
     // Initiates the Fragments view
@@ -124,6 +123,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        recyclerView = getActivity().findViewById(R.id.homeTrailListRecyclerView);
         recyclerView.setHasFixedSize(true);
 
         adapter = new TrailAdapter(getActivity(), tl);
