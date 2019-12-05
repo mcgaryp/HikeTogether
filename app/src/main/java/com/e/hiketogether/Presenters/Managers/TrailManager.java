@@ -77,7 +77,8 @@ public class TrailManager {
         }
 
         Gson gson = new Gson();
-        Log.d("TRAIL_MANAGER", tlJson);             // TODO right here
+        if (tlJson != null)
+            Log.d("TRAIL_MANAGER", tlJson);             // TODO right here
         return gson.fromJson(tlJson, TrailList.class);
     }
 

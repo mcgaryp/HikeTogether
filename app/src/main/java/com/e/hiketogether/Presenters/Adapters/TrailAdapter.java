@@ -76,7 +76,10 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     @Override
     public int getItemCount() {
-        return tl.getTrailList().size();
+        int size = 0;
+        if (tl != null)
+            tl.getTrailList().size();
+        return size;
     }
 
     //This method goes through the new trail list and adds the items to the
