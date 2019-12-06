@@ -12,7 +12,7 @@ import java.net.URL;
 
 //This class parses the URL for a trail's image and converts it to a drawable
 public class DrawableHTTPHelper extends AsyncTask<String, Void, Drawable> {
-    public static final String TAG = "Drawable_HTTP_Helper";
+    public static final String TAG = "DRAWABLE_HTTP_HELPER";
 
     @Override
     protected Drawable doInBackground(String... strings) {
