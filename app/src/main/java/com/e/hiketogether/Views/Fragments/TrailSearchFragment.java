@@ -141,8 +141,8 @@ public class TrailSearchFragment extends Fragment {
 
     //This is called when the search button is pressed
     public void onSearch(View view) {
-        tm.setLat("lat=" + latitude /*43.826069*/);
-        tm.setLon("lon=" + longitude /*-111.789528*/);
+        tm.setLat(latitude /*43.826069*/);
+        tm.setLon(longitude /*-111.789528*/);
 
 
         TrailList tl = tm.getTrails();
