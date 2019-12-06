@@ -1,28 +1,18 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.e.hiketogether.R;
-<<<<<<< HEAD
-import com.google.android.gms.location.FusedLocationProviderClient;
-=======
-import com.e.hiketogether.Views.Activities.LoginActivity;
-import com.e.hiketogether.Views.Activities.MainActivity;
->>>>>>> 3e7e635faa6ae2c1b5b880888a036a52676a1c6e
 
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,7 +103,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart.");
-        
+
     }
 
     /**
