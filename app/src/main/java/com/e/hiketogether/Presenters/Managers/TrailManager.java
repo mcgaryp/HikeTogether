@@ -1,5 +1,6 @@
 package com.e.hiketogether.Presenters.Managers;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.e.hiketogether.BuildConfig;
@@ -18,11 +19,16 @@ public class TrailManager {
     //Needed to store JSON data
     private TrailList tl;
 
+    //Used to cache data, and return data from cache
+    FileManager fManager;
+
+    Context context;
+
     //Needed to request JSON data from HikingProject API
     private String apiURL = "https://www.hikingproject.com/data/";
     private String lat;
     private String lon;
-    private String maxDistance = "maxDistance=30";          // Could be something to change n settings
+    private String maxDistance = "maxDistance=30";          //TODO Could be something to change in settings
     private String maxResults;
     private String sort = "quality";
     private String minLength;
@@ -52,9 +58,9 @@ public class TrailManager {
         this.minStars = minStars;
     }
 
-    // Requests the url
+    // Requests the url on a background thread
     private String requestURL(String url) throws ExecutionException, InterruptedException {
-        return new TrailHTTPHelper().execute(url).get();
+            return new TrailHTTPHelper().execute(url).get();
     }
 
     //Gets trails through the latitude and longitude

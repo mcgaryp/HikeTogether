@@ -33,6 +33,8 @@ public class Trail {
 
     private String url;
     private String imgSmall;
+    //private String img
+    //We can add more image URL's as needed
 
     private float longitude;
     private float latitude;
@@ -117,5 +119,12 @@ public class Trail {
 
     public String getConditionDate() {
         return conditionDate;
+    }
+
+    public boolean compare(Trail rhs) {
+        if (this.id == rhs.id)
+            return true;
+        else
+            return false;
     }
 }
