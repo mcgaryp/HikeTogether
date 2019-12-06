@@ -58,7 +58,8 @@ public class TrailSearchFragment extends Fragment {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
-            return;
+            tm.setLat("lat=" + 43.826069);
+            tm.setLon("lon=" + -111.789528);
         }
         location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longitude = location.getLongitude();
