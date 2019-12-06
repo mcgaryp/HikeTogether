@@ -46,24 +46,7 @@ public class TrailSearchFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public TrailSearchFragment() {
-        // variables to get our long and lat instead of hard coding in Rexburg's
-        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-            tm.setLat(43.826069);
-            tm.setLon(-111.789528);
-        }
-        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-
-        // end location code
+        // empty constructor
     }
 
     /**
@@ -95,6 +78,28 @@ public class TrailSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
+        // variables to get our long and lat instead of hard coding in Rexburg's
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            tm.setLat(43.826069);
+            tm.setLon(-111.789528);
+
+            Log.d(TAG, "Made it to onCreateView.");
+            // Inflate the layout for this fragment
+            return inflater.inflate(R.layout.fragment_trail_search, parent, false);
+        }
+        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        // end location code
         Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trail_search, parent, false);
