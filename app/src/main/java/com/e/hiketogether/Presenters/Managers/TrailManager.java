@@ -36,10 +36,8 @@ public class TrailManager {
 
     // Setters
     public void setTL(TrailList tl) { this.tl = tl; }
-    public void setLat(String lat) { this.lat = lat; }
-    public void setLon(String lon) {
-        this.lon = lon;
-    }
+    public void setLat(double lat) { this.lat = "lat=" + lat; }
+    public void setLon(double lon) { this.lon = "lon=" + lon; }
     public void setMaxDistance(int maxDistance) { this.maxDistance = "maxDistance=" + maxDistance; }
     public void setMaxResults(String maxResults) {
         this.maxResults = maxResults;

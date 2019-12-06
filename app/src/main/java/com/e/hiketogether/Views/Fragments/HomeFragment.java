@@ -1,6 +1,10 @@
 package com.e.hiketogether.Views.Fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.ItemOffsetDecoration;
+import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
 import java.util.List;
@@ -28,15 +38,18 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
-    private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
-    private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
-    private static final int LOGIN_SUCCESSFUL = 1; //resultCode for MainActivity
 
     // VARIABLES
     private OnFragmentInteractionListener mListener;
     private String username;
     private List<Integer> favTrails;
     private List<String> settings;
+    private RecyclerView recyclerView;
+    private TrailAdapter adapter;
+    private TrailList tl;
+    private View rootView;
+    private LocationManager locationManager;
+    private Location location;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,8 +84,39 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //Implement everything needed for the recyclerView to work
+        TrailManager tm = new TrailManager();
+        locationManager = (LocationManager) getActivity()
+                .getSystemService(getContext().LOCATION_SERVICE);
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && getActivity()
+                .checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            tm.setLat(43.826069);
+            tm.setLon(-111.789528);
+            Log.d(TAG, "Setting location to default location");
+            tl = new TrailList();
+            tl = tm.getTrails();
+
+            this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+            // Inflate the layout for this fragment
+            return rootView;
+        }
+
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        tm.setLat(location.getLatitude());
+        tm.setLon(location.getLongitude());
+        Log.d(TAG, "Setting location to current location.");
+        tl = new TrailList();
+        tl = tm.getTrails();
+
+        this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -103,6 +147,15 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart.");
+        recyclerView = rootView.findViewById(R.id.homeRecyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        adapter = new TrailAdapter(getActivity(), tl);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+        recyclerView.addItemDecoration(itemDecoration);
 
     }
 

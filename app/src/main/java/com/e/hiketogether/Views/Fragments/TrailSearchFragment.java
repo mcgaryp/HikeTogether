@@ -3,14 +3,12 @@ package com.e.hiketogether.Views.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
@@ -118,8 +116,8 @@ public class TrailSearchFragment extends Fragment {
 
     //This is called when the search button is pressed
     public void onSearch(View view) {
-        tm.setLat("lat=" + 43.826069);
-        tm.setLon("lon=" + -111.789528);
+        tm.setLat(43.826069);
+        tm.setLon(-111.789528);
 
         TrailList tl = tm.getTrails();
     }
