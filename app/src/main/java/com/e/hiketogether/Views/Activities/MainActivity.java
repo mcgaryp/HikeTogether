@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         //They clicked the map button, open the map trail fragment
         // TODO http needs a fixing! needs to have some testing case for no internet
         else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
-            template_fragment = new TrailViewFragment().newInstance(account);
+            template_fragment = new MapTrailFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
