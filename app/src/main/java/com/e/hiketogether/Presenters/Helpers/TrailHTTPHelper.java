@@ -37,7 +37,6 @@ import java.net.URL;
                 // Open an input stream to read the response.  I prefer the BufferedReader since it provides
                 // the readLine function.
                 Log.d(TAG, "Reading Response...");
-                // TODO here is where the app breaks at this point
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 Log.d(TAG, "Got this far");
                 // When concatenating strings read from the remote server, we get some performance improvement by

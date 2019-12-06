@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,11 +43,6 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm;
     private String currentFragment = "";
     private Bundle account;
-    private ImageButton homeButton;
-    private ImageButton searchButton;
-    private ImageButton favoritesButton;
-    private ImageButton mapButton;
-    private ImageButton settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +55,6 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(loginIntent, LOGIN_REQUEST);
 
         fm = getSupportFragmentManager();
-        homeButton = findViewById(R.id.toolbarHomeButton);
-        searchButton = findViewById(R.id.toolbarSearchButton);
-        favoritesButton = findViewById(R.id.toolbarFavoritesButton);
-        mapButton = findViewById(R.id.toolbarMapButton);
-        settingsButton = findViewById(R.id.toolbarSettingButton);
     }
 
     // When a button in the toolbar is clicked, this will open the correct fragment/ activity
@@ -78,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         ft.add(R.id.template_fragment, template_fragment);
 
         //They clicked the home button, open the home fragment
-        if (view == homeButton && !currentFragment.equals("HOME")) {
+        if (view == findViewById(R.id.toolbarHomeButton) && !currentFragment.equals("HOME")) {
             template_fragment = new HomeFragment().newInstance(account);
             fm.findFragmentByTag("HOME");
 
@@ -90,7 +78,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the trail search button, open the search fragment
-        else if (view == searchButton && !currentFragment.equals("TRAIL_SEARCH")) {
+        else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment.equals("TRAIL_SEARCH")) {
             template_fragment = new TrailSearchFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -100,7 +88,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the favorites button, open the favorites fragment
-        else if (view == favoritesButton && !currentFragment.equals("FAVORITES")) {
+        else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
             template_fragment = new FavoritesFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -111,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the map button, open the map trail fragment
         // TODO http needs a fixing! needs to have some testing case for no internet
-        else if (view == mapButton && !currentFragment.equals("MAP_TRAIL")) {
+        else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
             template_fragment = new TrailViewFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -121,7 +109,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the settings icon, open the settings activity
-        else if (view == settingsButton && !currentFragment.equals("SETTINGS")) {
+        else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
             template_fragment = new SettingsFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -170,7 +158,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    // Display a toast
     private void displayToast(String message) {
         new Toast(getApplicationContext()).makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
     }
