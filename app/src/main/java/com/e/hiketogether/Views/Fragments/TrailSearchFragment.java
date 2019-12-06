@@ -1,6 +1,8 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -36,6 +38,14 @@ public class TrailSearchFragment extends Fragment {
     private List<String> settings;
 
     TrailManager tm;
+
+    // variables to get our long and lat instead of hard coding in Rexburg's
+    LocationManager lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+    Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+    double longitude = location.getLongitude();
+    double latitude = location.getLatitude();
+
+    // end location code
 
     private OnFragmentInteractionListener mListener;
 
