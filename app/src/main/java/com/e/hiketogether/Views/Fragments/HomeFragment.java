@@ -87,27 +87,27 @@ public class HomeFragment extends Fragment {
         //Implement everything needed for the recyclerView to work
         tm = new TrailManager();
         // Get local lat and long
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-//        fusedLocationClient.getLastLocation()
-//                .addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        if (location != null) {
-//                            // Try and get their current location
-//                            tm.setLat("lat=" + location.getLatitude());
-//                            tm.setLon("lon=" + location.getLongitude());
-//                            Log.d(TAG, "Got current location:\n\tlong: "
-//                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
-//                        }
-//                        else {
-//                            // This is a default location
-//                            tm.setLat("lat=" + 43.826069);
-//                            tm.setLon("lon=" + -111.789528);
-//                            Log.d(TAG, "Set default location:\n\tlong: "
-//                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
-//                        }
-//                    }
-//                });
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            // Try and get their current location
+                            tm.setLat("lat=" + location.getLatitude());
+                            tm.setLon("lon=" + location.getLongitude());
+                            Log.d(TAG, "Got current location:\n\tlong: "
+                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
+                        }
+                        else {
+                            // This is a default location
+                            tm.setLat("lat=" + 43.826069);
+                            tm.setLon("lon=" + -111.789528);
+                            Log.d(TAG, "Set default location:\n\tlong: "
+                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
+                        }
+                    }
+                });
 
         // This is a default location
          tm.setLat("lat=" + 43.826069);
