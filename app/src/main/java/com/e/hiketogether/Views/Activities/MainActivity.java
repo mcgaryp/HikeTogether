@@ -1,17 +1,19 @@
 package com.e.hiketogether.Views.Activities;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.R;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm;
     private String currentFragment = "";
     private Bundle account;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(loginIntent, LOGIN_REQUEST);
 
         fm = getSupportFragmentManager();
+        progressBar = findViewById(R.id.mainProgressBar);
+        hideProgressBar();
     }
 
     // When a button in the toolbar is clicked, this will open the correct fragment/ activity
@@ -120,6 +125,17 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    // BUTTONS
+    // onClick of a card when it is small
+    public void onClickGrow(View view) {
+        Log.d(TAG, "onClickGrow.");
+    }
+
+    // onClick of a card when it is big
+    public void onClickShrink(View view) {
+        Log.d(TAG, "onClickShrink.");
+    }
+
     public void initiateTrailSearch(TrailList tl) {
         Fragment template_fragment = new TrailViewFragment();
         FragmentTransaction ft = fm.beginTransaction();
@@ -158,8 +174,38 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    // Display a toast
     private void displayToast(String message) {
-        new Toast(getApplicationContext()).makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+        new Toast(getApplicationContext())
+                .makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+    }
+
+    // Display progress bar
+    @SuppressLint("WrongConstant")
+    public void displayProgressBar() {
+        progressBar.setVisibility(0);
+        progressBar.bringToFront();
+    }
+
+    // Hide progress bar
+    @SuppressLint("WrongConstant")
+    public void  hideProgressBar() {
+        progressBar.setVisibility(8);
+    }
+
+    // disable the screen so users cannot touch it and interact
+    public void setTouchDisabled() {
+        Log.d(TAG, "Setting the touch screen to: DISABLED");
+        displayProgressBar();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    // Enable the screen so users can touch it and interact
+    public void setTouchEnabled() {
+        Log.d(TAG, "Setting the touch screen to: ENABLED");
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        hideProgressBar();
     }
 
     @Override

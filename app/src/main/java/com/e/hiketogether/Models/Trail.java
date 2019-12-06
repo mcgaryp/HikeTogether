@@ -75,6 +75,14 @@ public class Trail {
         return length;
     }
 
+    public float getAscent() {
+        return ascent;
+    }
+
+    public float getDescent() {
+        return descent;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -89,5 +97,25 @@ public class Trail {
 
     public float getLatitude() {
         return latitude;
+    }
+
+    public String getConditionStatus() {
+        return conditionStatus;
+    }
+
+    public String getConditionColor() {
+        return conditionColor;
+    }
+
+    public String getConditionImg() {
+        return conditionImg;
+    }
+
+    public String getConditionDetails() {
+        return conditionDetails;
+    }
+
+    public String getConditionDate() {
+        return conditionDate;
     }
 }

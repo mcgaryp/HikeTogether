@@ -1,6 +1,5 @@
 package com.e.hiketogether.Views.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +38,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         progressBar = findViewById(R.id.createAccountProgressBar);
         progressBar.bringToFront();
-        hideProgessBar();
+        hideProgressBar();
     }
 
     // Takes input and creates account!
@@ -129,15 +128,14 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // Hide Progress bar
-    @SuppressLint("WrongConstant")
-    public void hideProgessBar() {
-        progressBar.setVisibility(8);
+
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     // Display Progress bar
-    @SuppressLint("WrongConstant")
     public void displayProgressBar() {
-        progressBar.setVisibility(0);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     // Now that we created an account lets go HOME
@@ -149,7 +147,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         returnIntent.putExtra("account", extra);
         Log.d(TAG, "Bundle name is \'account\'");
         setResult(Activity.RESULT_OK, returnIntent);
-        hideProgessBar();
+        hideProgressBar();
         finish();
     }
 }

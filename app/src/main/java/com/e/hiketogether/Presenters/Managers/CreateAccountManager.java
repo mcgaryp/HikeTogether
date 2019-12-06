@@ -99,7 +99,7 @@ public class CreateAccountManager implements Listener {
 
     @Override public void onFail() {
         activity.displayToast("Username Already Taken.");
-        activity.hideProgessBar();
+        activity.hideProgressBar();
     }
 
     @Override

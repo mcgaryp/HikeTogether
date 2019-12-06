@@ -19,32 +19,31 @@ import com.e.hiketogether.R;
 
 import java.util.concurrent.ExecutionException;
 
-/*
- * RecyclerView.Adapter
- * RecyclerView.ViewHolder
- */
-public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHolder> {
-    public static final String TAG = "TRAIL_ADAPTER";
+import javax.annotation.Nonnull;
+
+public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdapter.TrailViewHolder>{
+    public static final String TAG = "EXTENDED_TRAIL_ADAPTER";
 
     private Context mCtx;
     private TrailList tl;
     private DrawableHTTPHelper drawableHelper;
 
-    public TrailAdapter(Context mCtx, TrailList tl) {
+    public ExtendedTrailAdapter(Context mCtx, TrailList tl) {
         this.mCtx = mCtx;
         this.tl = tl;
     }
 
-    @NonNull
+    @Nonnull
     @Override
-    public TrailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TrailViewHolder onCreateViewHolder(@Nonnull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_trail_card, null);
+        View view = inflater.inflate(R.layout.layout_large_trail_card, null);
         return new TrailViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull TrailViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExtendedTrailAdapter.TrailViewHolder holder, int position) {
         Trail trail = tl.getTrailList().get(position);
 
         holder.textViewTitle.setText(trail.getName());
@@ -70,29 +69,17 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         }
     }
 
+
     @Override
     public int getItemCount() {
-        return tl.getTrailList().size();
+        return 0;
     }
 
-    //This method goes through the new trail list and adds the items to the
-    //one owned by the adapter, so they are all visible
-    public void newAddeddata(TrailList newTl) {
-
-        for (int i = 0; i < newTl.getTrailList().size(); i++) {
-            tl.addTrail(newTl.getTrailList().get(i));
-        }
-
-
-        notifyDataSetChanged();
-    }
-
-    class TrailViewHolder extends RecyclerView.ViewHolder{
-
+    class TrailViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textViewTitle, textViewDesc, textViewRating, textViewPrice;
 
-        public TrailViewHolder(@NonNull View itemView) {
+        public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageView);
@@ -100,6 +87,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
+
         }
     }
 }

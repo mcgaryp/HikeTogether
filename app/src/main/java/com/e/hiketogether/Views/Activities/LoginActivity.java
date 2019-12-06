@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -41,6 +42,11 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
     private EditText text;
     private Bundle account;
+    private Button loginButton;
+    private Button createAccountButton;
+    private Button skipButton;
+    private Button forgotUsernameButton;
+    private Button forgotPasswordButton;
 
 
     @Override
@@ -51,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
         // Send information to Manager
         loginManager = new LoginManager(this);
         progressBar = findViewById(R.id.loginProgressBar);
+        loginButton = findViewById(R.id.loginButton);
+        createAccountButton = findViewById(R.id.createAccountButton);
+        skipButton = findViewById(R.id.skipButton);
+        forgotPasswordButton = findViewById(R.id.forgotPasswordButton);
+        forgotUsernameButton = findViewById(R.id.forgotUsernameButton);
+        forgotUsernameButton.setVisibility(View.INVISIBLE);
+        forgotPasswordButton.setVisibility(View.INVISIBLE);
         hideProgressBar();
     }
 
@@ -166,16 +179,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // Display progress bar
-    @SuppressLint("WrongConstant")
     public void displayProgressBar() {
-        progressBar.setVisibility(0);
+        progressBar.setVisibility(View.VISIBLE);
         progressBar.bringToFront();
     }
 
     // Hide progress bar
-    @SuppressLint("WrongConstant")
     public void  hideProgressBar() {
-        progressBar.setVisibility(8);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     // Display any general toast

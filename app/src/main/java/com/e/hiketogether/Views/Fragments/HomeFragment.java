@@ -1,6 +1,7 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,6 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Interfaces.interact;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
@@ -35,7 +40,7 @@ import java.util.List;
 
 // TODO Has a list of local trails in a drawer and a google map screen that is capable of
 //  displaying location of the trail on the map
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements interact {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
 
@@ -50,6 +55,7 @@ public class HomeFragment extends Fragment {
     private View rootView;
     private LocationManager locationManager;
     private Location location;
+    private ProgressBar progressBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -83,6 +89,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        progressBar = rootView.findViewById(R.id.homeProgressBar);
+        setTouchDisabled();
 
         //Implement everything needed for the recyclerView to work
         TrailManager tm = new TrailManager();
@@ -99,8 +108,6 @@ public class HomeFragment extends Fragment {
             tl = new TrailList();
             tl = tm.getTrails();
 
-            this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
             // Inflate the layout for this fragment
             return rootView;
         }
@@ -113,17 +120,8 @@ public class HomeFragment extends Fragment {
         tl = new TrailList();
         tl = tm.getTrails();
 
-        this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
         // Inflate the layout for this fragment
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -156,7 +154,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
-
+        setTouchEnabled();
     }
 
     /**
@@ -175,4 +173,45 @@ public class HomeFragment extends Fragment {
     }
 
 
+    // Display a toast
+    @Override
+    public void displayToast(String message) {
+        Log.d(TAG, "Sending toast: " + message);
+        new Toast(getActivity().getApplicationContext())
+                .makeText(getActivity().getApplicationContext(),message,Toast.LENGTH_LONG).show();
+    }
+
+    // Display progress bar
+    @Override
+    @SuppressLint("WrongConstant")
+    public void displayProgressBar() {
+        Log.d(TAG, "Displaying ProgressBar.");
+        progressBar.setVisibility(0);
+        progressBar.bringToFront();
+    }
+
+    // Hide progress bar
+    @Override
+    @SuppressLint("WrongConstant")
+    public void  hideProgressBar() {
+        Log.d(TAG, "Hiding ProgressBar.");
+        progressBar.setVisibility(8);
+    }
+
+    // disable the screen so users cannot touch it and interact
+    @Override
+    public void setTouchDisabled() {
+        Log.d(TAG, "Setting the touch screen to: DISABLED");
+        displayProgressBar();
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    // Enable the screen so users can touch it and interact
+    @Override
+    public void setTouchEnabled() {
+        Log.d(TAG, "Setting the touch screen to: ENABLED");
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        hideProgressBar();
+    }
 }
