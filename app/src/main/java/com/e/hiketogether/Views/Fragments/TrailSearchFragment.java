@@ -78,6 +78,7 @@ public class TrailSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
+        tm = new TrailManager();
         // variables to get our long and lat instead of hard coding in Rexburg's
         lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
