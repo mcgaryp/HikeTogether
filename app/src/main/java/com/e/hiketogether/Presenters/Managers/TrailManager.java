@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 public class TrailManager {
     //Hiking Project API Key
     private static final String KEY = "key=" + BuildConfig.HPKEY;
+    private static final String TAG = "TRAIL_MANAGER";
 
     //Needed to store JSON data
     private TrailList tl;
@@ -21,44 +22,39 @@ public class TrailManager {
     private String apiURL = "https://www.hikingproject.com/data/";
     private String lat;
     private String lon;
-    private String maxDistance = "maxDistance=30";
+    private String maxDistance = "maxDistance=30";          // Could be something to change n settings
     private String maxResults;
     private String sort = "quality";
     private String minLength;
     private String minStars;
 
-    public void setTL(TrailList tl) {
-        this.tl = tl;
-    }
 
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
+    // Getters
+    public String getLon() { return lon; }
+    public String getLat() { return lat; }
+    public String getMaxDistance() { return maxDistance; }
 
+    // Setters
+    public void setTL(TrailList tl) { this.tl = tl; }
+    public void setLat(String lat) { this.lat = lat; }
     public void setLon(String lon) {
         this.lon = lon;
     }
-
-    public void setMaxDistance(String maxDistance) {
-        this.maxDistance = maxDistance;
-    }
-
+    public void setMaxDistance(int maxDistance) { this.maxDistance = "maxDistance=" + maxDistance; }
     public void setMaxResults(String maxResults) {
         this.maxResults = maxResults;
     }
-
     public void setSort(String sort) {
         this.sort = sort;
     }
-
     public void setMinLength(String minLength) {
         this.minLength = minLength;
     }
-
     public void setMinStars(String minStars) {
         this.minStars = minStars;
     }
 
+    // Requests the url
     private String requestURL(String url) throws ExecutionException, InterruptedException {
         return new TrailHTTPHelper().execute(url).get();
     }
@@ -77,7 +73,7 @@ public class TrailManager {
         }
 
         Gson gson = new Gson();
-        Log.d("TRAIL_MANAGER", tlJson);             // TODO right here
+        Log.d("TRAIL_MANAGER", tlJson);
         return gson.fromJson(tlJson, TrailList.class);
     }
 
