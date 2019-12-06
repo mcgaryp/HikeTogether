@@ -1,24 +1,18 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.e.hiketogether.R;
-import com.e.hiketogether.Views.Activities.LoginActivity;
-import com.e.hiketogether.Views.Activities.MainActivity;
 
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,40 +70,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        Log.d(TAG, "Made it.");
-//        //Implement everything needed for the recyclerView to work
-//        tm = new TrailManager();
-//        // Get local lat and long
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-//        fusedLocationClient.getLastLocation()
-//                .addOnSuccessListener( getActivity(), new OnSuccessListener<Location>() {
-//                    @Override
-//                    public void onSuccess(Location location) {
-//                        if (location != null) {
-//                            // Try and get their current location
-//                            tm.setLat("lat=" + location.getLatitude());
-//                            tm.setLon("lon=" + location.getLongitude());
-//                            Log.d(TAG, "Got current location:\n\tlong: "
-//                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
-//                        }
-//                        else {
-//                            // This is a default location
-//                            tm.setLat("lat=" + 43.826069);
-//                            tm.setLon("lon=" + -111.789528);
-//                            Log.d(TAG, "Set default location:\n\tlong: "
-//                                    + tm.getLon() + "\n\tlat: " + tm.getLat());
-//                        }
-//                    }
-//                });
-
-        // This is a default location
-//         tm.setLat("lat=" + 43.826069);
-//         tm.setLon("lon=" + -111.789528);
-//         Log.d(TAG, "Set default location:\n\tlong: "
-//                 + tm.getLon() + "\n\tlat: " + tm.getLat());
-//        tl = new TrailList();
-//        tl = tm.getTrails();
-//        this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -144,20 +104,6 @@ public class HomeFragment extends Fragment {
         super.onStart();
         Log.d(TAG, "onStart.");
 
-//        recyclerView = rootView.findViewById(R.id.homeTrailListRecyclerView);
-//        if (recyclerView != null)
-//            recyclerView.setHasFixedSize(true);
-//        else {
-//            Log.d(TAG, "Recycler View has failed to findById.");
-////            return;
-//        }
-//
-//        adapter = new TrailAdapter(getActivity(), tl);
-//        recyclerView.setAdapter(adapter);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
-//        recyclerView.addItemDecoration(itemDecoration);
     }
 
     /**

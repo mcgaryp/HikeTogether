@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/imageView"
-            android:background="#03A9F4"
+            android:background="#1E3C61"
             android:text="Trail"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
