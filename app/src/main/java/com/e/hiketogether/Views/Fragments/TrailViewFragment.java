@@ -1,18 +1,16 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.TrailList;
@@ -101,7 +99,7 @@ public class TrailViewFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        recyclerView = rootView.findViewById(R.id.trailList_recyclerView);
+        recyclerView = rootView.findViewById(R.id.trailListRecyclerView);
         recyclerView.setHasFixedSize(true);
 
         adapter = new TrailAdapter(getActivity(), tl);
