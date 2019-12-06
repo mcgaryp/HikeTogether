@@ -1,16 +1,18 @@
 package com.e.hiketogether.Views.Fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
@@ -34,13 +36,34 @@ public class TrailSearchFragment extends Fragment {
     private String username;
     private List<Integer> favTrails;
     private List<String> settings;
+    LocationManager lm;
+    Location location;
+    double longitude;
+    double latitude;
 
     TrailManager tm;
 
     private OnFragmentInteractionListener mListener;
 
     public TrailSearchFragment() {
-        // Required empty public constructor
+        // variables to get our long and lat instead of hard coding in Rexburg's
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            tm.setLat("lat=" + 43.826069);
+            tm.setLon("lon=" + -111.789528);
+        }
+        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        // end location code
     }
 
     /**
@@ -118,8 +141,9 @@ public class TrailSearchFragment extends Fragment {
 
     //This is called when the search button is pressed
     public void onSearch(View view) {
-        tm.setLat("lat=" + 43.826069);
-        tm.setLon("lon=" + -111.789528);
+        tm.setLat("lat=" + latitude /*43.826069*/);
+        tm.setLon("lon=" + longitude /*-111.789528*/);
+
 
         TrailList tl = tm.getTrails();
     }

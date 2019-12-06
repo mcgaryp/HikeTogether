@@ -64,8 +64,8 @@ public class TrailViewFragment extends Fragment {
 
         //Implement everything needed for the recyclerView to work
         TrailManager tm = new TrailManager();
-        tm.setLat("lat=" + 43.826069);
-        tm.setLon("lon=" + -111.789528);
+        tm.setLat(43.826069);
+        tm.setLon(-111.789528);
         tl = new TrailList();
         tl = tm.getTrails();
 
