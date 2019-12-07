@@ -68,9 +68,9 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     public void onBindViewHolder(@NonNull TrailAdapter.TrailViewHolder holder, final int position) {
         // Here we are setting the visibility of the expansion to visible or not depending on the
         //  clickPosition. If it is == to the position then set it visable else not.
-        holder.expandable.setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
+        holder.getExpandable().setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
         // This activates the view it's self
-        holder.expandable.setActivated(position == clickPosition);
+        holder.getExpandable().setActivated(position == clickPosition);
         // Here we set the prevClick to the new position that we have clicked on
         if (position == clickPosition)
             prevClickPosition = position;
@@ -79,14 +79,14 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         Trail trail = tl.getTrailList().get(position);
 
         // Setting the specific text to each of the individual views in the layout
-        holder.textViewTitle.setText(trail.getName());
-        holder.textViewDesc.setText(trail.getSummary());
-        holder.textViewRating.setText(String.valueOf(trail.getRating()));
-        holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
-        holder.ratingBar.setRating(trail.getRating());
+        holder.getTextViewTitle().setText(trail.getName());
+        holder.getTextViewDesc().setText(trail.getSummary());
+        holder.getTextViewRating().setText(String.valueOf(trail.getRating()));
+        holder.getTextViewPrice().setText(String.valueOf(trail.getDifficulty()));
+        holder.getRatingBar().setRating(trail.getRating());
 
         // Setting the on click listener to open or not this view
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.getImageView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View onClick_View) {
                 Log.d(TAG, "onClick Called position: " + position);
@@ -100,15 +100,15 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
         // All below is to be hidden unless the item is clicked on!
         // We are just setting the values again here
-        holder.location.setText(trail.getLocation());
-        holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
-        holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
-        holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
-        holder.status.setText("Trail status is " + trail.getConditionStatus());
+        holder.getLocation().setText(trail.getLocation());
+        holder.getLength().setText(String.valueOf(trail.getLength()) + " Miles");
+        holder.getAscent().setText("Ascends " + trail.getAscent() + " ft in Elevation");
+        holder.getDescent().setText("Descends " + trail.getDescent() + " ft in Elevation");
+        holder.getStatus().setText("Trail status is " + trail.getConditionStatus());
         if (trail.getConditionDetails() == null)
-            holder.statusDetails.setText("Condition details at this time are unknown.");
+            holder.getStatusDetails().setText("Condition details at this time are unknown.");
         else
-            holder.statusDetails.setText(trail.getConditionDetails());
+            holder.getStatusDetails().setText(trail.getConditionDetails());
 
         // Trying to replace the picture with place holder or fetch it
         try {
@@ -120,7 +120,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
                 //The trail has its own image, fetch the URL and convert to a drawable
                 Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
                 Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
-                holder.imageView.setImageDrawable(trailImage);
+                holder.getImageView().setImageDrawable(trailImage);
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -134,13 +134,12 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     }
 
     // Sub Class that is a view holder in assisting the usage of the adapter
-    // TODO Implement getter functions
     class TrailViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
+        private ImageView imageView;
+        private TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
                 location, length, ascent, descent, status, statusDetails;
-        RatingBar ratingBar;
-        RelativeLayout expandable;
+        private RatingBar ratingBar;
+        private RelativeLayout expandable;
 
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
@@ -159,5 +158,20 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             ratingBar = itemView.findViewById(R.id.imageViewStars);
             expandable = itemView.findViewById(R.id.expandable);
         }
+
+        // GETTERS
+        public ImageView getImageView() { return imageView; }
+        public TextView getTextViewTitle() { return textViewTitle; }
+        public TextView getTextViewDesc() { return textViewDesc; }
+        public TextView getTextViewRating() { return textViewRating; }
+        public TextView getTextViewPrice() { return textViewPrice; }
+        public TextView getLocation() { return location; }
+        public TextView getLength() { return length; }
+        public TextView getAscent() { return ascent; }
+        public TextView getDescent() { return descent; }
+        public TextView getStatus() { return status; }
+        public TextView getStatusDetails() { return statusDetails; }
+        public RatingBar getRatingBar() { return ratingBar; }
+        public RelativeLayout getExpandable() { return expandable; }
     }
 }
