@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,52 +21,78 @@ import com.e.hiketogether.R;
 
 import java.util.concurrent.ExecutionException;
 
-/*
- * RecyclerView.Adapter
- * RecyclerView.ViewHolder
- */
-public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHolder> {
-    public static final String TAG = "TRAIL_ADAPTER";
+import javax.annotation.Nonnull;
+
+public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHolder>{
+    public static final String TAG = "EXTENDED_TRAIL_ADAPTER";
 
     private Context mCtx;
     private TrailList tl;
-    private DrawableHTTPHelper drawableHelper;
+    private int clickPosition;
+    private int prevClickPosition;
 
     public TrailAdapter(Context mCtx, TrailList tl) {
         this.mCtx = mCtx;
         this.tl = tl;
+        clickPosition = -1;
+        prevClickPosition = -1;
     }
 
-    @NonNull
+    @Nonnull
     @Override
-    public TrailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TrailViewHolder onCreateViewHolder(@Nonnull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.layout_trail_card, null);
+        View view = inflater.inflate(R.layout.layout_large_trail_card, null);
         return new TrailViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull TrailViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TrailAdapter.TrailViewHolder holder, final int position) {
+        holder.expandable.setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
+        holder.expandable.setActivated(position == clickPosition);
+        if (position == clickPosition)
+            prevClickPosition = position;
+
         Trail trail = tl.getTrailList().get(position);
 
         holder.textViewTitle.setText(trail.getName());
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
+        holder.ratingBar.setRating(trail.getRating());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View onClick_View) {
+                Log.d(TAG, "onClick Called position: " + position);
+                clickPosition = (position == clickPosition) ? -1 : position;
+                TrailAdapter.this.notifyItemChanged(prevClickPosition);
+                TrailAdapter.this.notifyItemChanged(clickPosition);
+            }
+        });
+        // All below is to be hidden unless the item is clicked on!
+        holder.location.setText(trail.getLocation());
+        holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
+        holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
+        holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
+        holder.status.setText("Trail status is " + trail.getConditionStatus());
+        holder.statusDetails.setText(trail.getConditionDetails());
+
+
+        // TODO add listeners to this adapter and make things disappear and appear as the item is
+        //  clicked on look at brother macbeths scripture journal on github
 
         try {
             //The trail has no image, fill it with the placeholder instead
             if (trail.getImgSmall().equals("")) {
                 Log.d(TAG, trail.getName() + " has no image URL");
-                Drawable trailImage = Drawable
-                        .createFromPath("../../../../../../res/drawable/trail_placeholder.png");
+            }
+            else {
+                //The trail has its own image, fetch the URL and convert to a drawable
+                Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
+                Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
                 holder.imageView.setImageDrawable(trailImage);
             }
-
-            //The trail has its own image, fetch the URL and convert to a drawable
-            Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
-            Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
-            holder.imageView.setImageDrawable(trailImage);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -75,24 +103,14 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         return tl.getTrailList().size();
     }
 
-    //This method goes through the new trail list and adds the items to the
-    //one owned by the adapter, so they are all visible
-    public void newAddeddata(TrailList newTl) {
-
-        for (int i = 0; i < newTl.getTrailList().size(); i++) {
-            tl.addTrail(newTl.getTrailList().get(i));
-        }
-
-
-        notifyDataSetChanged();
-    }
-
-    class TrailViewHolder extends RecyclerView.ViewHolder{
-
+    class TrailViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView textViewTitle, textViewDesc, textViewRating, textViewPrice;
+        TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
+                location, length, ascent, descent, status, statusDetails;
+        RatingBar ratingBar;
+        RelativeLayout expandable;
 
-        public TrailViewHolder(@NonNull View itemView) {
+        public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageView);
@@ -100,6 +118,14 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
+            location = itemView.findViewById(R.id.textViewLocation);
+            length = itemView.findViewById(R.id.textViewLength);
+            ascent = itemView.findViewById(R.id.textViewAscent);
+            descent = itemView.findViewById(R.id.textViewDescent);
+            status = itemView.findViewById(R.id.textViewConditionStatus);
+            statusDetails = itemView.findViewById(R.id.textViewConditionDetails);
+            ratingBar = itemView.findViewById(R.id.imageViewStars);
+            expandable = itemView.findViewById(R.id.expandable);
         }
     }
 }
