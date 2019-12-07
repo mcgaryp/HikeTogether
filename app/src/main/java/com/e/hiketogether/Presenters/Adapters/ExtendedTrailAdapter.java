@@ -57,6 +57,9 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.status.setText(trail.getConditionStatus());
         holder.statusDetails.setText(trail.getConditionDetails());
 
+        // TODO add listeners to this adapter and make things disappear and appear as the item is
+        //  clicked on look at brother macbeths scripture journal on github
+
         try {
             //The trail has no image, fill it with the placeholder instead
             if (trail.getImgSmall().equals("")) {
