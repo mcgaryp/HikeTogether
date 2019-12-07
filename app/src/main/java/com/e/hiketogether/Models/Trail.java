@@ -1,8 +1,14 @@
 package com.e.hiketogether.Models;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
+import static java.lang.Character.isUpperCase;
+
 public class Trail {
+    // Static VARIABLES
+    private final static String TAG = "TRAIL";
 
     public Trail(String name, String summary, String difficulty, float rating, int ratingVotes, String location, float length, String imgSmall) {
         this.name = name;
@@ -13,6 +19,7 @@ public class Trail {
         this.location = location;
         this.length = length;
         this.imgSmall = imgSmall;
+        normalizeDif();
     }
 
     private int id;
@@ -45,82 +52,46 @@ public class Trail {
     private String conditionDetails;
     private String conditionDate;
 
-    public int getId() {
-        return id;
+    // Normalize difficulty
+    void normalizeDif() {
+        Log.d(TAG, "Attempting to normalize difficulty: " + difficulty);
+        String normalDif = "";
+        for (int i = 0; i < difficulty.length(); i++) {
+            if (isUpperCase(difficulty.toCharArray()[i])) {
+                normalDif += " ";
+            }
+            normalDif = normalDif + difficulty.toCharArray()[i];
+        }
+        setDifficulty(normalDif);
+        Log.d(TAG, "Normalized difficulty to: " + difficulty);
     }
 
-    public String getName() {
-        return name;
+    // GETTERS
+    public int getId()                  { return id;               }
+    public String getName()             { return name;             }
+    public String getSummary()          { return summary;          }
+    public String getDifficulty()       { return difficulty;       }
+    public float getRating()            { return rating;           }
+    public int getRatingVotes()         { return ratingVotes;      }
+    public String getLocation()         { return location;         }
+    public float getLength()            { return length;           }
+    public float getAscent()            { return ascent;           }
+    public float getDescent()           { return descent;          }
+    public String getUrl()              { return url;              }
+    public String getImgSmall()         { return imgSmall;         }
+    public float getLongitude()         { return longitude;        }
+    public float getLatitude()          { return latitude;         }
+    public String getConditionStatus()  { return conditionStatus;  }
+    public String getConditionColor()   { return conditionColor;   }
+    public String getConditionImg()     { return conditionImg;     }
+    public String getConditionDetails() { return conditionDetails; }
+    public String getConditionDate()    { return conditionDate;    }
+
+    private void setDifficulty(String dif) {
+        difficulty = dif;
     }
 
-    public String getSummary() {
-        return summary;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public int getRatingVotes() {
-        return ratingVotes;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public float getLength() {
-        return length;
-    }
-
-    public float getAscent() {
-        return ascent;
-    }
-
-    public float getDescent() {
-        return descent;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getImgSmall() {
-        return imgSmall;
-    }
-
-    public float getLongitude() {
-        return longitude;
-    }
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public String getConditionStatus() {
-        return conditionStatus;
-    }
-
-    public String getConditionColor() {
-        return conditionColor;
-    }
-
-    public String getConditionImg() {
-        return conditionImg;
-    }
-
-    public String getConditionDetails() {
-        return conditionDetails;
-    }
-
-    public String getConditionDate() {
-        return conditionDate;
-    }
-
+    // Compare the Trail to other Trails
     public boolean compare(Trail rhs) {
         if (this.id == rhs.id)
             return true;

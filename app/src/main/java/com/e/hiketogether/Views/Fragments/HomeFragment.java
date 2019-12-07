@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.ExtendedTrailAdapter;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Interfaces.interact;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment implements interact {
     private List<String> settings;
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
+    private ExtendedTrailAdapter largeAdapter;
     private TrailList tl;
     private View rootView;
     private LocationManager locationManager;
@@ -148,12 +150,13 @@ public class HomeFragment extends Fragment implements interact {
         recyclerView = rootView.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new TrailAdapter(getActivity(), tl);
-        recyclerView.setAdapter(adapter);
+        largeAdapter = new ExtendedTrailAdapter(getActivity(), tl);
+        recyclerView.setAdapter(largeAdapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
+
         setTouchEnabled();
     }
 

@@ -16,9 +16,7 @@
     <RelativeLayout
         android:id="@+id/cardView_trail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="onClickGrow">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"

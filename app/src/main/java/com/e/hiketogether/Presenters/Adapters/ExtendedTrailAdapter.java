@@ -50,6 +50,12 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
+        holder.location.setText(trail.getLocation());
+        holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
+        holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
+        holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
+        holder.status.setText(trail.getConditionStatus());
+        holder.statusDetails.setText(trail.getConditionDetails());
 
         try {
             //The trail has no image, fill it with the placeholder instead
@@ -72,12 +78,13 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
 
     @Override
     public int getItemCount() {
-        return 0;
+        return tl.getTrailList().size();
     }
 
     class TrailViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView textViewTitle, textViewDesc, textViewRating, textViewPrice;
+        TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
+                location, length, ascent, descent, status, statusDetails;
 
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
@@ -87,7 +94,12 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
-
+            location = itemView.findViewById(R.id.textViewLocation);
+            length = itemView.findViewById(R.id.textViewLength);
+            ascent = itemView.findViewById(R.id.textViewAscent);
+            descent = itemView.findViewById(R.id.textViewDescent);
+            status = itemView.findViewById(R.id.textViewConditionStatus);
+            statusDetails = itemView.findViewById(R.id.textViewConditionDetails);
         }
     }
 }

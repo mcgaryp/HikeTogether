@@ -11,7 +11,7 @@
         android:id="@+id/homeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clickable="true"
+        android:clickable="false"
         android:clipChildren="false"
         android:focusable="true"
         android:paddingLeft="15dp"
