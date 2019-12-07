@@ -51,6 +51,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
+        // All below is to be hidden unless the item is clicked on!
         holder.location.setText(trail.getLocation());
         holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
         holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
