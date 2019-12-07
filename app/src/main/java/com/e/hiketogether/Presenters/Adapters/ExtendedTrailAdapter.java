@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
 
@@ -28,10 +29,14 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
     private Context mCtx;
     private TrailList tl;
     private DrawableHTTPHelper drawableHelper;
+    private int clickPosition;
+    private int prevClickPosition;
 
     public ExtendedTrailAdapter(Context mCtx, TrailList tl) {
         this.mCtx = mCtx;
         this.tl = tl;
+        clickPosition = -1;
+        prevClickPosition = -1;
     }
 
     @Nonnull
@@ -44,13 +49,27 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
 
 
     @Override
-    public void onBindViewHolder(@NonNull ExtendedTrailAdapter.TrailViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExtendedTrailAdapter.TrailViewHolder holder, final int position) {
+        holder.expandable.setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
+        holder.expandable.setActivated(position == clickPosition);
+        if (position == clickPosition)
+            prevClickPosition = position;
+
         Trail trail = tl.getTrailList().get(position);
 
         holder.textViewTitle.setText(trail.getName());
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View onClick_View) {
+                Log.d(TAG, "onClick Called position: " + position);
+                clickPosition = (position == clickPosition) ? -1 : position;
+                ExtendedTrailAdapter.this.notifyItemChanged(prevClickPosition);
+                ExtendedTrailAdapter.this.notifyItemChanged(clickPosition);
+            }
+        });
         // All below is to be hidden unless the item is clicked on!
         holder.location.setText(trail.getLocation());
         holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
@@ -91,6 +110,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
                 location, length, ascent, descent, status, statusDetails;
         RatingBar ratingBar;
+        RelativeLayout expandable;
 
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
@@ -107,6 +127,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
             status = itemView.findViewById(R.id.textViewConditionStatus);
             statusDetails = itemView.findViewById(R.id.textViewConditionDetails);
             ratingBar = itemView.findViewById(R.id.imageViewStars);
+            expandable = itemView.findViewById(R.id.expandable);
         }
     }
 }
