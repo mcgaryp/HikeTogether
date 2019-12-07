@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 
 import static java.lang.Character.isUpperCase;
+import static java.lang.Character.toUpperCase;
 
 public class Trail {
     // Static VARIABLES
@@ -19,7 +20,6 @@ public class Trail {
         this.location = location;
         this.length = length;
         this.imgSmall = imgSmall;
-        normalizeDif();
     }
 
     private int id;
@@ -60,7 +60,10 @@ public class Trail {
             if (isUpperCase(difficulty.toCharArray()[i])) {
                 normalDif += " ";
             }
-            normalDif = normalDif + difficulty.toCharArray()[i];
+            if (i == 0)
+                normalDif = String.valueOf(toUpperCase(difficulty.toCharArray()[i]));
+            else
+                normalDif = normalDif + difficulty.toCharArray()[i];
         }
         setDifficulty(normalDif);
         Log.d(TAG, "Normalized difficulty to: " + difficulty);
@@ -70,7 +73,6 @@ public class Trail {
     public int getId()                  { return id;               }
     public String getName()             { return name;             }
     public String getSummary()          { return summary;          }
-    public String getDifficulty()       { return difficulty;       }
     public float getRating()            { return rating;           }
     public int getRatingVotes()         { return ratingVotes;      }
     public String getLocation()         { return location;         }
@@ -86,10 +88,13 @@ public class Trail {
     public String getConditionImg()     { return conditionImg;     }
     public String getConditionDetails() { return conditionDetails; }
     public String getConditionDate()    { return conditionDate;    }
-
-    private void setDifficulty(String dif) {
-        difficulty = dif;
+    public String getDifficulty()       {
+        normalizeDif();
+        return difficulty;
     }
+
+    // SETTERS
+    private void setDifficulty(String dif) { difficulty = dif; }
 
     // Compare the Trail to other Trails
     public boolean compare(Trail rhs) {
