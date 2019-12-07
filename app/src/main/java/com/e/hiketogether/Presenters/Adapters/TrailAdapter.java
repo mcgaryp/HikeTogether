@@ -86,7 +86,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.getRatingBar().setRating(trail.getRating());
 
         // Setting the on click listener to open or not this view
-        holder.getImageView().setOnClickListener(new View.OnClickListener() {
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View onClick_View) {
                 Log.d(TAG, "onClick Called position: " + position);
