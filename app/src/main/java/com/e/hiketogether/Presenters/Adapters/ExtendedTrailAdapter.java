@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,8 +55,9 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.length.setText(String.valueOf(trail.getLength()) + " Miles");
         holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
         holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
-        holder.status.setText(trail.getConditionStatus());
+        holder.status.setText("Trail status is " + trail.getConditionStatus());
         holder.statusDetails.setText(trail.getConditionDetails());
+        holder.ratingBar.setRating(trail.getRating());
 
         // TODO add listeners to this adapter and make things disappear and appear as the item is
         //  clicked on look at brother macbeths scripture journal on github
@@ -78,7 +80,6 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         }
     }
 
-
     @Override
     public int getItemCount() {
         return tl.getTrailList().size();
@@ -88,6 +89,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         ImageView imageView;
         TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
                 location, length, ascent, descent, status, statusDetails;
+        RatingBar ratingBar;
 
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
@@ -103,6 +105,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
             descent = itemView.findViewById(R.id.textViewDescent);
             status = itemView.findViewById(R.id.textViewConditionStatus);
             statusDetails = itemView.findViewById(R.id.textViewConditionDetails);
+            ratingBar = itemView.findViewById(R.id.imageViewStars);
         }
     }
 }

@@ -70,7 +70,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="186dp"
             android:layout_marginLeft="64dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="17dp"
             android:layout_toRightOf="@id/imageView"
             android:text="Difficulty"
@@ -94,70 +94,109 @@
             android:id="@+id/textViewLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
+            android:layout_below="@+id/textViewPrice"
             android:text="Location"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:padding="3dp"
-            android:layout_marginLeft="10dp"
-            />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="200dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/textViewLength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
             android:text="Length"
-            android:textAlignment="center"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_toRightOf="@id/textViewLocation"
+            android:layout_below="@id/textViewPrice"
+            android:textAlignment="center"
+            android:layout_marginStart="200dp"
             android:padding="3dp"
-            android:layout_marginLeft="60dp"
-            />
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="17dp" />
 
         <TextView
             android:id="@+id/textViewAscent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
             android:text="Acsent"
-            android:layout_toRightOf="@id/textViewLength"
-            android:padding="3dp"
-            android:layout_marginLeft="60dp"
-            android:textAlignment="center"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewLocation"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="17dp"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewDescent"
             android:text="Descent"
-            android:layout_below="@id/textViewLocation"
-            android:padding="3dp"
-            android:textAlignment="center"
-            android:layout_marginLeft="10dp"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewAscent"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="17dp"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewConditionStatus"
             android:text="Status"
-            android:padding="3dp"
-            android:layout_below="@id/textViewLength"
-            android:layout_marginLeft="60dp"
-            android:layout_toRightOf="@id/textViewDescent"
-            android:textAlignment="center"
-
-            />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewDescent"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="17dp"
+            android:padding="3dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewConditionDetails"
             android:text="Trail Conditions"
-            android:padding="3dp"
-            android:layout_below="@id/textViewDescent"
-            android:layout_marginLeft="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/textViewConditionStatus"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="17dp"
+            android:padding="3dp"/>
 
-            android:textAlignment="center"/>
+        <RatingBar
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewStars"
+            android:layout_below="@id/textViewShortDesc"
+            android:layout_toRightOf="@id/textViewRate"
+            android:padding="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:numStars="5"
+            android:rating="4.7"
+            android:stepSize="0.1"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ratings"
+            android:id="@+id/textViewRate"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/textViewShortDesc"
+            android:layout_marginStart="126dp"
+            android:padding="3dp"
+            android:layout_marginTop="6dp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
