@@ -105,7 +105,10 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.ascent.setText("Ascends " + trail.getAscent() + " ft in Elevation");
         holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
         holder.status.setText("Trail status is " + trail.getConditionStatus());
-        holder.statusDetails.setText(trail.getConditionDetails());
+        if (trail.getConditionDetails() == null)
+            holder.statusDetails.setText("Details at this time are unknown.");
+        else
+            holder.statusDetails.setText(trail.getConditionDetails());
 
         // Trying to replace the picture with place holder or fetch it
         try {
