@@ -117,7 +117,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
+            android:layout_below="@id/textViewPrice"
             android:id="@+id/expandable">
             <TextView
                 android:id="@+id/textViewLocation"
