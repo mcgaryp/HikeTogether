@@ -106,7 +106,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
         holder.status.setText("Trail status is " + trail.getConditionStatus());
         if (trail.getConditionDetails() == null)
-            holder.statusDetails.setText("Details at this time are unknown.");
+            holder.statusDetails.setText("Condition details at this time are unknown.");
         else
             holder.statusDetails.setText(trail.getConditionDetails());
 
