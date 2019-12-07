@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Models.Trail;
+import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
 
@@ -61,6 +61,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.textViewDesc.setText(trail.getSummary());
         holder.textViewRating.setText(String.valueOf(trail.getRating()));
         holder.textViewPrice.setText(String.valueOf(trail.getDifficulty()));
+        holder.ratingBar.setRating(trail.getRating());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View onClick_View) {
@@ -77,7 +78,7 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
         holder.descent.setText("Descends " + trail.getDescent() + " ft in Elevation");
         holder.status.setText("Trail status is " + trail.getConditionStatus());
         holder.statusDetails.setText(trail.getConditionDetails());
-        holder.ratingBar.setRating(trail.getRating());
+
 
         // TODO add listeners to this adapter and make things disappear and appear as the item is
         //  clicked on look at brother macbeths scripture journal on github
@@ -86,15 +87,13 @@ public class ExtendedTrailAdapter extends RecyclerView.Adapter<ExtendedTrailAdap
             //The trail has no image, fill it with the placeholder instead
             if (trail.getImgSmall().equals("")) {
                 Log.d(TAG, trail.getName() + " has no image URL");
-                Drawable trailImage = Drawable
-                        .createFromPath("../../../../../../res/drawable/trail_placeholder.png");
+            }
+            else {
+                //The trail has its own image, fetch the URL and convert to a drawable
+                Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
+                Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
                 holder.imageView.setImageDrawable(trailImage);
             }
-
-            //The trail has its own image, fetch the URL and convert to a drawable
-            Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
-            Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
-            holder.imageView.setImageDrawable(trailImage);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
