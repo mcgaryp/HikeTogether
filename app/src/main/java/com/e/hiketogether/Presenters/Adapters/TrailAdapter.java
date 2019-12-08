@@ -30,7 +30,8 @@ import javax.annotation.Nonnull;
  *          adapts to.
  */
 public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHolder>{
-    public static final String TAG = "EXTENDED_TRAIL_ADAPTER";
+    // VARIABLES
+    public static final String TAG = "TRAIL_ADAPTER";
 
     private Context mCtx;
     private TrailList tl;

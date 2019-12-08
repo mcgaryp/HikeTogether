@@ -40,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String username;
     private String password;
-    private EditText text;
+    private EditText usernameView;
+    private EditText passwordView;
     private Bundle account;
     private Button loginButton;
     private Button createAccountButton;
@@ -65,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         forgotUsernameButton.setVisibility(View.INVISIBLE);
         forgotPasswordButton.setVisibility(View.INVISIBLE);
         hideProgressBar();
+        passwordView = findViewById(R.id.passwordInput);
+        usernameView = findViewById(R.id.usernameInput);
     }
 
     // Start the CreateAccountActivity to create a personal account
@@ -109,35 +112,33 @@ public class LoginActivity extends AppCompatActivity {
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
         setTouchDisabled();
-        // Point to Username input
-        text = findViewById(R.id.usernameInput);
+
         // Check to see if the username is empty
         try {
-            loginManager.checkInput(text, "Username");
+            loginManager.checkInput(usernameView, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             setTouchEnabled();
             return;
         }
         // reset the setError
-        text.setError(null);
+        usernameView.setError(null);
 
         // Set the username
-        username = text.getText().toString();
+        username = usernameView.getText().toString();
 
-        // Point to the password
-        text = findViewById(R.id.passwordInput);
         try {
-            loginManager.checkInput(text, "Password");
+            loginManager.checkInput(passwordView, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             setTouchEnabled();
             return;
         }
         // reset the setError
-        text.setError(null);
+        passwordView.setError(null);
+
         // Set the password
-        password = text.getText().toString();
+        password = passwordView.getText().toString();
 
         // Get information back from LoginManager and return to the MainActivity
         try {
@@ -181,12 +182,11 @@ public class LoginActivity extends AppCompatActivity {
     // Display progress bar
     public void displayProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
-        progressBar.bringToFront();
     }
 
     // Hide progress bar
     public void  hideProgressBar() {
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
     }
 
     // Display any general toast
@@ -219,20 +219,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void setFocus(String view) {
-        if (view == "password") {
-            text = findViewById(R.id.passwordInput);
-        }
-
-        if (view == "username") {
-            text = findViewById(R.id.usernameInput);
-        }
-
-        if (text != null)
-            text.requestFocus();
-        else {
+        if (view == "password")
+            passwordView.requestFocus();
+        else if (view == "username")
+            usernameView.requestFocus();
+        else
             Log.d(TAG, "Unable to set focus");
-            return;
-        }
     }
 
     // GETTERS

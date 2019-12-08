@@ -10,9 +10,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class FileHelper{
+    // VARIABLES
     public static final String TAG = "FILE_HELPER";
     private Context context;
 
+    // Constructor
     public FileHelper(Context context) {
         this.context = context;
     }
@@ -33,19 +35,19 @@ public class FileHelper{
         }
     }
 
-        //Takes JSON data in a string and writes it to a file
-        public boolean writeFile(String filename, String data) {
-            try {
-                Log.d(TAG, "Attempting to write to file: " + filename);
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE)));
-                writer.write(data);
-                writer.close();
-                Log.d(TAG, "Finished writing to file: " + filename);
-                return true;
-            }
-            catch (IOException ioe) {
-                Log.e(TAG, "Error writing to file (" + filename + "): " + ioe);
-                return false;
-            }
+    //Takes JSON data in a string and writes it to a file
+    public boolean writeFile(String filename, String data) {
+        try {
+            Log.d(TAG, "Attempting to write to file: " + filename);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE)));
+            writer.write(data);
+            writer.close();
+            Log.d(TAG, "Finished writing to file: " + filename);
+            return true;
+        }
+        catch (IOException ioe) {
+            Log.e(TAG, "Error writing to file (" + filename + "): " + ioe);
+            return false;
+        }
     }
 }

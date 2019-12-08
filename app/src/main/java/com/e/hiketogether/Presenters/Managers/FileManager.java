@@ -10,6 +10,7 @@ import java.util.List;
 
 //This class manages the cache of data in the file.
 public class FileManager implements Runnable {
+    // VARIABLES
     public static final String TAG = "FILE_MANAGER";
     public static final int MAX_CACHE_SIZE = 250;
 
@@ -20,6 +21,7 @@ public class FileManager implements Runnable {
     private Gson gson;
     private List<Integer> duplicates;
 
+    // Constructor
     public FileManager(Context context, TrailList updateCache) {
         //Create our file helper with the context of whatever wants to write
         fHelper = new FileHelper(context);
@@ -32,6 +34,7 @@ public class FileManager implements Runnable {
         this.updateCache = updateCache;
     }
 
+    // Gets current cache
     public TrailList getCurrentCache() {
         return currentCache;
     }

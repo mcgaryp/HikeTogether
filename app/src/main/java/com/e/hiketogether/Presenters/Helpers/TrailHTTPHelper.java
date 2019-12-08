@@ -18,8 +18,8 @@ import java.net.URL;
      * Note that the URL provided can also have parameters including keys.
      */
     public class TrailHTTPHelper extends AsyncTask<String, Void, String> {
+        // VARIABLES
         private static String TAG = "TRAIL_HTTP_HELPER";
-
 
         /**
          * Will send the HTTP GET Request per the URL provided and listen for the the response.

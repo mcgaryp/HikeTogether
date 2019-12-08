@@ -33,6 +33,7 @@ public class CreateAccountManager implements Listener {
     // Checks to make sure that the password and verifying password match
     public void crossCheckPasswords(String p1, String p2) throws Exception{
         if (!p1.matches(p2))
+            activity.setFocus("verifyPassword");
             throw new Exception("Passwords do not match.");
     }
 
@@ -42,18 +43,30 @@ public class CreateAccountManager implements Listener {
         try {
             checkInput(editText, error);
         } catch (Exception e) {
+            if (error == "Password")
+                activity.setFocus("password");
+            else
+                activity.setFocus("verifyPassword");
             throw e;
         }
 
         // Check that the string is at least 8 char
         if (editText.getText().toString().length() < 8 ) {
             editText.setError(error + " must be at least 8 characters");
+            if (error == "Password")
+                activity.setFocus("password");
+            else
+                activity.setFocus("verifyPassword");
             throw new Exception("Password has less than 8 characters.");
         }
 
         // Check that the password has at least 1 number
         if (!editText.getText().toString().matches(".*[\\d\\p{Punct}].*")) {
             editText.setError(error + " must contain at least one number or symbol");
+            if (error == "Password")
+                activity.setFocus("password");
+            else
+                activity.setFocus("verifyPassword");
             throw new Exception("Password does not have a symbol.");
         }
     }
@@ -64,12 +77,14 @@ public class CreateAccountManager implements Listener {
         try {
             checkInput(editText, error);
         } catch (Exception e) {
+            activity.setFocus("email");
             throw e;
         }
 
         // check to make sure it has at least '@' character
         if (!editText.getText().toString().matches(".*@.*")) {
             editText.setError(error + " invalid");
+            activity.setFocus("email");
             throw new Exception("Email invalid.");
         }
     }
@@ -80,6 +95,7 @@ public class CreateAccountManager implements Listener {
         try {
             checkInput(editText, error);
         } catch (Exception e) {
+            activity.setFocus("username");
             throw e;
         }
     }
@@ -99,7 +115,8 @@ public class CreateAccountManager implements Listener {
 
     @Override public void onFail() {
         activity.displayToast("Username Already Taken.");
-        activity.hideProgressBar();
+        activity.setFocus("username");
+        activity.setTouchEnabled();
     }
 
     @Override

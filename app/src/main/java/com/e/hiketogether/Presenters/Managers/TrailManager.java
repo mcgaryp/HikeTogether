@@ -37,30 +37,7 @@ public class TrailManager {
     private String minLength;
     private String minStars;
 
-
-    // Getters
-    public String getLon() { return lon; }
-    public String getLat() { return lat; }
-    public String getMaxDistance() { return maxDistance; }
-
-    // Setters
-    public void setTL(TrailList tl) { this.tl = tl; }
-    public void setLat(double lat) { this.lat = "lat=" + lat; }
-    public void setLon(double lon) { this.lon = "lon=" + lon; }
-    public void setMaxDistance(int maxDistance) { this.maxDistance = "maxDistance=" + maxDistance; }
-    public void setMaxResults(String maxResults) {
-        this.maxResults = maxResults;
-    }
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-    public void setMinLength(String minLength) {
-        this.minLength = minLength;
-    }
-    public void setMinStars(String minStars) {
-        this.minStars = minStars;
-    }
-
+    // Constructor
     public TrailManager(String lat, String lon, Context context) {
         this.lat = "lat=" + lat;
         this.lon = "lon=" + lon;
@@ -68,7 +45,6 @@ public class TrailManager {
 
         //fManager = new FileManager(context, tl, );
     }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -158,4 +134,19 @@ public class TrailManager {
             return new TrailList();
         }
     }
+
+    // Getters
+    public String getLon()          { return lon;         }
+    public String getLat()          { return lat;         }
+    public String getMaxDistance()  { return maxDistance; }
+
+    // Setters
+    public void setTL(TrailList tl)              { this.tl = tl;                                    }
+    public void setLat(double lat)               { this.lat = "lat=" + lat;                         }
+    public void setLon(double lon)               { this.lon = "lon=" + lon;                         }
+    public void setMaxDistance(int maxDistance)  { this.maxDistance = "maxDistance=" + maxDistance; }
+    public void setMaxResults(String maxResults) { this.maxResults = maxResults;                    }
+    public void setSort(String sort)             { this.sort = sort;                                }
+    public void setMinLength(String minLength)   { this.minLength = minLength;                      }
+    public void setMinStars(String minStars)     { this.minStars = minStars;                        }
 }

@@ -182,10 +182,7 @@ public class MainActivity extends AppCompatActivity
 
     // Display progress bar
     @SuppressLint("WrongConstant")
-    public void displayProgressBar() {
-        progressBar.setVisibility(0);
-        progressBar.bringToFront();
-    }
+    public void displayProgressBar() { progressBar.setVisibility(0); }
 
     // Hide progress bar
     @SuppressLint("WrongConstant")
