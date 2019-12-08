@@ -70,22 +70,6 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/textViewRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewShortDesc"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="35dp"
-            android:layout_toRightOf="@id/imageView"
-            android:background="#68B2D5"
-            android:layoutDirection="rtl"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="4.7"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
