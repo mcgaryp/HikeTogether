@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment implements interact {
     private LocationManager locationManager;
     private Location location;
     private ProgressBar progressBar;
+    private TrailManager tm;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -94,7 +95,8 @@ public class HomeFragment extends Fragment implements interact {
         setTouchDisabled();
 
         //Implement everything needed for the recyclerView to work
-        TrailManager tm = new TrailManager();
+        tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528), getContext());
+
         locationManager = (LocationManager) getActivity()
                 .getSystemService(getContext().LOCATION_SERVICE);
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -102,8 +104,6 @@ public class HomeFragment extends Fragment implements interact {
                 .checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            tm.setLat(43.826069);
-            tm.setLon(-111.789528);
             Log.d(TAG, "Setting location to default location");
             tl = new TrailList();
             tl = tm.getTrails();

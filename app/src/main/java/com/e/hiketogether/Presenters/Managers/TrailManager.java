@@ -2,7 +2,10 @@ package com.e.hiketogether.Presenters.Managers;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import com.e.hiketogether.BuildConfig;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.TrailHTTPHelper;
@@ -58,15 +61,35 @@ public class TrailManager {
         this.minStars = minStars;
     }
 
+    public TrailManager(String lat, String lon, Context context) {
+        this.lat = "lat=" + lat;
+        this.lon = "lon=" + lon;
+        this.context = context;
+
+        //fManager = new FileManager(context, tl, );
+    }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     // Requests the url on a background thread
     private String requestURL(String url) throws ExecutionException, InterruptedException {
+        if (isNetworkAvailable()) {
+            Log.d(TAG, "Successfully connected to the internet");
             return new TrailHTTPHelper().execute(url).get();
+        }
+        else {
+            Log.d(TAG, "Failed to connect to the internet");
+            return null;
+        }
     }
 
     //Gets trails through the latitude and longitude
-    // TODO having trouble reading the json? or maybe just cant connect to www.hikingproject.com
-    //  we may need to add either a listener or exception so that this is done on a thread and that
-    //  notify's the user that it was complete....progressbar?
     public TrailList getTrails() {
         String url = apiURL + "get-trails?" + lat + "&" + lon + "&" + maxDistance + "&" + KEY;
         String tlJson = null;
@@ -77,8 +100,16 @@ public class TrailManager {
         }
 
         Gson gson = new Gson();
-        Log.d("TRAIL_MANAGER", tlJson);
-        return gson.fromJson(tlJson, TrailList.class);
+        if (tlJson != null) {
+            Log.d(TAG, tlJson);
+            return gson.fromJson(tlJson, TrailList.class);
+        }
+        else {
+            Log.d(TAG, "Incoming JSON string is null.  No trails available");
+            Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
+            return new TrailList();
+        }
+
     }
 
 
@@ -94,7 +125,15 @@ public class TrailManager {
 
         Gson gson = new Gson();
 
-        return gson.fromJson(tlJson, TrailList.class);
+        if (tlJson != null) {
+            Log.d(TAG, tlJson);
+            return gson.fromJson(tlJson, TrailList.class);
+        }
+        else {
+            Log.d(TAG, "Incoming JSON string is null.  No trails available");
+            Toast.makeText(context, "No trails could be retrieved. Please check your internet connection and try again", Toast.LENGTH_LONG).show();
+            return new TrailList();
+        }
     }
 
     //Gets the conditions of the trails
@@ -109,6 +148,14 @@ public class TrailManager {
 
         Gson gson = new Gson();
 
-        return gson.fromJson(tlJson, TrailList.class);
+        if (tlJson != null) {
+            Log.d(TAG, tlJson);
+            return gson.fromJson(tlJson, TrailList.class);
+        }
+        else {
+            Log.d(TAG, "Incoming JSON string is null.  No trail conditions available");
+            Toast.makeText(context, "No trail conditions could be retrieved. Please check your internet connection and try again", Toast.LENGTH_LONG).show();
+            return new TrailList();
+        }
     }
 }

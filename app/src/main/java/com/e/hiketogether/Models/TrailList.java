@@ -37,7 +37,6 @@ public class TrailList {
         return recentQueries.contains(query);
     }
 
-
     public Trail getTrail(int index) {
         return trailList.get(index);
     }
@@ -45,4 +44,9 @@ public class TrailList {
     public void removeTrail(int index) {
         trailList.remove(index);
     }
+
+    public boolean nullList() {
+        return trailList == null;
+    }
+
 }

@@ -81,7 +81,6 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         // Setting the specific text to each of the individual views in the layout
         holder.getTextViewTitle().setText(trail.getName());
         holder.getTextViewDesc().setText(trail.getSummary());
-        holder.getTextViewRating().setText(String.valueOf(trail.getRating()));
         holder.getTextViewPrice().setText(String.valueOf(trail.getDifficulty()));
         holder.getRatingBar().setRating(trail.getRating());
 
@@ -147,7 +146,6 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             location = itemView.findViewById(R.id.textViewLocation);
             length = itemView.findViewById(R.id.textViewLength);
