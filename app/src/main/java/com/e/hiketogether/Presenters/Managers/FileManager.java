@@ -51,8 +51,11 @@ public class FileManager {
         currentCache.addtoCache(query, trailList);
     }
 
-    boolean isCacheEmpty() {
-        return currentCache.isEmpty();
+    boolean isCacheEmpty() throws Exception {
+        if (currentCache != null)
+            return currentCache.isEmpty();
+        else
+            throw new Exception("Cache is null object");
     }
 
 
