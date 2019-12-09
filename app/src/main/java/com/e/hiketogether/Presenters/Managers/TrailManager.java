@@ -29,6 +29,7 @@ public class TrailManager {
 
     //Needed to request JSON data from HikingProject API
     private String apiURL = "https://www.hikingproject.com/data/";
+    private String query;
     private String lat;
     private String lon;
     private String maxDistance = "maxDistance=30";          //TODO Could be something to change in settings
@@ -36,7 +37,6 @@ public class TrailManager {
     private String sort = "quality";
     private String minLength;
     private String minStars;
-
 
     // Getters
     public String getLon() { return lon; }
@@ -65,11 +65,9 @@ public class TrailManager {
         this.lat = "lat=" + lat;
         this.lon = "lon=" + lon;
         this.context = context;
-
-        //fManager = new FileManager(context, tl, );
     }
 
-
+    //Simply checks if the app has access to the internet
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -77,12 +75,30 @@ public class TrailManager {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    // Requests the url on a background thread
-    private String requestURL(String url) throws ExecutionException, InterruptedException {
-        if (isNetworkAvailable()) {
-            Log.d(TAG, "Successfully connected to the internet");
-            return new TrailHTTPHelper().execute(url).get();
+    // Requests the trail, either from the cache or from the internet
+    private String requestTrails(String url) throws ExecutionException, InterruptedException {
+        fManager = new FileManager(context);
+
+        //See if trail is currently cached
+        if (!fManager.isCacheEmpty() && fManager.isQueryCached(url)) {
+            Log.d(TAG, "Retrieved query (" + url + ") from cache");
+            Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
+            return fManager.getCachedQuery(url);
         }
+        //It wasn't cached, get it from the internet and cache it, then return it
+        else if (isNetworkAvailable()) {
+            Log.d(TAG, "Successfully connected to the internet");
+            String trailList = new TrailHTTPHelper().execute(url).get();
+
+            //Add new trail list to the cache
+            fManager.addToCache(url, trailList);
+            Log.d(TAG, "Added trails to the cache");
+            //Write the cache to the phone since we updated it
+            fManager.writeCache(trailList);
+
+            return trailList;
+        }
+        //We couldn't connect to the internet.  Return an error
         else {
             Log.d(TAG, "Failed to connect to the internet");
             return null;
@@ -94,7 +110,7 @@ public class TrailManager {
         String url = apiURL + "get-trails?" + lat + "&" + lon + "&" + maxDistance + "&" + KEY;
         String tlJson = null;
         try {
-            tlJson = requestURL(url);
+            tlJson = requestTrails(url);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -109,7 +125,6 @@ public class TrailManager {
             Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
             return new TrailList();
         }
-
     }
 
 
@@ -118,7 +133,7 @@ public class TrailManager {
         String url = apiURL + "get-trails-by-id?ids=" + "&" + KEY;
         String tlJson = null;
         try {
-            tlJson = requestURL(url);
+            tlJson = requestTrails(url);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -141,7 +156,7 @@ public class TrailManager {
         String url = apiURL + "get-conditions?ids=" + "&" + KEY;
         String tlJson = null;
         try {
-            tlJson = requestURL(url);
+            tlJson = requestTrails(url);
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }

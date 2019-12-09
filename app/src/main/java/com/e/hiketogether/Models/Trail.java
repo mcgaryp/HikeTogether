@@ -52,6 +52,8 @@ public class Trail {
     private String conditionDetails;
     private String conditionDate;
 
+    private boolean isFavorite;
+
     // Normalize difficulty
     void normalizeDif() {
         Log.d(TAG, "Attempting to normalize difficulty: " + difficulty);
@@ -88,6 +90,7 @@ public class Trail {
     public String getConditionImg()     { return conditionImg;     }
     public String getConditionDetails() { return conditionDetails; }
     public String getConditionDate()    { return conditionDate;    }
+    public boolean getFavorite() { return isFavorite; }
     public String getDifficulty()       {
         normalizeDif();
         return difficulty;
@@ -95,6 +98,13 @@ public class Trail {
 
     // SETTERS
     private void setDifficulty(String dif) { difficulty = dif; }
+    public void setFavorite() {
+        if (isFavorite)
+            isFavorite = false;
+        else if (!isFavorite)
+            isFavorite = true;
+    }
+
 
     // Compare the Trail to other Trails
     public boolean compare(Trail rhs) {
