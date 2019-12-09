@@ -22,7 +22,7 @@ public class FileHelper{
 
     public FileHelper(Context context) throws IOException {
         this.context = context;
-        filename = context.getFilesDir() + "/trailCache.log";
+        filename = context.getFilesDir() + "/trailCache.txt";
 
         //Make sure that the cache file exists before we try to read/write from it
         checkFileStatus();

@@ -15,6 +15,7 @@ public class FileManager {
 
     private FileHelper fHelper;
     private TrailCache currentCache;
+    private boolean isNull;
 
     FileManager(Context context) {
         //Create our file helper with the context of whatever wants to write
@@ -29,13 +30,20 @@ public class FileManager {
         Gson gson = new Gson();
         currentCache = new TrailCache();
 
-        //Log.d(TAG, "Empty cache found when initializing FileManager");
-        currentCache = gson.fromJson(fHelper.readFile(), TrailCache.class);
+        String fileContents = fHelper.readFile();
+        Log.d(TAG, "File contents: " + fileContents);
+        if (fileContents == "")
+            isNull = true;
+        else
+            isNull = false;
+        currentCache = gson.fromJson(fileContents, TrailCache.class);
     }
 
     boolean isQueryCached(String query) {
-        if (currentCache.isEmpty())
-            return false;
+        if (isNull) {
+            if (currentCache.isEmpty())
+                return false;
+            }
 
         Log.d(TAG, "Checking cache for query: " + query);
        return currentCache.isRequestCached(query);
@@ -48,11 +56,16 @@ public class FileManager {
 
     void addToCache(String query, String trailList) {
         Log.d(TAG, "Adding (" + query + ") to the cache");
+        isNull = true;
         currentCache.addtoCache(query, trailList);
     }
 
     boolean isCacheEmpty() {
         return currentCache.isEmpty();
+    }
+
+    boolean isCacheNull() {
+        return isNull;
     }
 
 
