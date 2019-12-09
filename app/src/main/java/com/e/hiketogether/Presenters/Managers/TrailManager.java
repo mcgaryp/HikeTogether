@@ -80,32 +80,27 @@ public class TrailManager {
         fManager = new FileManager(context);
 
         //See if trail is currently cached
-        try {
-            if (!fManager.isCacheEmpty() && fManager.isQueryCached(url)) {
-                Log.d(TAG, "Retrieved query (" + url + ") from cache");
-                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
-                return fManager.getCachedQuery(url);
-            }
-            //It wasn't cached, get it from the internet and cache it, then return it
-            else if (isNetworkAvailable()) {
-                Log.d(TAG, "Successfully connected to the internet");
-                String trailList = new TrailHTTPHelper().execute(url).get();
+        if (!fManager.isCacheEmpty() && fManager.isQueryCached(url)) {
+            Log.d(TAG, "Retrieved query (" + url + ") from cache");
+            Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
+            return fManager.getCachedQuery(url);
+        }
+        //It wasn't cached, get it from the internet and cache it, then return it
+        else if (isNetworkAvailable()) {
+            Log.d(TAG, "Successfully connected to the internet");
+            String trailList = new TrailHTTPHelper().execute(url).get();
 
-                //Add new trail list to the cache
-                fManager.addToCache(url, trailList);
-                Log.d(TAG, "Added trails to the cache");
-                //Write the cache to the phone since we updated it
-                fManager.writeCache(trailList);
+            //Add new trail list to the cache
+            fManager.addToCache(url, trailList);
+            Log.d(TAG, "Added trails to the cache");
+            //Write the cache to the phone since we updated it
+            fManager.writeCache(trailList);
 
-                return trailList;
-            }
-            //We couldn't connect to the internet.  Return an error
-            else {
-                Log.d(TAG, "Failed to connect to the internet");
-                return null;
-            }
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            return trailList;
+        }
+        //We couldn't connect to the internet.  Return an error
+        else {
+            Log.d(TAG, "Failed to connect to the internet");
             return null;
         }
     }
