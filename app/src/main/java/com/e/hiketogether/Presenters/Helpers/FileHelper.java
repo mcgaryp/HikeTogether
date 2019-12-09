@@ -13,7 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class FileHelper {
+public class FileHelper{
+    // VARIABLES
     public static final String TAG = "FILE_HELPER";
 
     private Context context;

@@ -11,17 +11,6 @@ public class Trail {
     // Static VARIABLES
     private final static String TAG = "TRAIL";
 
-    public Trail(String name, String summary, String difficulty, float rating, int ratingVotes, String location, float length, String imgSmall) {
-        this.name = name;
-        this.summary = summary;
-        this.difficulty = difficulty;
-        this.rating = rating;
-        this.ratingVotes = ratingVotes;
-        this.location = location;
-        this.length = length;
-        this.imgSmall = imgSmall;
-    }
-
     private int id;
     private String name;
     private String summary;
@@ -55,7 +44,7 @@ public class Trail {
     private boolean isFavorite;
 
     // Normalize difficulty
-    void normalizeDif() {
+    private void normalizeDif() {
         Log.d(TAG, "Attempting to normalize difficulty: " + difficulty);
         String normalDif = "";
         for (int i = 0; i < difficulty.length(); i++) {

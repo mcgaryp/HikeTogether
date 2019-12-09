@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Presenters.Interfaces.Interact;
 import com.e.hiketogether.Presenters.Managers.CreateAccountManager;
 import com.e.hiketogether.R;
 
@@ -21,15 +23,19 @@ import com.e.hiketogether.R;
  *      personal account that will allow them to do special things with the account.
  *      After creating an account it will send them to the login page.
  */
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity implements Interact {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_ACTIVITY";
     private ProgressBar progressBar;
-    private String secondPassword;
-    private EditText editText;
+    private String verifyPassword;
     private String password;
     private String username;
     private String email;
+    private EditText usernameView;
+    private EditText passwordView;
+    private EditText verifyPasswordView;
+    private EditText emailView;
+
 
     // OnCreate Function
     @Override
@@ -39,85 +45,84 @@ public class CreateAccountActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.createAccountProgressBar);
         progressBar.bringToFront();
         hideProgressBar();
+        usernameView = findViewById(R.id.createUsername);
+        passwordView = findViewById(R.id.createPassword);
+        verifyPasswordView = findViewById(R.id.createVerifyPassword);
+        emailView = findViewById(R.id.createEmail);
     }
 
     // Takes input and creates account!
     public void onCreateAccount(View view) {
+        setTouchDisabled();
         // Need some managing of accounts happening
         CreateAccountManager accountManager = new CreateAccountManager(this);
 
-        // Set editText to username
-        editText = findViewById(R.id.createUsername);
         // Check to make sure username is within constraints
         try {
-            accountManager.checkUsername(editText, "Username");
+            accountManager.checkUsername(usernameView, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
-        editText.setError(null);
+        usernameView.setError(null);
         // Set username
-        username = editText.getText().toString();
+        username = usernameView.getText().toString();
 
-        // point to the first password
-        editText = findViewById(R.id.createPassword);
         // Check constraints
         try {
-            accountManager.checkPassword(editText, "Password");
+            accountManager.checkPassword(passwordView, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset setError
-        editText.setError(null);
+        passwordView.setError(null);
         // Set password
-        password = editText.getText().toString();
+        password = passwordView.getText().toString();
 
-        // point to verifyPassword
-        editText = findViewById(R.id.createVerifyPassword);
         // Check constraints
         try {
-            accountManager.checkPassword(editText, "Verify Password");
+            accountManager.checkPassword(verifyPasswordView, "Verify Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
-        editText.setError(null);
+        verifyPasswordView.setError(null);
         // Set SecondPassword
-        secondPassword = editText.getText().toString();
+        verifyPassword = verifyPasswordView.getText().toString();
 
-        // Set the edit text to email
-        editText = findViewById(R.id.createEmail);
         // Check constraints
         try {
-            accountManager.checkEmail(editText, "email");
+            accountManager.checkEmail(emailView, "email");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
-        editText.setError(null);
+        emailView.setError(null);
         // Set email
-        email = editText.getText().toString();
+        email = emailView.getText().toString();
 
         // Check to make sure the two passwords match
         try {
             Log.d(TAG,"First password: " + password);
-            Log.d(TAG, "Second password: " + secondPassword);
-            accountManager.crossCheckPasswords(password, secondPassword);
+            Log.d(TAG, "Second password: " + verifyPassword);
+            accountManager.crossCheckPasswords(password, verifyPassword);
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             displayToast("Passwords do not match");
+            setTouchEnabled();
             return;
         }
-        // reset the setError
-        editText.setError(null);
 
         // Attempt to Create the account
         accountManager.createAccount(username, password, email);
-        displayProgressBar();
     }
 
     // Display a toast
@@ -128,14 +133,32 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     // Hide Progress bar
-
     public void hideProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
+        Log.d(TAG, "Hiding Progress Bar.");
     }
 
     // Display Progress bar
     public void displayProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "Displaying Progress Bar.");
+    }
+
+    // Disnable Touch
+    @Override
+    public void setTouchDisabled() {
+        Log.d(TAG, "Setting the touch screen to: DISABLED");
+        displayProgressBar();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    // Enable Touch
+    @Override
+    public void setTouchEnabled() {
+        Log.d(TAG, "Setting the touch screen to: ENABLED");
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        hideProgressBar();
     }
 
     // Now that we created an account lets go HOME
@@ -147,7 +170,21 @@ public class CreateAccountActivity extends AppCompatActivity {
         returnIntent.putExtra("account", extra);
         Log.d(TAG, "Bundle name is \'account\'");
         setResult(Activity.RESULT_OK, returnIntent);
-        hideProgressBar();
+        setTouchEnabled();
         finish();
+    }
+
+    // Set Focus
+    public void setFocus(String view) {
+        if (view == "username")
+            usernameView.requestFocus();
+        else if (view == "password")
+            passwordView.requestFocus();
+        else if (view == "verifyPassword")
+            verifyPasswordView.requestFocus();
+        else if (view == "email")
+            emailView.requestFocus();
+        else
+            Log.d(TAG, "Unable to set focus");
     }
 }

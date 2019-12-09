@@ -2,88 +2,180 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="15dp">
-    <LinearLayout
+    android:padding="5dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:id="@+id/settingsLayout"
+        android:background="@drawable/rounded_button"
+        android:padding="20dp"
+        android:paddingBottom="25dp"
+        >
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/settingsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profileImageLayout">
             <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/profile_image" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!-- This is the view that tells you what the drop down for background-->
-                <TextView
-                    android:id="@+id/backgroundSettingView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_background_style" />
-                <!-- Drop down selector-->
-                <Spinner
-                    android:id="@+id/backgroundSpinner"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:dropDownWidth="match_parent"
-                    android:spinnerMode="dropdown"
-                    android:paddingStart="15dp"/>
-            </LinearLayout>
+                android:src="@drawable/place_holder_profile_img"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/profileImage"
+                android:padding="3dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profileImage"
+                android:layout_centerHorizontal="true"
+                android:text="Change Picture"
+                android:padding="5dp"
+                android:id="@+id/changeProfilePictureButton"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profileImageLayout"
+            android:id="@+id/firstNameLayout">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:id="@+id/firstNameView"
-                android:layout_width="match_parent"
+                android:text="First Name"
+                android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/first_name" />
+                android:id="@+id/changeFirstNameButton"
+                android:layout_below="@id/firstNameView"
+                android:text="Change First Name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Users First Name"
+                android:id="@+id/userFirstName"
+                android:textSize="17dp"
+                android:layout_below="@id/firstNameView"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lastNameLayout"
+            android:layout_below="@+id/firstNameLayout">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:id="@+id/lastNameView"
-                android:layout_width="match_parent"
+                android:text="Last Name"
+                android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/last_name" />
+                android:id="@+id/changeLastNameButton"
+                android:text="Change Last Name"
+                android:layout_below="@id/lastNameView"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Users Last Name"
+                android:id="@+id/userLastName"
+                android:textSize="17dp"
+                android:layout_below="@id/lastNameView"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailLayout"
+            android:layout_below="@+id/usernameLayout">
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:id="@+id/emailView"
-                android:layout_width="match_parent"
+                android:text="E-Mail"
+                android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/prompt_email" />
+                android:id="@+id/changeEmailButton"
+                android:layout_below="@+id/emailView"
+                android:text="Change E-Mail"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="User E-Mail"
+                android:id="@+id/userEmail"
+                android:textSize="17dp"
+                android:layout_below="@id/emailView"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernameLayout"
+            android:layout_below="@+id/lastNameLayout">
             <TextView
-                android:id="@+id/changePasswordView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/change_password" />
+                android:layout_alignParentStart="true"
+                android:id="@+id/usernameView"
+                android:text="Username"
+                android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeUsernameButton"
+                android:layout_below="@id/usernameView"
+                android:text="Change Username"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="User Username"
+                android:id="@+id/userUsername"
+                android:textSize="17dp"
+                android:layout_below="@+id/usernameView"/>
         </RelativeLayout>
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backgroundChangeLayout"
+            android:layout_below="@+id/emailLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:id="@+id/changeBackgroundView"
+                android:text="Change Background"
+                android:textSize="17dp"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/backgroundSpinner"
+                android:scrollbarSize="17dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchDistanceLayout"
+            android:layout_below="@+id/backgroundChangeLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:id="@+id/searchDistanceView"
+                android:text="Change Trail Search Distance"
+                android:textSize="17dp"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/distanceSpinner"
+                android:scrollbarSize="17dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

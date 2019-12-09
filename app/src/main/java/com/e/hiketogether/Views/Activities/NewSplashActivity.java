@@ -1,13 +1,14 @@
 package com.e.hiketogether.Views.Activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
 import com.e.hiketogether.R;
-import android.content.Intent;
-import android.os.*;
 
-public class newSplash extends AppCompatActivity {
+public class NewSplashActivity extends AppCompatActivity {
     private Handler h = new Handler();
 
     @Override
