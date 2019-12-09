@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -66,7 +67,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
      * @param position  position in the trail list. This is each individual cards "id"
      */
     @Override
-    public void onBindViewHolder(@NonNull TrailAdapter.TrailViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull TrailViewHolder holder, final int position) {
         // Here we are setting the visibility of the expansion to visible or not depending on the
         //  clickPosition. If it is == to the position then set it visable else not.
         holder.getExpandable().setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
@@ -77,13 +78,19 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             prevClickPosition = position;
 
         // Getting each individual trail now
-        Trail trail = tl.getTrailList().get(position);
+        final Trail trail = tl.getTrailList().get(position);
 
         // Setting the specific text to each of the individual views in the layout
         holder.getTextViewTitle().setText(trail.getName());
         holder.getTextViewDesc().setText(trail.getSummary());
         holder.getTextViewPrice().setText(String.valueOf(trail.getDifficulty()));
         holder.getRatingBar().setRating(trail.getRating());
+        // TODO DYLAN here is code that should allow you to set the onclick button for when the user
+        //  uses the button to get the trails starting location
+//        holder.getGoHikingButton().setOnClickListener(onClick_View -> {
+//            Log.d(TAG, "Take the user to the Location!");
+//            map(trail.getLatitude(), trail.getLatitude());
+//        });
 
         // Setting the on click listener to open or not this view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +143,11 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     // Sub Class that is a view holder in assisting the usage of the adapter
     class TrailViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
-        private TextView textViewTitle, textViewDesc, textViewRating, textViewPrice,
+        private TextView textViewTitle, textViewDesc, textViewPrice,
                 location, length, ascent, descent, status, statusDetails;
         private RatingBar ratingBar;
         private RelativeLayout expandable;
+        private Button goHikingButton;
 
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
@@ -156,21 +164,22 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             statusDetails = itemView.findViewById(R.id.textViewConditionDetails);
             ratingBar = itemView.findViewById(R.id.imageViewStars);
             expandable = itemView.findViewById(R.id.expandable);
+            goHikingButton = itemView.findViewById(R.id.goHikingButton);
         }
 
         // GETTERS
-        public ImageView getImageView() { return imageView; }
-        public TextView getTextViewTitle() { return textViewTitle; }
-        public TextView getTextViewDesc() { return textViewDesc; }
-        public TextView getTextViewRating() { return textViewRating; }
-        public TextView getTextViewPrice() { return textViewPrice; }
-        public TextView getLocation() { return location; }
-        public TextView getLength() { return length; }
-        public TextView getAscent() { return ascent; }
-        public TextView getDescent() { return descent; }
-        public TextView getStatus() { return status; }
-        public TextView getStatusDetails() { return statusDetails; }
-        public RatingBar getRatingBar() { return ratingBar; }
-        public RelativeLayout getExpandable() { return expandable; }
+        public ImageView getImageView()       { return imageView;       }
+        public TextView getTextViewTitle()    { return textViewTitle;   }
+        public TextView getTextViewDesc()     { return textViewDesc;    }
+        public TextView getTextViewPrice()    { return textViewPrice;   }
+        public TextView getLocation()         { return location;        }
+        public TextView getLength()           { return length;          }
+        public TextView getAscent()           { return ascent;          }
+        public TextView getDescent()          { return descent;         }
+        public TextView getStatus()           { return status;          }
+        public TextView getStatusDetails()    { return statusDetails;   }
+        public RatingBar getRatingBar()       { return ratingBar;       }
+        public RelativeLayout getExpandable() { return expandable;      }
+        public Button getGoHikingButton()     { return goHikingButton;  }
     }
 }
