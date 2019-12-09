@@ -2,12 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="15dp">
+    android:padding="5dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/settingsLayout"
-        android:background="#FFF"
+        android:background="@drawable/rounded_button"
+        android:padding="20dp"
+        android:paddingBottom="25dp"
         >
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -131,6 +133,25 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/backgroundSpinner"
+                android:scrollbarSize="17dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchDistanceLayout"
+            android:layout_below="@+id/backgroundChangeLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:id="@+id/searchDistanceView"
+                android:text="Change Trail Search Distance"
+                android:textSize="17dp"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/distanceSpinner"
                 android:scrollbarSize="17dp"/>
         </RelativeLayout>
     </RelativeLayout>
