@@ -28,7 +28,6 @@
                 android:layout_below="@+id/profileImage"
                 android:layout_centerHorizontal="true"
                 android:text="Change Picture"
-                android:clickable="false"
                 android:padding="5dp"
                 android:id="@+id/changeProfilePictureButton"/>
         </RelativeLayout>
@@ -44,6 +43,12 @@
                 android:id="@+id/firstNameView"
                 android:text="First Name"
                 android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeFirstNameButton"
+                android:layout_below="@id/firstNameView"
+                android:text="Change First Name"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,6 +70,12 @@
                 android:id="@+id/lastNameView"
                 android:text="Last Name"
                 android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeLastNameButton"
+                android:text="Change Last Name"
+                android:layout_below="@id/lastNameView"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,6 +97,12 @@
                 android:id="@+id/emailView"
                 android:text="E-Mail"
                 android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeEmailButton"
+                android:layout_below="@+id/emailView"
+                android:text="Change E-Mail"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,6 +124,12 @@
                 android:id="@+id/usernameView"
                 android:text="Username"
                 android:textSize="17dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeUsernameButton"
+                android:layout_below="@id/usernameView"
+                android:text="Change Username"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
