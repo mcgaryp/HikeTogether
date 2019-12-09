@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Presenters.Interfaces.interact;
+import com.e.hiketogether.Presenters.Interfaces.Interact;
 import com.e.hiketogether.Presenters.Managers.CreateAccountManager;
 import com.e.hiketogether.R;
 
@@ -23,7 +23,7 @@ import com.e.hiketogether.R;
  *      personal account that will allow them to do special things with the account.
  *      After creating an account it will send them to the login page.
  */
-public class CreateAccountActivity extends AppCompatActivity implements interact {
+public class CreateAccountActivity extends AppCompatActivity implements Interact {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_ACTIVITY";
     private ProgressBar progressBar;
@@ -62,6 +62,7 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
             accountManager.checkUsername(usernameView, "Username");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
@@ -74,6 +75,7 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
             accountManager.checkPassword(passwordView, "Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset setError
@@ -86,6 +88,7 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
             accountManager.checkPassword(verifyPasswordView, "Verify Password");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
@@ -98,6 +101,7 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
             accountManager.checkEmail(emailView, "email");
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
+            setTouchEnabled();
             return;
         }
         // reset the setError
@@ -113,12 +117,12 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
             displayToast("Passwords do not match");
+            setTouchEnabled();
             return;
         }
 
         // Attempt to Create the account
         accountManager.createAccount(username, password, email);
-//        setTouchEnabled();
     }
 
     // Display a toast
@@ -129,11 +133,18 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
     }
 
     // Hide Progress bar
-
     public void hideProgressBar() {
         progressBar.setVisibility(View.INVISIBLE);
+        Log.d(TAG, "Hiding Progress Bar.");
     }
 
+    // Display Progress bar
+    public void displayProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "Displaying Progress Bar.");
+    }
+
+    // Disnable Touch
     @Override
     public void setTouchDisabled() {
         Log.d(TAG, "Setting the touch screen to: DISABLED");
@@ -142,16 +153,12 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
+    // Enable Touch
     @Override
     public void setTouchEnabled() {
         Log.d(TAG, "Setting the touch screen to: ENABLED");
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         hideProgressBar();
-    }
-
-    // Display Progress bar
-    public void displayProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     // Now that we created an account lets go HOME
@@ -167,6 +174,7 @@ public class CreateAccountActivity extends AppCompatActivity implements interact
         finish();
     }
 
+    // Set Focus
     public void setFocus(String view) {
         if (view == "username")
             usernameView.requestFocus();

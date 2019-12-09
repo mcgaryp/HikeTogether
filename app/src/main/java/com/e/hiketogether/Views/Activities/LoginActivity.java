@@ -94,21 +94,6 @@ public class LoginActivity extends AppCompatActivity {
 //        setContentView(R.id.forgot_password);
     }
 
-    // disable the screen so users cannot touch it and interact
-    public void setTouchDisabled() {
-        Log.d(TAG, "Setting the touch screen to: DISABLED");
-        displayProgressBar();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    // Enable the screen so users can touch it and interact
-    public void setTouchEnabled() {
-        Log.d(TAG, "Setting the touch screen to: ENABLED");
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        hideProgressBar();
-    }
-
     // After the user has entered the username and password then we need to find there account
     public void onLogin(View view) {
         setTouchDisabled();
@@ -179,14 +164,31 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG, "Login in from Create Account Screen.");
     }
 
+    // disable the screen so users cannot touch it and Interact
+    public void setTouchDisabled() {
+        Log.d(TAG, "Setting the touch screen to: DISABLED");
+        displayProgressBar();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    // Enable the screen so users can touch it and Interact
+    public void setTouchEnabled() {
+        Log.d(TAG, "Setting the touch screen to: ENABLED");
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        hideProgressBar();
+    }
+
     // Display progress bar
     public void displayProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "Displaying Progress Bar.");
     }
 
     // Hide progress bar
     public void  hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+        Log.d(TAG, "hiding Progress Bar.");
     }
 
     // Display any general toast

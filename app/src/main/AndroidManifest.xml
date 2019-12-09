@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
 
-        <activity android:name=".Views.Activities.NewSplash">
+        <activity android:name=".Views.Activities.NewSplashActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

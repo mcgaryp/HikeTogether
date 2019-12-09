@@ -1,6 +1,5 @@
 package com.e.hiketogether.Views.Activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Interfaces.Interact;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
 import com.e.hiketogether.Views.Fragments.HomeFragment;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
                                      FavoritesFragment.OnFragmentInteractionListener,
                                      MapTrailFragment.OnFragmentInteractionListener,
                                      TrailViewFragment.OnFragmentInteractionListener,
-                                     SettingsFragment.OnFragmentInteractionListener {
+                                     SettingsFragment.OnFragmentInteractionListener, Interact {
     // VARIABLES
     private static final String TAG = "MAIN_ACTIVITY"; //Log tag
 
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the map button, open the map trail fragment
-        // TODO http needs a fixing! needs to have some testing case for no internet
         else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
             template_fragment = new MapTrailFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
@@ -123,17 +122,6 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "SETTINGS";
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
-    }
-
-    // BUTTONS
-    // onClick of a card when it is small
-    public void onClickGrow(View view) {
-        Log.d(TAG, "onClickGrow.");
-    }
-
-    // onClick of a card when it is big
-    public void onClickShrink(View view) {
-        Log.d(TAG, "onClickShrink.");
     }
 
     public void initiateTrailSearch(TrailList tl) {
@@ -175,22 +163,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     // Display a toast
-    private void displayToast(String message) {
+    public void displayToast(String message) {
         new Toast(getApplicationContext())
                 .makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
     }
 
     // Display progress bar
-    @SuppressLint("WrongConstant")
-    public void displayProgressBar() { progressBar.setVisibility(0); }
+    public void displayProgressBar() { progressBar.setVisibility(View.VISIBLE); }
 
     // Hide progress bar
-    @SuppressLint("WrongConstant")
     public void  hideProgressBar() {
-        progressBar.setVisibility(8);
+        progressBar.setVisibility(View.GONE);
     }
 
-    // disable the screen so users cannot touch it and interact
+    // disable the screen so users cannot touch it and Interact
     public void setTouchDisabled() {
         Log.d(TAG, "Setting the touch screen to: DISABLED");
         displayProgressBar();
@@ -198,7 +184,7 @@ public class MainActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    // Enable the screen so users can touch it and interact
+    // Enable the screen so users can touch it and Interact
     public void setTouchEnabled() {
         Log.d(TAG, "Setting the touch screen to: ENABLED");
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);

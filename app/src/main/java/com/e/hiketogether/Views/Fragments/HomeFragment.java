@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
-import com.e.hiketogether.Presenters.Interfaces.interact;
+import com.e.hiketogether.Presenters.Interfaces.Interact;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
@@ -40,7 +40,7 @@ import java.util.List;
 
 // TODO Has a list of local trails in a drawer and a google map screen that is capable of
 //  displaying location of the trail on the map
-public class HomeFragment extends Fragment implements interact {
+public class HomeFragment extends Fragment implements Interact {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
 
@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment implements interact {
         progressBar.setVisibility(8);
     }
 
-    // disable the screen so users cannot touch it and interact
+    // disable the screen so users cannot touch it and Interact
     @Override
     public void setTouchDisabled() {
         Log.d(TAG, "Setting the touch screen to: DISABLED");
@@ -208,7 +208,7 @@ public class HomeFragment extends Fragment implements interact {
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
-    // Enable the screen so users can touch it and interact
+    // Enable the screen so users can touch it and Interact
     @Override
     public void setTouchEnabled() {
         Log.d(TAG, "Setting the touch screen to: ENABLED");

@@ -32,9 +32,10 @@ public class CreateAccountManager implements Listener {
 
     // Checks to make sure that the password and verifying password match
     public void crossCheckPasswords(String p1, String p2) throws Exception{
-        if (!p1.matches(p2))
+        if (!p1.matches(p2)) {
             activity.setFocus("verifyPassword");
             throw new Exception("Passwords do not match.");
+        }
     }
 
     // Check to make sure the string is not empty
