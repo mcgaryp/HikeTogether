@@ -85,6 +85,8 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.getTextViewPrice().setText(String.valueOf(trail.getDifficulty()));
         holder.getRatingBar().setRating(trail.getRating());
 
+        ////////////////////////////if ()
+
         // Setting the on click listener to open or not this view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +146,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.imageViewNotFavorite);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
