@@ -182,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
     // Display progress bar
     public void displayProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.bringToFront();
         Log.d(TAG, "Displaying Progress Bar.");
     }
 

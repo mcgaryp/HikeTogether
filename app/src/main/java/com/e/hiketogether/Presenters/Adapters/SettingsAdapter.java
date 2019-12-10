@@ -1,4 +1,4 @@
 package com.e.hiketogether.Presenters.Adapters;
 
-public class SettingsAdapter {
+public class SettingsAdapter{
 }
