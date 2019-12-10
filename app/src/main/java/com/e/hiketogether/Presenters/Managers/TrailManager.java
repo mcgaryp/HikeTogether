@@ -65,6 +65,8 @@ public class TrailManager {
         this.lat = "lat=" + lat;
         this.lon = "lon=" + lon;
         this.context = context;
+
+        fManager = new FileManager(context);
     }
 
     //Simply checks if the app has access to the internet
@@ -77,24 +79,24 @@ public class TrailManager {
 
     // Requests the trail, either from the cache or from the internet
     private String requestTrails(String url) throws ExecutionException, InterruptedException {
-        fManager = new FileManager(context);
 
-        //See if trail is currently cached
-//        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
-//                Log.d(TAG, "Retrieved query (" + url + ") from cache");
-//                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
-//                return fManager.getCachedQuery(url);
-//        }
-        //It wasn't cached, get it from the internet and cache it, then return it
-        if (isNetworkAvailable()) {
+        //See if the trail query is currently cached
+        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
+                Log.d(TAG, "Retrieved query (" + url + ") from cache");
+                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
+                return fManager.getCachedQuery(url);
+        }
+        //It wasn't cached, get it from the internet and cache it, then return it for the recycler view to use
+        else if (isNetworkAvailable()) {
             Log.d(TAG, "Successfully connected to the internet");
             String trailList = new TrailHTTPHelper().execute(url).get();
 
             //Add new trail list to the cache
-            //fManager.addToCache(url, trailList);
+            fManager.addToCache(url, trailList);
             Log.d(TAG, "Added trails to the cache");
+
             //Write the cache to the phone since we updated it
-            //fManager.writeCache(trailList);
+            fManager.writeCache(trailList);
 
             return trailList;
         }

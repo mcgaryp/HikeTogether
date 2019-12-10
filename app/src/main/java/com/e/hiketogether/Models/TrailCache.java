@@ -8,11 +8,16 @@ import java.util.Map;
 public class TrailCache {
     private static final int CACHE_MAX_SIZE = 250;  //We don't want more TrailLists than this
 
-    private Map<String, String> trailCache = new HashMap<>();
+    private Map<String, String> trailCache;
+
+    public TrailCache() {
+        trailCache = new HashMap<>();
+    }
 
     public Map<String, String> getTrailCache() {
         return trailCache;
     }
+
 
     public void addtoCache(String query, String trailList) {
         limitSize();
