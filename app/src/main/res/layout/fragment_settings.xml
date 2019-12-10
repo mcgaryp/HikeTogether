@@ -28,7 +28,6 @@
                 android:layout_below="@+id/profileImage"
                 android:layout_centerHorizontal="true"
                 android:text="Change Picture"
-                android:padding="5dp"
                 android:id="@+id/changeProfilePictureButton"/>
         </RelativeLayout>
         <RelativeLayout
@@ -49,14 +48,16 @@
                 android:id="@+id/changeFirstNameButton"
                 android:layout_below="@id/firstNameView"
                 android:text="Change First Name"/>
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Users First Name"
                 android:id="@+id/userFirstName"
                 android:textSize="17dp"
-                android:layout_below="@id/firstNameView"/>
+                android:layout_below="@id/firstNameView"
+                android:enabled="false"
+                android:background="#FFF"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -76,14 +77,17 @@
                 android:id="@+id/changeLastNameButton"
                 android:text="Change Last Name"
                 android:layout_below="@id/lastNameView"/>
-            <TextView
+
+            <EditText
+                android:id="@+id/userLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/lastNameView"
                 android:layout_alignParentEnd="true"
+                android:enabled="false"
+                android:background="#FFF"
                 android:text="Users Last Name"
-                android:id="@+id/userLastName"
-                android:textSize="17dp"
-                android:layout_below="@id/lastNameView"/>
+                android:textSize="17dp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -103,14 +107,16 @@
                 android:id="@+id/changeEmailButton"
                 android:layout_below="@+id/emailView"
                 android:text="Change E-Mail"/>
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="User E-Mail"
                 android:id="@+id/userEmail"
                 android:textSize="17dp"
-                android:layout_below="@id/emailView"/>
+                android:layout_below="@id/emailView"
+                android:enabled="false"
+                android:background="#FFF"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -130,14 +136,16 @@
                 android:id="@+id/changeUsernameButton"
                 android:layout_below="@id/usernameView"
                 android:text="Change Username"/>
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="User Username"
                 android:id="@+id/userUsername"
                 android:textSize="17dp"
-                android:layout_below="@+id/usernameView"/>
+                android:layout_below="@+id/usernameView"
+                android:background="#FFF"
+                android:enabled="false"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -156,7 +164,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/backgroundSpinner"
-                android:scrollbarSize="17dp"/>
+                android:scrollbarSize="17dp"
+                android:entries="@array/backgroundArray"
+                android:layout_below="@id/changeBackgroundView"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -175,7 +185,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/distanceSpinner"
-                android:scrollbarSize="17dp"/>
+                android:scrollbarSize="17dp"
+                android:entries="@array/distanceArray"
+                android:layout_below="@id/searchDistanceView"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/searchDistanceLayout"
+            android:id="@+id/passwordButtonLayout">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changePasswordButton"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:text="Change Password"/>
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

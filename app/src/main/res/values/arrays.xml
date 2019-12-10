@@ -15,4 +15,13 @@
         <item>Summer BackGround</item>
         <item>Fall BackGround</item>
     </string-array>
+    <string-array name="distanceArray">
+        <item>10 Miles</item>
+        <item>25 Miles</item>
+        <item>50 Miles</item>
+        <item>100 Miles</item>
+        <item>250 Miles</item>
+        <item>500 Miles</item>
+        <item>1000 Miles</item>
+    </string-array>
 </resources>

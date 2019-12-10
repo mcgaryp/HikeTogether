@@ -3,16 +3,17 @@ package com.e.hiketogether.Views.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.fragment.app.Fragment;
+
+import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Presenters.Helpers.DisableEditText;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
 
@@ -31,11 +32,34 @@ public class SettingsFragment extends Fragment {
     private static final String TAG = "SETTINGS_FRAGMENT";
 
     // VARIABLES
+    private Account account;
     private String username;
+    private String profilePicture;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String background;
+    private String distance;
     private List<Integer> favTrails;
     private List<String> settings;
     private SettingsManager manager;
+    private Button changeFname;
+    private Button changeLname;
+    private Button changeUsername;
+    private Button changeEmail;
+    private Button changeProfile;
+    private Button changePassword;
+    private Button login;
+    private Button createAccount;
+    private DisableEditText firstNameView;
+    private DisableEditText lastNameView;
+    private DisableEditText usernameView;
+    private DisableEditText emailView;
+    private Spinner backgroundSpinner;
+    private Spinner distanceSpinner;
 
+    private View rootView;
     private OnFragmentInteractionListener mListener;
 
     public SettingsFragment() {
@@ -62,29 +86,25 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            Log.d(TAG,"Setting Variables from bundle");
             username = getArguments().getString("username");
+            email = getArguments().getString("email");
+            password = getArguments().getString("password");
             favTrails = getArguments().getIntegerArrayList("trails");
             settings = getArguments().getStringArrayList("settings");
         }
-        Log.d(TAG, "Account " + username + " received");
-        manager = new SettingsManager(this);
-
-//        Spinner spinner = getActivity().findViewById(R.id.backgroundSpinner);
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.backgroundArray, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinner.setAdapter(adapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "Made it.");
+        Log.d(TAG, "Creating the Right View");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        if (username == null)
+            rootView = inflater.inflate(R.layout.fragment_settings_new_login, container, false);
+        else
+            rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,6 +125,133 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    // Set the variables and stuff acts like a constructor
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "Account " + username + " received");
+        if (username != null) {
+            Log.d(TAG, "Setting up personal settings with Account on file.");
+            manager = new SettingsManager(this);
+//TODO Fix the DisableEditText class so that I can use it here
+
+//            // TextViews
+//            firstNameView = rootView.findViewById(R.id.userFirstName);
+//            lastNameView = rootView.findViewById(R.id.userLastName);
+//            usernameView = rootView.findViewById(R.id.userUsername);
+//            emailView = rootView.findViewById(R.id.userEmail);
+//
+//            // Buttons
+//            changeFname = rootView.findViewById(R.id.changeFirstNameButton);
+//            changeFname.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "Attempting to change the First Name of user");
+//                    firstNameView.changeState();
+//                    // TODO Send new first name to settings to be saved
+//                    manager.addFirstName("New First Name");
+//                }
+//            });
+//            changeLname = rootView.findViewById(R.id.changeLastNameButton);
+//            changeLname.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "Attempting to change the Last Name of user");
+//                    lastNameView.changeState()
+//                    // TODO Send new first name to settings to be saved
+//                    manager.addLastName("New Last Name");
+//                }
+//            });
+//            changeUsername = rootView.findViewById(R.id.changeUsernameButton);
+//            changeUsername.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "Attempting to change the Username of user");
+//                    usernameView.changeState()
+//                    // TODO Send new username to account to be saved
+//                    manager.changeUsername("New Username");
+//                }
+//            });
+//            changeEmail = rootView.findViewById(R.id.changeEmailButton);
+//            changeEmail.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "Attempting to change the E-Mail of user");
+//                    emailView.changeState()
+//                    // TODO Send the new email to account to be saved
+//                    manager.changeEmail("New Email");
+//                }
+//            });
+//            changeProfile = rootView.findViewById(R.id.changeProfilePictureButton);
+//            changeProfile.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG, "Attempting to change the Profile Picture of user");
+//
+//                    // TODO Send the new picture to the settings to be saved
+//                    manager.addPicture("New Picture");
+//                }
+//            });
+//            changePassword = rootView.findViewById(R.id.changePasswordButton);
+//            changePassword.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d(TAG,"Attempting to change Password of user");
+//                    passwordView.changeState()
+//                    // TODO Send the new passord to the settings to be saved
+//                    manager.changePassword("New Password");
+//                }
+//            });
+//
+//            // Spinners
+//            backgroundSpinner = rootView.findViewById(R.id.backgroundSpinner);
+//            // TODO Select the background from spinner
+//    //        backgroundSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//    //            @Override
+//    //            public void onItemClick(AdapterView<?> parent, View view, int position,
+//    //                                    long id) {
+//    //                background = backgroundSpinner.getSelectedItem().toString();
+//    //                Log.d(TAG, "Updating the background. Background set to: "
+//    //                        + background);
+//    //            }
+//    //        });
+//            distanceSpinner = rootView.findViewById(R.id.distanceSpinner);
+//            // TODO Select the distance from spinner
+//    //        distanceSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//    //            @Override
+//    //            public void onItemClick(AdapterView<?> parent, View view, int position,
+//    //                                    long id) {
+//    //                distance = distanceSpinner.getSelectedItem().toString();
+//    //                Log.d(TAG, "Updating the distance. Distance set to: " + distance);
+//    //            }
+//    //        });
+//
+//            // Set user info
+//            usernameView.setText(username);
+//            emailView.setText(email);
+//            firstNameView.setText(firstName);
+//            lastNameView.setText(lastName);
+        }
+        else {
+            login = rootView.findViewById(R.id.settingsLoginButton);
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Start Login activity with intent to be returned
+                    Log.d(TAG, "Starting Login activity from Settings");
+                }
+            });
+            createAccount = rootView.findViewById(R.id.settingsCreateAccountButton);
+            createAccount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Start CreateAccount activity with intent to be returned
+                    Log.d(TAG, "Starting CreateAccount activity from Settings");
+                }
+            });
+        }
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -122,7 +269,6 @@ public class SettingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
