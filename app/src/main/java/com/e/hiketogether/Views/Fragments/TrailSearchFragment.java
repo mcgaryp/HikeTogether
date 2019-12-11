@@ -3,6 +3,8 @@ package com.e.hiketogether.Views.Fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -36,10 +39,15 @@ public class TrailSearchFragment extends Fragment {
     private String username;
     private List<Integer> favTrails;
     private List<String> settings;
-    LocationManager lm;
-    Location location;
-    double longitude;
-    double latitude;
+    private LocationManager lm;
+    private Location location;
+    private double longitude;
+    private double latitude;
+
+    // implementing Geocoder
+    Geocoder geo;
+    List<Address> address;
+    LatLng latLng;
 
     TrailManager tm;
 
@@ -111,6 +119,7 @@ public class TrailSearchFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+
     }
 
     @Override

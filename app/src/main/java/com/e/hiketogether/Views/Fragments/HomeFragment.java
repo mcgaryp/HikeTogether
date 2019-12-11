@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment implements Interact {
     private View rootView;
     private LocationManager locationManager;
     private Location location;
+
     private ProgressBar progressBar;
     private TrailManager tm;
 
@@ -110,6 +111,7 @@ public class HomeFragment extends Fragment implements Interact {
 
             // Inflate the layout for this fragment
             return rootView;
+
         }
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
