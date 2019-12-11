@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.e.hiketogether.Models.CurrentLocationHelper;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
@@ -43,6 +44,7 @@ public class TrailSearchFragment extends Fragment {
     private Location location;
     private double longitude;
     private double latitude;
+    private CurrentLocationHelper clh;
 
     // implementing Geocoder
     Geocoder geo;
