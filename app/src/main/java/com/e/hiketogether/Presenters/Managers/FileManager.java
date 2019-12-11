@@ -30,13 +30,18 @@ public class FileManager {
         Gson gson = new Gson();
         currentCache = new TrailCache();
 
+        //Read the cache from the file
         String fileContents = fHelper.readFile();
         Log.d(TAG, "File contents: " + fileContents);
-        if (fileContents == "")
+
+        //If nothing is there, simply exit and keep our initialized map
+        if (fileContents.equals(""))
             isNull = true;
-        else
+        else {
             isNull = false;
-        currentCache = gson.fromJson(fileContents, TrailCache.class);
+            currentCache = gson.fromJson(fileContents, TrailCache.class);
+        }
+
     }
 
     boolean isQueryCached(String query) {
@@ -56,7 +61,7 @@ public class FileManager {
 
     void addToCache(String query, String trailList) {
         Log.d(TAG, "Adding (" + query + ") to the cache");
-        isNull = true;
+        isNull = false;
         currentCache.addtoCache(query, trailList);
     }
 
