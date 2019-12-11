@@ -76,10 +76,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(loginIntent, CREATE_ACCOUNT_REQUEST);
     }
 
-    // BUTON ONCLICKS
+    // BUTTON ONCLICKS
     // Return an empty account
     public void onSkip(View view) {
         setLoginSuccessful(new Account());
+        Log.d(TAG, "Skipping Login.");
     }
 
     // TODO The user forgot their username!!
@@ -203,10 +204,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "ON ACTIVITY RESULT");
         Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
         if (requestCode == CREATE_ACCOUNT_REQUEST) {
-            Log.d(TAG, "ON CREATION ACCOUNT SUCCESSFUL if statement");
             if (resultCode == RESULT_OK) {
                 //The user's account was created!
                 //The intent will have pertinent information that needs to be passed back in it

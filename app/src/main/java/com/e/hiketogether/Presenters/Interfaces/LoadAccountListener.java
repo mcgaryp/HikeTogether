@@ -7,8 +7,7 @@ import com.e.hiketogether.Models.Account;
  *      This is a listener interface intended to listen and let managers know if some
  *      thread was successful or not in what ever needs done in the background
  */
-public interface Listener {
-    void onSuccess();
+public interface LoadAccountListener {
+    void onSuccess(Account account);
     void onFail();
-    void onLoadSuccess(Account account);
 }

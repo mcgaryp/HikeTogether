@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
                                      SettingsFragment.OnFragmentInteractionListener, Interact {
     // VARIABLES
     private static final String TAG = "MAIN_ACTIVITY"; //Log tag
-
     private static final int LOGIN_REQUEST = 100; //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;  //resultCode for MainActivity
 
@@ -114,7 +113,11 @@ public class MainActivity extends AppCompatActivity
         }
         //They clicked the settings icon, open the settings activity
         else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
-            template_fragment = new SettingsFragment().newInstance(account);
+            boolean loggedIn;
+            if (account.getString("username") != "")
+                loggedIn = false;
+            else loggedIn = true;
+            template_fragment = new SettingsFragment().newInstance(account,loggedIn);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             ft.commit();
@@ -140,15 +143,12 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         //Log the status of the result & request
-        Log.d(TAG, "on activity result success.");
         Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
 
         if (requestCode == LOGIN_REQUEST) {
-            Log.d(TAG, "LOGIN_Succcessful if statement");
             if (resultCode == RESULT_OK) {
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
-                Log.d(TAG, "RESULT oK beginning if.");
                 account = data.getBundleExtra("account");
                 Log.d(TAG, "Account username: " + account.getString("username"));
 
@@ -159,7 +159,6 @@ public class MainActivity extends AppCompatActivity
                 displayToast("Failed to Login");
             }
         }
-
     }
 
     // Display a toast

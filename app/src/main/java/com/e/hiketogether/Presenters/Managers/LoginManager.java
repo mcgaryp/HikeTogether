@@ -5,7 +5,8 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.Listener;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
 import com.e.hiketogether.Views.Activities.LoginActivity;
 
 /**
@@ -13,7 +14,7 @@ import com.e.hiketogether.Views.Activities.LoginActivity;
  *      This class will handle the logic behind login into our database and
  *      send the user to their own unique environment.
  */
-public class LoginManager implements Listener {
+public class LoginManager {
     // VARIABLES
     private static final String TAG = "LOGIN_MANAGER"; // Log TAG
     private LoginActivity activity;
@@ -33,7 +34,31 @@ public class LoginManager implements Listener {
 
     // Confirm account and confirm passwords
     public void confirmAccount(String username) {
-        new FireBaseHelper(username, this).loadAccount();
+        new FireBaseHelper(username).loadAccount(new LoadAccountListener() {
+            @Override
+            public void onSuccess(Account account) {
+                Log.d(TAG, "We found the account!");
+                try {
+                    Log.d(TAG, "Checking if passwords match.");
+                    confirmPassword(account, account.hashPassword(activity.getPassword()));
+                } catch (Exception e) {
+                    Log.d(TAG, e.getMessage());
+                    activity.setTouchEnabled();
+                    activity.setFocus("password");
+                    return;
+                }
+                // Send account to activity
+                activity.setLoginSuccessful(account);
+            }
+
+            @Override
+            public void onFail() {
+                Log.d(TAG, "We did not find the account!");
+                activity.displayToast("Account not Found");
+                activity.setFocus("username");
+                activity.setTouchEnabled();
+            }
+        });
     }
 
     // check to make sure the password matches with the one on
@@ -61,35 +86,17 @@ public class LoginManager implements Listener {
 
     // **OPTIONAL** helper function to reset password
     private void resetPassword(String username, String password) {
-        new FireBaseHelper(username, this).updateAccount("password", password);
-    }
+        new FireBaseHelper(username).updateAccount("password", password, new UpdateAccountListener() {
+            @Override
+            public void onSuccess() {
 
-    // Listener Functions
-    @Override
-    public void onLoadSuccess(Account account) {
-        Log.d(TAG, "We found the account!");
-        try {
-            Log.d(TAG, "Checking if passwords match.");
-            confirmPassword(account, account.hashPassword(activity.getPassword()));
-        } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
-            activity.setTouchEnabled();
-            activity.setFocus("password");
-            return;
-        }
-        // Send account to activity
-        activity.setLoginSuccessful(account);
-    }
+            }
 
-    @Override
-    public void onSuccess() { }
+            @Override
+            public void onFail() {
 
-    @Override
-    public void onFail() {
-        Log.d(TAG, "We did not find the account!");
-        activity.displayToast("Account not Found");
-        activity.setFocus("username");
-        activity.setTouchEnabled();
+            }
+        });
     }
 
     // Setter Functions

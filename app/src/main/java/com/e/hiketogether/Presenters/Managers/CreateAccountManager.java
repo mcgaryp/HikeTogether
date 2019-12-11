@@ -5,7 +5,7 @@ import android.widget.EditText;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
-import com.e.hiketogether.Presenters.Interfaces.Listener;
+import com.e.hiketogether.Presenters.Interfaces.SaveAccountListener;
 import com.e.hiketogether.Views.Activities.CreateAccountActivity;
 
 /**
@@ -14,7 +14,7 @@ import com.e.hiketogether.Views.Activities.CreateAccountActivity;
  *      in our database. It will send an intent to the calling activity with information like the
  *      users account that was created in the data base and then tell the activity to end.
  */
-public class CreateAccountManager implements Listener {
+public class CreateAccountManager {
     // VARIABLES
     private static final String TAG = "CREATE_ACCOUNT_MANAGER";
     private CreateAccountActivity activity;
@@ -26,7 +26,21 @@ public class CreateAccountManager implements Listener {
 
     // Creates and saves an account in the database
     public void createAccount(String username, String password, String email) {
-        new FireBaseHelper(username, this).exists(new Account(username,password,email));
+        new FireBaseHelper(username).exists(new Account(username,password,email), new SaveAccountListener() {
+            @Override
+            public void onSuccess(Account account) {
+                Log.d(TAG,"");
+                activity.displayToast("Account Created!");
+                activity.onSuccess(account);
+            }
+
+            @Override
+            public void onFail() {
+                activity.displayToast("Username Already Taken.");
+                activity.setFocus("username");
+                activity.setTouchEnabled();
+            }
+        });
         //saveAccount(new Account(username,password,email));
     }
 
@@ -109,23 +123,6 @@ public class CreateAccountManager implements Listener {
         }
     }
 
-    // Listener Functions
-    @Override public void onSuccess() {
-
-    }
-
-    @Override public void onFail() {
-        activity.displayToast("Username Already Taken.");
-        activity.setFocus("username");
-        activity.setTouchEnabled();
-    }
-
-    @Override
-    public void onLoadSuccess(Account account) {
-        Log.d(TAG,"");
-        activity.displayToast("Account Created!");
-        activity.onSuccess(account);
-    }
 
     // Setter Functions
     private void setActivity(CreateAccountActivity activity) { this.activity = activity; }

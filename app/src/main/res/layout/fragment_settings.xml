@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profileImage"
                 android:layout_centerHorizontal="true"
-                android:text="Change Picture"
+                android:text="Edit"
                 android:id="@+id/changeProfilePictureButton"/>
         </RelativeLayout>
         <RelativeLayout
@@ -47,17 +47,19 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/changeFirstNameButton"
                 android:layout_below="@id/firstNameView"
-                android:text="Change First Name"/>
-            <EditText
+                android:text="Edit"/>
+
+            <com.e.hiketogether.Presenters.Helpers.DisableEditText
+                android:id="@+id/userFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="Users First Name"
-                android:id="@+id/userFirstName"
-                android:textSize="17dp"
                 android:layout_below="@id/firstNameView"
+                android:layout_alignParentEnd="true"
+                android:background="#FFF"
                 android:enabled="false"
-                android:background="#FFF"/>
+                android:selectAllOnFocus="true"
+                android:text="Users First Name"
+                android:textSize="17dp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -75,17 +77,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeLastNameButton"
-                android:text="Change Last Name"
+                android:text="Edit"
                 android:layout_below="@id/lastNameView"/>
 
-            <EditText
+            <com.e.hiketogether.Presenters.Helpers.DisableEditText
                 android:id="@+id/userLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lastNameView"
                 android:layout_alignParentEnd="true"
-                android:enabled="false"
                 android:background="#FFF"
+                android:enabled="false"
+                android:selectAllOnFocus="true"
                 android:text="Users Last Name"
                 android:textSize="17dp" />
         </RelativeLayout>
@@ -106,17 +109,19 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/changeEmailButton"
                 android:layout_below="@+id/emailView"
-                android:text="Change E-Mail"/>
-            <EditText
+                android:text="Edit"/>
+
+            <com.e.hiketogether.Presenters.Helpers.DisableEditText
+                android:id="@+id/userEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="User E-Mail"
-                android:id="@+id/userEmail"
-                android:textSize="17dp"
                 android:layout_below="@id/emailView"
+                android:layout_alignParentEnd="true"
+                android:background="#FFF"
                 android:enabled="false"
-                android:background="#FFF"/>
+                android:selectAllOnFocus="true"
+                android:text="User E-Mail"
+                android:textSize="17dp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -135,17 +140,19 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/changeUsernameButton"
                 android:layout_below="@id/usernameView"
-                android:text="Change Username"/>
-            <EditText
+                android:text="Edit"/>
+
+            <com.e.hiketogether.Presenters.Helpers.DisableEditText
+                android:id="@+id/userUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="User Username"
-                android:id="@+id/userUsername"
-                android:textSize="17dp"
                 android:layout_below="@+id/usernameView"
+                android:layout_alignParentEnd="true"
                 android:background="#FFF"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:selectAllOnFocus="true"
+                android:text="User Username"
+                android:textSize="17dp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
