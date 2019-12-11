@@ -131,7 +131,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
                 //The trail has its own image, fetch the URL and convert to a drawable
                 Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
                 Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
-              //  holder.getImageView().setImageDrawable(trailImage);
+                holder.getImageView().setImageDrawable(trailImage);
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -157,7 +157,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             super(itemView);
 
 
-            //imageView = imageView.findViewById(R.id.favButton);
+            imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
