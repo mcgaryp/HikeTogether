@@ -111,6 +111,16 @@
                 android:text="A short description of the trail goes here"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+            <ImageButton
+                android:id="@+id/favButton"
+                android:layout_width="37dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="4dp"
+                android:background="@null"
+                app:srcCompat="@drawable/fav_button" />
+
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -199,15 +209,6 @@
 
         </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/FavoriteButton"
-            android:layout_width="34dp"
-            android:layout_height="33dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="2dp"
-            app:srcCompat="@drawable/favorite_button" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

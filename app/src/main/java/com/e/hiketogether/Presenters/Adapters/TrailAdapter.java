@@ -107,6 +107,8 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             }
         });
 
+
+
         // All below is to be hidden unless the item is clicked on!
         // We are just setting the values again here
         holder.getLocation().setText(trail.getLocation());
@@ -129,7 +131,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
                 //The trail has its own image, fetch the URL and convert to a drawable
                 Log.d(TAG, trail.getName() + " has image URL of: " + trail.getImgSmall());
                 Drawable trailImage = new DrawableHTTPHelper().execute(trail.getImgSmall()).get();
-                holder.getImageView().setImageDrawable(trailImage);
+              //  holder.getImageView().setImageDrawable(trailImage);
             }
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
@@ -154,7 +156,8 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.imageViewNotFavorite);
+
+            //imageView = imageView.findViewById(R.id.favButton);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
