@@ -33,7 +33,7 @@ public class Settings extends Account {
     public void setLastName(String lastName)        { this.lastName = lastName;     }
     public void setFirstName(String firstName)      { this.firstName = firstName;   }
     public void setBackground(String background)    { this.background = background; }
-    public void setDistance(String distance)       { this.distance = distance;     }
+    public void setDistance(String distance)        { this.distance = distance;     }
 
     // Getter functions
     public String getPicture()      { return picture;    }
