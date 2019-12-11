@@ -50,6 +50,8 @@ public class HomeFragment extends Fragment {
     private View rootView;
     private LocationManager locationManager;
     private Location location;
+    private double latitude;
+    private double longitude;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -103,6 +105,7 @@ public class HomeFragment extends Fragment {
 
             // Inflate the layout for this fragment
             return rootView;
+
         }
 
         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
