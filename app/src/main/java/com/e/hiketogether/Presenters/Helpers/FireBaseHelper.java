@@ -5,7 +5,10 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Presenters.Interfaces.Listener;
+import com.e.hiketogether.Presenters.Interfaces.DeleteAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.SaveAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,19 +38,16 @@ public class FireBaseHelper {
     // VARIABLES
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
-    private Listener listener;
     private String username;
 
     // Constructor for the firebase helper, We need to know the username to find the account
-    public FireBaseHelper(String username,
-                          Listener listener) {
+    public FireBaseHelper(String username) {
         dataBase = FirebaseFirestore.getInstance();
         setUsername(username);
-        setListener(listener);
     }
 
     // Save the account to the location that we have in the firebase
-    public void saveAccount(final Account account) {
+    public void saveAccount(final Account account, final SaveAccountListener listener) {
         // Convert Account to mapAccount
         Map<String, Object> user  = new HashMap<>();
         user.put("username", account.getUsername());
@@ -66,7 +66,7 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        listener.onLoadSuccess(account);
+                        listener.onSuccess(account);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -79,7 +79,7 @@ public class FireBaseHelper {
     }
 
     // Idea is to pull the date from the account and return it in account form
-    public void loadAccount() {
+    public void loadAccount(final LoadAccountListener listener) {
         // Need an account to save the info to
         Log.d(TAG, "Attempting to load account.");
         // Start the search in the dataBase
@@ -100,7 +100,7 @@ public class FireBaseHelper {
                         account.setUsername(temp.get("username").toString());
 //                        account.setFavTrails(temp.get("trailsList"));
 //                        account.setSettings(temp.get("settings"));
-                        listener.onLoadSuccess(account);
+                        listener.onSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
                         // notify the login activity that we have not logged in.
@@ -115,7 +115,7 @@ public class FireBaseHelper {
     }
 
     // Idea is to adjust and make changes to the account as necessary
-    public void updateAccount(String fieldToUpdate, String update) {
+    public void updateAccount(String fieldToUpdate, String update, final UpdateAccountListener listener) {
         try {
             dataBase.collection("accounts").document(username)
                     .update(fieldToUpdate, update);
@@ -128,7 +128,7 @@ public class FireBaseHelper {
     }
 
     // Delete user account
-    public void deleteAccount() {
+    public void deleteAccount(final DeleteAccountListener listener) {
         dataBase.collection("account").document(username)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -148,7 +148,7 @@ public class FireBaseHelper {
     }
 
     // Check to see if the username is taken
-    public void exists(final Account account) {
+    public void exists(final Account account, final SaveAccountListener listener) {
         // Create a reference to the accounts
         CollectionReference reference = dataBase.collection("accounts");
         // Make a search query to try and find the username
@@ -164,7 +164,7 @@ public class FireBaseHelper {
                                 listener.onFail();
                             } else {
                                 Log.d(TAG, username + " was not found so continue");
-                                saveAccount(account);
+                                saveAccount(account, listener);
                             }
                         } else {
                             Log.d(TAG, "Error reading Firebase.");
@@ -175,6 +175,5 @@ public class FireBaseHelper {
     }
 
     // Setter Functions
-    private void setListener(Listener listener) { this.listener = listener; }
     private void setUsername(String username)   { this.username = username; }
 }
