@@ -24,7 +24,13 @@ public class Account {
     private List<Integer> favTrails;                                //stores the ID values of favorite trails
 
     // Default Constructor
-    public Account() {}
+    public Account() {
+        Log.d(TAG, "Creating empty account.");
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        setSettings(new Settings());
+    }
 
     // Creating a new account from the create account manager
     public Account(String username, String password, String email) {
