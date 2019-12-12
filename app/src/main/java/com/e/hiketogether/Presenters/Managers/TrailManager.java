@@ -74,6 +74,7 @@ public class TrailManager {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
@@ -81,11 +82,11 @@ public class TrailManager {
     private String requestTrails(String url) throws ExecutionException, InterruptedException {
 
         //See if the trail query is currently cached
-//        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
-//                Log.d(TAG, "Retrieved query (" + url + ") from cache");
-//                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
-//                return fManager.getCachedQuery(url);
-//        }
+        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
+                Log.d(TAG, "Retrieved query (" + url + ") from cache");
+                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
+                return fManager.getCachedQuery(url);
+        }
         //It wasn't cached, get it from the internet and cache it, then return it for the recycler view to use
         if (isNetworkAvailable()) {
             Log.d(TAG, "Successfully connected to the internet");
@@ -124,7 +125,6 @@ public class TrailManager {
         }
         else {
             Log.d(TAG, "Incoming JSON string is null.  No trails available");
-            Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
             return new TrailList();
         }
     }
