@@ -1,4 +1,4 @@
-package com.e.hiketogether.Models;
+package com.e.hiketogether.Presenters.Helpers;
 
 import android.content.Context;
 import android.location.Address;
