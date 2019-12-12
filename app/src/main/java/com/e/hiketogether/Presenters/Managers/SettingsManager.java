@@ -90,6 +90,9 @@ public class SettingsManager {
                             else Log.d(TAG, "Account has not been created properly.");
                             break;
                         case "username":
+                            // TODO Look at the username by document not by just the account value.
+                            //  change the document name Might have to copy the collection and
+                            //  rename the collection then delete the old collection to be done in firebase
 //                            final String oldUsername = getAccount().getUsername();
 //                            changeUsername(view.getText().toString());
 //                            // Check to see we saved it right.
