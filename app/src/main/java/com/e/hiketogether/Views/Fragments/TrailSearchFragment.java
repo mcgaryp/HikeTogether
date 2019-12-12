@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
@@ -49,6 +50,7 @@ public class TrailSearchFragment extends Fragment {
     double latitude;
     private CurrentLocationHelper clh;
     private View rootView;
+    private Button search;
 
     // implementing Geocoder
     Geocoder geo;
@@ -77,6 +79,22 @@ public class TrailSearchFragment extends Fragment {
         Bundle args = account;
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        search = rootView.findViewById(R.id.trailSearch_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tm.setLat(latitude /*43.826069*/);
+                tm.setLon(longitude /*-111.789528*/);
+
+
+                TrailList tl = tm.getTrails();
+            }
+        });
     }
 
     @Override
@@ -165,10 +183,6 @@ public class TrailSearchFragment extends Fragment {
 
     //This is called when the search button is pressed
     public void onSearch(View view) {
-        tm.setLat(latitude /*43.826069*/);
-        tm.setLon(longitude /*-111.789528*/);
 
-
-        TrailList tl = tm.getTrails();
     }
 }

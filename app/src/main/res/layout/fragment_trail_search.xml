@@ -29,7 +29,6 @@
         android:layout_height="40dp"
         android:layout_marginStart="15dp"
         android:background="@drawable/rounded_button"
-        android:onClick="onSearch"
         android:text="@android:string/search_go"
         app:layout_constraintBaseline_toBaselineOf="@+id/trailSearch_editText"
         app:layout_constraintEnd_toEndOf="parent"
