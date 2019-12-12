@@ -29,7 +29,7 @@ public class FavoritesFragment extends Fragment {
     // Private VARIABLES
     private String username;
     private List<Integer> favTrails;
-    private List<String> settings;
+    private Bundle settings;
     private OnFragmentInteractionListener mListener;
 
     public FavoritesFragment() {
@@ -56,7 +56,7 @@ public class FavoritesFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            settings = getArguments().getBundle("settings");
         }
         Log.d(TAG, "Account " + username + " recieved.");
     }

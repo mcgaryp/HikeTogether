@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements Interact {
     private OnFragmentInteractionListener mListener;
     private String username;
     private List<Integer> favTrails;
-    private List<String> settings;
+    private Bundle settings;
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
     private TrailList tl;
@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements Interact {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            settings = getArguments().getBundle("settings");
         }
         Log.d(TAG, "Account " + username + " received.");
     }

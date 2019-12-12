@@ -6,8 +6,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Presenters.Helpers.DisableEditText;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
+import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
 import com.e.hiketogether.Views.Fragments.SettingsFragment;
 
 public class SettingsManager {
@@ -15,13 +18,15 @@ public class SettingsManager {
     private static final String TAG = "SETTINGS_MANAGER";
 
     // VARIABLES
+    private Account account;
     private Settings settings;
     private SettingsFragment fragment;
 
     // Constructor
     public SettingsManager(SettingsFragment fragment) {
         setFragment(fragment);
-        setSettings(new Settings());
+        setAccount(fragment.getAccount());
+        setSettings(getSettings());
     }
 
     // Method for setting click for all the buttons
@@ -43,32 +48,110 @@ public class SettingsManager {
                             // Check to see we saved it right.
                             Log.d(TAG, "Settings first name saved as: " +
                                     getSettings().getFirstName());
+                            // Send update to Firebase
+                            if (account.getUsername() != null || account.getUsername() != "")
+                                new FireBaseHelper(getAccount().getUsername())
+                                        .updateAccount("settings", "firstName", getSettings().getFirstName(), new UpdateAccountListener() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.d(TAG, "Successful Update of First Name: " + getSettings().getFirstName());
+                                                fragment.displayToast("Saved");
+                                            }
+
+                                            @Override
+                                            public void onFail() {
+                                                Log.d(TAG, "Failure to Update First Name.");
+                                                fragment.displayToast("Failed to Save");
+                                            }
+                                        });
+                            else Log.d(TAG, "Account has not been created properly.");
                             break;
                         case "last":
                             addLastName(view.getText().toString());
                             // Check to see we saved it right.
                             Log.d(TAG, "Settings last name saved as: " +
                                     getSettings().getLastName());
+                            // Send update to Firebase
+                            if (account.getUsername() != null || account.getUsername() != "")
+                                new FireBaseHelper(getAccount().getUsername())
+                                        .updateAccount("settings", "lastName", getSettings().getLastName(), new UpdateAccountListener() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.d(TAG, "Successful Update of Last Name: " + getSettings().getLastName());
+                                                fragment.displayToast("Saved");
+                                            }
+
+                                            @Override
+                                            public void onFail() {
+                                                Log.d(TAG, "Failure to Update Last Name.");
+                                                fragment.displayToast("Failed to Save");
+                                            }
+                                        });
+                            else Log.d(TAG, "Account has not been created properly.");
                             break;
                         case "username":
-                            changeUsername(view.getText().toString());
-                            // Check to see we saved it right.
-                            Log.d(TAG, "Settings username saved as: " +
-                                    getSettings().getUsername());
+//                            final String oldUsername = getAccount().getUsername();
+//                            changeUsername(view.getText().toString());
+//                            // Check to see we saved it right.
+//                            Log.d(TAG, "Settings username saved as: " +
+//                                    account.getUsername());
+//                            // Send update to Firebase
+//                            if (account.getUsername() != null || account.getUsername() != "")
+//                                new FireBaseHelper(getAccount().getUsername()).exists(new UpdateAccountListener() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        new FireBaseHelper(oldUsername)
+//                                                .updateAccount("username", getAccount().getUsername(), new UpdateAccountListener() {
+//                                                    @Override
+//                                                    public void onSuccess() {
+//                                                        Log.d(TAG, "Successful Update of username: " + getAccount().getUsername());
+//                                                        fragment.displayToast("Saved");
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onFail() {
+//                                                        Log.d(TAG, "Failure to Update username.");
+//                                                        fragment.displayToast("Failed to Save");
+//                                                    }
+//                                                });
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail() {
+//                                        Log.d(TAG, "Account name Already Exists");
+//                                        fragment.displayToast("Username Already Exists");
+//                                    }
+//                                });
+//                            else Log.d(TAG, "Account has not been created properly.");
                             break;
                         case "email":
                             changeEmail(view.getText().toString());
                             // Check to see we saved it right.
                             Log.d(TAG, "Settings email saved as: " +
-                                    getSettings().getEmail());
+                                    account.getEmail());
+                            // Send update to Firebase
+                            if (account.getUsername() != null || account.getUsername() != "")
+                                new FireBaseHelper(getAccount().getUsername())
+                                        .updateAccount("email", getAccount().getEmail(), new UpdateAccountListener() {
+                                            @Override
+                                            public void onSuccess() {
+                                                Log.d(TAG, "Successful Update of email: " + getAccount().getEmail());
+                                                fragment.displayToast("Saved");
+                                            }
+
+                                            @Override
+                                            public void onFail() {
+                                                Log.d(TAG, "Failure to Update email.");
+                                                fragment.displayToast("Failed to Save");
+                                            }
+                                        });
+                            else Log.d(TAG, "Account has not been created properly.");
                             break;
                         default:
                             Log.d(TAG, "onClick function was called but " +
                                     "could not save to ");
                     }
                 }
-                // TODO Send to FirebaseStore as update
-
             }
         });
     }
@@ -120,33 +203,35 @@ public class SettingsManager {
 
     // Change Distance of Search
     public void changeDistance(String distance) {
-        settings.setDistance(distance);
+        getSettings().setDistance(distance);
         Log.d(TAG,"Changing the distance search: " + distance);
     }
 
     // Change the email
     public void changeEmail(String email) {
-        settings.setEmail(email);
+        getAccount().setEmail(email);
         Log.d(TAG, "Changing the email address: " + email);
     }
 
     // Change the Username
     public void changeUsername(String username) {
-        settings.setUsername(username);
+        getAccount().setUsername(username);
         Log.d(TAG, "Changing the username: " + username);
     }
 
     // Change the Password
     public void changePassword(String password) {
-        settings.setPassword(password);
+        getAccount().setPassword(password);
         Log.d(TAG, "Changing the password: " + password);
     }
 
     // GETTERS
-    public Settings getSettings() { return settings; }
+    public Settings getSettings()         { return getAccount().getSettings(); }
+    public Account getAccount()           { return account;  }
     public SettingsFragment getFragment() { return fragment; }
 
     // SETTERS
     public void setFragment(SettingsFragment fragment) { this.fragment = fragment; }
-    public void setSettings(Settings settings) { this.settings = settings; }
+    public void setAccount(Account account)            { this.account = account;   }
+    public void setSettings(Settings settings)         { this.settings = settings; }
 }
