@@ -61,13 +61,6 @@ public class TrailSearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
-    private TrailList tl;
-
-    // implementing Geocoder
-    Geocoder geo;
-    List<Address> address;
-    LatLng latLng;
-
 
     TrailManager tm;
 
@@ -90,24 +83,6 @@ public class TrailSearchFragment extends Fragment {
         Bundle args = account;
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        search = rootView.findViewById(R.id.trailSearch_button);
-        System.out.println("Address: " + address);
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tm.setLat(latitude);
-                tm.setLon(longitude);
-                EditText et = rootView.findViewById(R.id.trailSearch_editText);
-                address = et.getText().toString();
-
-                tl = tm.getTrails();
-            }
-        });
     }
 
     @Override
@@ -180,10 +155,13 @@ public class TrailSearchFragment extends Fragment {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tm.setLat(latitude /*43.826069*/);
-                tm.setLon(longitude /*-111.789528*/);
+                tm.setLat(latitude);
+                tm.setLon(longitude);
 
+                EditText et = rootView.findViewById(R.id.trailSearch_editText);
+                address = et.getText().toString();
 
+                System.out.println("Address: " + address);
                 tl = tm.getTrails();
 
                 recyclerView = rootView.findViewById(R.id.locationSearchRecyclerView);
