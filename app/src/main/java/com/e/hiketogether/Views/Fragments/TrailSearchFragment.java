@@ -14,13 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Models.CurrentLocationHelper;
 
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 import com.google.android.gms.maps.model.LatLng;
@@ -51,6 +56,12 @@ public class TrailSearchFragment extends Fragment {
     private CurrentLocationHelper clh;
     private View rootView;
     private Button search;
+    private String address;
+    private TrailList tl;
+
+    private RecyclerView recyclerView;
+    private TrailAdapter adapter;
+    private TrailList tl;
 
     // implementing Geocoder
     Geocoder geo;
@@ -85,14 +96,16 @@ public class TrailSearchFragment extends Fragment {
     public void onStart() {
         super.onStart();
         search = rootView.findViewById(R.id.trailSearch_button);
+        System.out.println("Address: " + address);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tm.setLat(latitude /*43.826069*/);
-                tm.setLon(longitude /*-111.789528*/);
+                tm.setLat(latitude);
+                tm.setLon(longitude);
+                EditText et = rootView.findViewById(R.id.trailSearch_editText);
+                address = et.getText().toString();
 
-
-                TrailList tl = tm.getTrails();
+                tl = tm.getTrails();
             }
         });
     }
@@ -126,6 +139,8 @@ public class TrailSearchFragment extends Fragment {
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
 
+            latitude = 43.826069;
+            longitude = -111.789528;
 
             Log.d(TAG, "Made it to onCreateView.");
             // Inflate the layout for this fragment
@@ -139,14 +154,6 @@ public class TrailSearchFragment extends Fragment {
         Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-
     }
 
     @Override
@@ -166,6 +173,34 @@ public class TrailSearchFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        search = rootView.findViewById(R.id.trailSearch_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tm.setLat(latitude /*43.826069*/);
+                tm.setLon(longitude /*-111.789528*/);
+
+
+                tl = tm.getTrails();
+
+                recyclerView = rootView.findViewById(R.id.locationSearchRecyclerView);
+                recyclerView.setHasFixedSize(true);
+
+                adapter = new TrailAdapter(getActivity(), tl);
+                recyclerView.setAdapter(adapter);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+                recyclerView.addItemDecoration(itemDecoration);
+
+                //setTouchEnabled();
+            }
+        });
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -179,10 +214,5 @@ public class TrailSearchFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    //This is called when the search button is pressed
-    public void onSearch(View view) {
-
     }
 }

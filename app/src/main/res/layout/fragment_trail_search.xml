@@ -10,7 +10,7 @@
         android:id="@+id/trailSearch_editText"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/rounded_edittext"
         android:elevation="2dp"
         android:ems="10"
@@ -34,14 +34,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/trailSearch_editText" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/homeMapView"
-        android:layout_width="412dp"
-        android:layout_height="731dp"
-        android:onClick="onSearch"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/locationSearchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/trailSearch_editText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

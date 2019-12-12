@@ -74,6 +74,7 @@ public class TrailManager {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
@@ -87,7 +88,7 @@ public class TrailManager {
                 return fManager.getCachedQuery(url);
         }
         //It wasn't cached, get it from the internet and cache it, then return it for the recycler view to use
-        else if (isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             Log.d(TAG, "Successfully connected to the internet");
             String trailList = new TrailHTTPHelper().execute(url).get();
 
@@ -124,7 +125,6 @@ public class TrailManager {
         }
         else {
             Log.d(TAG, "Incoming JSON string is null.  No trails available");
-            Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
             return new TrailList();
         }
     }
