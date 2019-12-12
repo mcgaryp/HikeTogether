@@ -3,8 +3,6 @@ package com.e.hiketogether.Presenters.Helpers;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.e.hiketogether.R;
-
 public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
     // VARIABLES
     private final static String TAG = "FAV_IMAGE_VIEW";
@@ -30,11 +28,11 @@ public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
     public void change() {
         // If not favorite
         if (isFavorite == false) {
-            setImageResource(R.drawable.ic_star_border_black_24dp);
+//            setImageResource(R.drawable.ic_star_border_black_24dp);
             isFavorite = true;
         }
         else {
-            setImageResource(R.drawable.ic_star_yellow_50dp);
+//            setImageResource(R.drawable.ic_star_yellow_50dp);
             isFavorite = false;
         }
     }
