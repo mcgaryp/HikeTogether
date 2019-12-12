@@ -45,6 +45,7 @@ public class TrailSearchFragment extends Fragment {
     private double longitude;
     private double latitude;
     private CurrentLocationHelper clh;
+    private View rootView;
 
     // implementing Geocoder
     Geocoder geo;
@@ -90,6 +91,8 @@ public class TrailSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528), getContext());
 
+        this.rootView = inflater.inflate(R.layout.fragment_trail_search, parent, false);
+
         // variables to get our long and lat instead of hard coding in Rexburg's
         lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -104,7 +107,7 @@ public class TrailSearchFragment extends Fragment {
 
             Log.d(TAG, "Made it to onCreateView.");
             // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_trail_search, parent, false);
+            return rootView;
         }
         location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longitude = location.getLongitude();
@@ -113,7 +116,7 @@ public class TrailSearchFragment extends Fragment {
         // end location code
         Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trail_search, parent, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
