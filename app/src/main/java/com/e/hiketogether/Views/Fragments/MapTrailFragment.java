@@ -3,14 +3,14 @@ package com.e.hiketogether.Views.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
+import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.R;
 
 import java.util.List;
@@ -29,7 +29,8 @@ public class MapTrailFragment extends Fragment {
 
     // VARIABLES
     private String username;
-    private List<String> settings;
+    private Bundle bundle;
+    private Settings settings;
     private List<Integer> favTrails;
 
     private OnFragmentInteractionListener mListener;
@@ -58,7 +59,7 @@ public class MapTrailFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            bundle = getArguments().getBundle("settings");
         }
         Log.d(TAG, "Account " + username + " received");
     }

@@ -13,10 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Models.CurrentLocationHelper;
+
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
@@ -39,17 +42,21 @@ public class TrailSearchFragment extends Fragment {
     // VARIABLES
     private String username;
     private List<Integer> favTrails;
-    private List<String> settings;
-    private LocationManager lm;
-    private Location location;
-    private double longitude;
-    private double latitude;
+    private Bundle bundle;
+    private Settings settings;
+    LocationManager lm;
+    Location location;
+    double longitude;
+    double latitude;
     private CurrentLocationHelper clh;
+    private View rootView;
+    private Button search;
 
     // implementing Geocoder
     Geocoder geo;
     List<Address> address;
     LatLng latLng;
+
 
     TrailManager tm;
 
@@ -75,12 +82,28 @@ public class TrailSearchFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        search = rootView.findViewById(R.id.trailSearch_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tm.setLat(latitude /*43.826069*/);
+                tm.setLon(longitude /*-111.789528*/);
+
+
+                TrailList tl = tm.getTrails();
+            }
+        });
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            bundle = getArguments().getBundle("settings");
         }
         Log.d(TAG, "Account " + username + " received");
     }
@@ -89,6 +112,8 @@ public class TrailSearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528), getContext());
+
+        this.rootView = inflater.inflate(R.layout.fragment_trail_search, parent, false);
 
         // variables to get our long and lat instead of hard coding in Rexburg's
         lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -104,7 +129,7 @@ public class TrailSearchFragment extends Fragment {
 
             Log.d(TAG, "Made it to onCreateView.");
             // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_trail_search, parent, false);
+            return rootView;
         }
         location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         longitude = location.getLongitude();
@@ -113,7 +138,7 @@ public class TrailSearchFragment extends Fragment {
         // end location code
         Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trail_search, parent, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -158,10 +183,6 @@ public class TrailSearchFragment extends Fragment {
 
     //This is called when the search button is pressed
     public void onSearch(View view) {
-        tm.setLat(latitude /*43.826069*/);
-        tm.setLon(longitude /*-111.789528*/);
 
-
-        TrailList tl = tm.getTrails();
     }
 }

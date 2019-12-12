@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Presenters.Interfaces.DeleteAccountListener;
 import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
 import com.e.hiketogether.Presenters.Interfaces.SaveAccountListener;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +35,13 @@ import java.util.Map;
  *      .update() updates a specific part ie .update("username", "newUsername").
  *      .add(gsonObject or string) creates document id for you.
  */
-// TODO have the listener in each individual function instead of being a local variable
 public class FireBaseHelper {
     // VARIABLES
     private static final String TAG = "FIRE_BASE_HELPER";
     private FirebaseFirestore dataBase;
     private String username;
 
-    // Constructor for the firebase helper, We need to know the username to find the account
+    // Constructor for the firebasehelper, We need to know the username to find the account
     public FireBaseHelper(String username) {
         dataBase = FirebaseFirestore.getInstance();
         setUsername(username);
@@ -98,8 +99,11 @@ public class FireBaseHelper {
                         account.setEmail(temp.get("email").toString());
                         account.setPassword(temp.get("password").toString());
                         account.setUsername(temp.get("username").toString());
-//                        account.setFavTrails(temp.get("trailsList"));
-//                        account.setSettings(temp.get("settings"));
+                        ArrayList<Integer> array = (ArrayList<Integer>) temp.get("trailList");
+                        account.setFavTrails(array);
+                        Map<String, String> map = (Map<String, String>) temp.get("settings");
+                        Settings settings = new Settings(map);
+                        account.setSettings(settings);
                         listener.onSuccess(account);
                     } else {
                         Log.d(TAG, "No such document");
@@ -118,14 +122,65 @@ public class FireBaseHelper {
     public void updateAccount(String fieldToUpdate, String update, final UpdateAccountListener listener) {
         try {
             dataBase.collection("accounts").document(username)
-                    .update(fieldToUpdate, update);
+                    .update(fieldToUpdate, update).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG, "Successful update to FireBase.");
+                    listener.onSuccess();
+                }
+            });
         } catch (Exception e) {
             Log.d(TAG, "Failed to update account.");
-            listener.onSuccess();
+            listener.onFail();
         }
-        Log.d(TAG, "Successful update to FireBase.");
-        listener.onFail();
     }
+
+    // Update for map with a setting
+    public void updateAccount(final String fieldToUpdate, final String secondField, final String update, final UpdateAccountListener listener) {
+        try {
+            Log.d(TAG, "Attempting to get online data for update.");
+            final DocumentReference reference = dataBase.collection("accounts").document(username);
+            reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    Log.d(TAG, "onComplete");
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Getting results from online.");
+                        DocumentSnapshot document = task.getResult();
+                        // Get the trail or settings
+                        Log.d(TAG, "Getting Settings saved in a map");
+                        Map<String, String> map = (Map<String, String>) document.get(fieldToUpdate);
+                        // Set the update in the trail or settings
+                        Log.d(TAG,"adding update to Settings");
+                        map.put(secondField, update);
+                        Log.d(TAG, "Update as: " + update + "\nUpdate complete as: " + map.get(secondField));
+                        // try and update the field
+                        try {
+                            reference.update(fieldToUpdate, map)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "Successful update to Firebase.");
+                                            listener.onSuccess();
+                                        }
+                                    });
+                        } catch (Exception e) {
+                            Log.d(TAG, "Catch exception\nFailed to update account.");
+                            listener.onFail();
+                        }
+                    } else {
+                        Log.d(TAG, "Failed to find account.");
+                        listener.onFail();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.d(TAG ,"Failed to update account.");
+            listener.onFail();
+        }
+    }
+
+    // Update with an object
 
     // Delete user account
     public void deleteAccount(final DeleteAccountListener listener) {
@@ -172,6 +227,33 @@ public class FireBaseHelper {
                         }
                     }
                 });
+    }
+
+    // Check when the username is being updated
+    public void exists(final UpdateAccountListener listener) {
+        // Create a reference to the accounts
+        CollectionReference reference = dataBase.collection("accounts");
+        // Make a search query to try and find the username
+        reference.whereEqualTo("username",username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot document = task.getResult();
+                    List<DocumentSnapshot> list = document.getDocuments();
+                    // if the query list is larger than 0 then we found something
+                    if (list.size() > 0) {
+                        Log.d(TAG, username + " was found, choose new username.");
+                        listener.onFail();
+                    } else {
+                        Log.d(TAG, username + " was not found so continue");
+                        listener.onSuccess();
+                    }
+                } else {
+                    Log.d(TAG, "Error reading Firebase.");
+                    listener.onFail();
+                }
+            }
+        });
     }
 
     // Setter Functions

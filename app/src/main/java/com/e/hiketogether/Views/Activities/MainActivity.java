@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
                 account = data.getBundleExtra("account");
-                Log.d(TAG, "Account username: " + account.getString("username"));
+                Log.d(TAG, "Account: " + account.containsKey("settings"));
 
                 //Initialize the screen to be on the home fragment initially
                 changeView(findViewById(R.id.toolbarHomeButton));
