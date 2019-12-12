@@ -71,13 +71,6 @@ public class MapTrailFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_map_trail, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -106,7 +99,7 @@ public class MapTrailFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // Called when the fragment and Main activity interact
         void onFragmentInteraction(Uri uri);
     }
 }

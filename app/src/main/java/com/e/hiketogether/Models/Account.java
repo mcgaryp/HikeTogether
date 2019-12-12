@@ -51,6 +51,17 @@ public class Account {
         Log.d(TAG, "Email: " + getEmail());
     }
 
+    // Construct account from a bundle
+    public Account(Bundle bundle) {
+        Log.d(TAG, "Setting account from bundle.");
+        setUsername(bundle.getString("username"));
+        setEmail(bundle.getString("email"));
+        setPassword(bundle.getString("password"));
+        setFavTrails(bundle.getIntegerArrayList("trails"));
+        Bundle settingsBundle = bundle.getBundle("settings");
+        setSettings(new Settings(settingsBundle));
+    }
+
     // Constructor
     public Account(String username, String password, String email, List<Integer> favTrails, Settings settings) {
         setUsername(username);

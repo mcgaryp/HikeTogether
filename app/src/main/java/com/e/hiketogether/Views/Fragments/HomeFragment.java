@@ -1,7 +1,6 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -37,9 +36,6 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
-// TODO Has a list of local trails in a drawer and a google map screen that is capable of
-//  displaying location of the trail on the map
 public class HomeFragment extends Fragment implements Interact {
     // Static Final VARIABLES
     private static final String TAG = "HOME_FRAGMENT";
@@ -171,7 +167,7 @@ public class HomeFragment extends Fragment implements Interact {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // Called on when there is an interaction between main and fragment class
         void onFragmentInteraction(Uri uri);
     }
 
@@ -186,19 +182,17 @@ public class HomeFragment extends Fragment implements Interact {
 
     // Display progress bar
     @Override
-    @SuppressLint("WrongConstant")
     public void displayProgressBar() {
         Log.d(TAG, "Displaying ProgressBar.");
-        progressBar.setVisibility(0);
+        progressBar.setVisibility(View.VISIBLE);
         progressBar.bringToFront();
     }
 
     // Hide progress bar
     @Override
-    @SuppressLint("WrongConstant")
     public void  hideProgressBar() {
         Log.d(TAG, "Hiding ProgressBar.");
-        progressBar.setVisibility(8);
+        progressBar.setVisibility(View.GONE);
     }
 
     // disable the screen so users cannot touch it and Interact
