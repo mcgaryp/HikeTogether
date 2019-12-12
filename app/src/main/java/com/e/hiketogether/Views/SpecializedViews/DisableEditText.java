@@ -1,4 +1,4 @@
-package com.e.hiketogether.Presenters.Helpers;
+package com.e.hiketogether.Views.SpecializedViews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

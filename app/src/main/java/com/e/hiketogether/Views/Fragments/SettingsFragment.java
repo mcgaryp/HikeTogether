@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.Settings;
-import com.e.hiketogether.Presenters.Helpers.DisableEditText;
+import com.e.hiketogether.Views.SpecializedViews.DisableEditText;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
 
@@ -45,12 +45,14 @@ public class SettingsFragment extends Fragment {
     private Account account;
     private String username = "";
 //    private String profilePicture = "";
+    // TODO are these variables needed
     private String firstName = "";
     private String lastName = "";
     private String email = "";
     private String password = "";
     private String background = "";
     private String distance = "";
+    // ^
     private List<Integer> favTrails;
     private SettingsManager manager;
     private ImageView profilePicture;
@@ -87,11 +89,9 @@ public class SettingsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param account User Account
+     * @param account User Account in bundle form
      * @return A new instance of fragment SettingsFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    // Not sure this needs parameters right now...
     public static SettingsFragment newInstance(Bundle account, boolean loggedIn) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = account;
@@ -101,16 +101,17 @@ public class SettingsFragment extends Fragment {
         return fragment;
     }
 
+    // Sets the variables in the class almost like a constructor
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Log.d(TAG,"Setting Variables from bundle");
+            // TODO check to see if you need these variables
             username = getArguments().getString("username");
             email = getArguments().getString("email");
             password = getArguments().getString("password");
             favTrails = getArguments().getIntegerArrayList("trails");
-            // TODO Get the settings what should it be turned into
             Log.d(TAG, getArguments().toString());
             bundle = getArguments().getBundle("settings");
             loggedIn = getArguments().getBoolean("loggedIn");
@@ -121,6 +122,7 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    //
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

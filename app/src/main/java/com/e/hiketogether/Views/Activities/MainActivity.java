@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Interfaces.Interact;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
@@ -22,7 +21,6 @@ import com.e.hiketogether.Views.Fragments.HomeFragment;
 import com.e.hiketogether.Views.Fragments.MapTrailFragment;
 import com.e.hiketogether.Views.Fragments.SettingsFragment;
 import com.e.hiketogether.Views.Fragments.TrailSearchFragment;
-import com.e.hiketogether.Views.Fragments.TrailViewFragment;
 
 /**
  * PURPOSE:
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity
                                      HomeFragment.OnFragmentInteractionListener,
                                      FavoritesFragment.OnFragmentInteractionListener,
                                      MapTrailFragment.OnFragmentInteractionListener,
-                                     TrailViewFragment.OnFragmentInteractionListener,
                                      SettingsFragment.OnFragmentInteractionListener, Interact {
     // VARIABLES
     private static final String TAG = "MAIN_ACTIVITY"; //Log tag
@@ -125,14 +122,6 @@ public class MainActivity extends AppCompatActivity
             currentFragment = "SETTINGS";
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
-    }
-
-    public void initiateTrailSearch(TrailList tl) {
-        Fragment template_fragment = new TrailViewFragment();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.template_fragment, template_fragment);
-        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        ft.commit();
     }
 
     //When the Login Activity is closed, it will return information to this function

@@ -74,7 +74,6 @@ public class TrailSearchFragment extends Fragment {
      * @param account User Account.
      * @return A new instance of fragment TrailSearchFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static TrailSearchFragment newInstance(Bundle account) {
         TrailSearchFragment fragment = new TrailSearchFragment();
         Bundle args = account;
@@ -187,7 +186,7 @@ public class TrailSearchFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // Called when the fragment interacts with the Main activity
         void onFragmentInteraction(Uri uri);
     }
 }

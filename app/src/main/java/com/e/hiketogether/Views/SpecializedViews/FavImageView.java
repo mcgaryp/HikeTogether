@@ -1,4 +1,4 @@
-package com.e.hiketogether.Presenters.Helpers;
+package com.e.hiketogether.Views.SpecializedViews;
 
 import android.content.Context;
 import android.util.AttributeSet;
