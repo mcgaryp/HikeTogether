@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
@@ -51,11 +52,8 @@ public class TrailSearchFragment extends Fragment {
     private CurrentLocationHelper clh;
     private View rootView;
     private Button search;
-
-    // implementing Geocoder
-    Geocoder geo;
-    List<Address> address;
-    LatLng latLng;
+    private String address;
+    private TrailList tl;
 
 
     TrailManager tm;
@@ -85,14 +83,16 @@ public class TrailSearchFragment extends Fragment {
     public void onStart() {
         super.onStart();
         search = rootView.findViewById(R.id.trailSearch_button);
+        System.out.println("Address: " + address);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tm.setLat(latitude /*43.826069*/);
-                tm.setLon(longitude /*-111.789528*/);
+                tm.setLat(latitude);
+                tm.setLon(longitude);
+                EditText et = rootView.findViewById(R.id.trailSearch_editText);
+                address = et.getText().toString();
 
-
-                TrailList tl = tm.getTrails();
+                tl = tm.getTrails();
             }
         });
     }
@@ -126,7 +126,8 @@ public class TrailSearchFragment extends Fragment {
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
 
-
+            longitude = -111.789528;
+            latitude = 43.826069;
             Log.d(TAG, "Made it to onCreateView.");
             // Inflate the layout for this fragment
             return rootView;
@@ -179,10 +180,5 @@ public class TrailSearchFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    //This is called when the search button is pressed
-    public void onSearch(View view) {
-
     }
 }
