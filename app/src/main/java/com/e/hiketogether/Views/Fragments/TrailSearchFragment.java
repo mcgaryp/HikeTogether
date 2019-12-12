@@ -3,8 +3,6 @@ package com.e.hiketogether.Views.Fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -22,13 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Settings;
-import com.e.hiketogether.Models.CurrentLocationHelper;
+import com.e.hiketogether.Presenters.Helpers.CurrentLocationHelper;
 
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
