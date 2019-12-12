@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Presenters.Helpers.DisableEditText;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
@@ -38,7 +40,9 @@ public class SettingsFragment extends Fragment {
     private static final int CREATE_RERQUEST = 200; // Request code for CreateAccount Activity
 
     // VARIABLES
-    private Bundle account;
+    private Bundle bundle;
+    private Settings settings;
+    private Account account;
     private String username = "";
 //    private String profilePicture = "";
     private String firstName = "";
@@ -48,7 +52,6 @@ public class SettingsFragment extends Fragment {
     private String background = "";
     private String distance = "";
     private List<Integer> favTrails;
-    private List<String> settings;
     private SettingsManager manager;
     private ImageView profilePicture;
     private Button changeFname;
@@ -107,8 +110,14 @@ public class SettingsFragment extends Fragment {
             email = getArguments().getString("email");
             password = getArguments().getString("password");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            // TODO Get the settings what should it be turned into
+            Log.d(TAG, getArguments().toString());
+            bundle = getArguments().getBundle("settings");
             loggedIn = getArguments().getBoolean("loggedIn");
+            settings = new Settings(bundle);
+            account = new Account(username, password, email, favTrails, settings);
+            Log.d(TAG, "First Name: " + firstName + "\nLast Name: " + lastName +
+                    "\nDistance: " + distance + "\nBackground: " + background);
         }
     }
 
@@ -232,14 +241,14 @@ public class SettingsFragment extends Fragment {
 
     // Method for setting the initial values of the views
     private void setViews() {
-        if (username == null || username.isEmpty()) usernameView.setText("No Username");
-        else usernameView.setText(username);
-        if (email == null || email.isEmpty()) emailView.setText("No E-Mail");
-        else emailView.setText(email);
-        if (firstName == null || firstName.isEmpty()) firstNameView.setText("No First Name");
-        else firstNameView.setText(firstName);
-        if (lastName == null || lastName.isEmpty()) lastNameView.setText("No Last Name");
-        else lastNameView.setText(lastName);
+        if (getAccount().getUsername().isEmpty()) usernameView.setText("No Username");
+        else usernameView.setText(getAccount().getUsername());
+        if (getAccount().getEmail().isEmpty()) emailView.setText("No E-Mail");
+        else emailView.setText(getAccount().getEmail());
+        if (getAccount().getSettings().getFirstName().isEmpty()) firstNameView.setText("No First Name");
+        else firstNameView.setText(getAccount().getSettings().getFirstName());
+        if (getAccount().getSettings().getLastName().isEmpty()) lastNameView.setText("No Last Name");
+        else lastNameView.setText(getAccount().getSettings().getLastName());
     }
 
     //When the Login Activity is closed, it will return information to this function
@@ -257,11 +266,11 @@ public class SettingsFragment extends Fragment {
             if (resultCode == getActivity().RESULT_OK) {
                 //The user was logged in!
                 //The intent will have pertinent information that needs to be passed back in it
-                account = data.getBundleExtra("account");
+                bundle = data.getBundleExtra("account");
                 loggedIn = true;
-                Log.d(TAG, "Account username: " + account.getString("username"));
+                Log.d(TAG, "Account username: " + bundle.getString("username"));
 //                onCreateView(inflater,group,state);
-                newInstance(account, true);
+                newInstance(bundle, true);
                 rootView = inflater.inflate(R.layout.fragment_settings, group, false);
 //                new SettingsFragment().newInstance(account, true);
             }
@@ -279,7 +288,7 @@ public class SettingsFragment extends Fragment {
                 Log.d(TAG, "Attempting to automatically login user");
                 loggedIn = true;
                 // do something with the intent here
-                account = data.getBundleExtra("account");
+                bundle = data.getBundleExtra("account");
                 // Log the user in AUTOMATICALLY with the account they just created
                 Log.d(TAG, "Login in from Create Account Screen.");
 //                newInstance(account);
@@ -305,6 +314,14 @@ public class SettingsFragment extends Fragment {
     }
     private void setViewGroup(ViewGroup container) {
         this.group = container;
+    }
+
+    public void displayToast(String message) {
+        new Toast(getContext()).makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     /**

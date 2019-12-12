@@ -45,6 +45,15 @@ public class Account {
         Log.d(TAG, "Email: " + getEmail());
     }
 
+    // Constructor
+    public Account(String username, String password, String email, List<Integer> favTrails, Settings settings) {
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
+        setFavTrails(favTrails);
+        setSettings(settings);
+    }
+
     private static String bytesToHex(byte[] hash) {
         StringBuffer hexString = new StringBuffer();
         for (int i = 0; i < hash.length; i++) {
@@ -85,8 +94,8 @@ public class Account {
         extra.putString("username", getUsername());
         extra.putString("password", getPassword());
         extra.putString("email", getEmail());
-//        extra.putString("favoriteTrails", getFavTrails());
-//        extra.putString("settings", getSettings());
+        extra.putIntegerArrayList("favoriteTrails", (ArrayList<Integer>) getFavTrails());
+        extra.putBundle("settings", getSettings().toBundle());
         return extra;
     }
 

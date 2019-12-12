@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Models.CurrentLocationHelper;
+
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
@@ -39,11 +41,12 @@ public class TrailSearchFragment extends Fragment {
     // VARIABLES
     private String username;
     private List<Integer> favTrails;
-    private List<String> settings;
-    private LocationManager lm;
-    private Location location;
-    private double longitude;
-    private double latitude;
+    private Bundle bundle;
+    private Settings settings;
+    LocationManager lm;
+    Location location;
+    double longitude;
+    double latitude;
     private CurrentLocationHelper clh;
     private View rootView;
 
@@ -51,6 +54,7 @@ public class TrailSearchFragment extends Fragment {
     Geocoder geo;
     List<Address> address;
     LatLng latLng;
+
 
     TrailManager tm;
 
@@ -81,7 +85,7 @@ public class TrailSearchFragment extends Fragment {
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
-            settings = getArguments().getStringArrayList("settings");
+            bundle = getArguments().getBundle("settings");
         }
         Log.d(TAG, "Account " + username + " received");
     }
