@@ -26,6 +26,7 @@ import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -159,6 +160,16 @@ public class TrailSearchFragment extends Fragment {
                 address = et.getText().toString();
 
                 System.out.println("Address: " + address);
+
+                // setting up geocoder
+                clh = new CurrentLocationHelper(getContext(), address);
+                LatLng coords = clh.getLocationFromAddress();
+
+                if (coords != null) {
+                    tm.setLat(coords.latitude);
+                    tm.setLon(coords.longitude);
+                }
+
                 tl = tm.getTrails();
 
                 recyclerView = rootView.findViewById(R.id.locationSearchRecyclerView);
