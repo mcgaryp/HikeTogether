@@ -37,22 +37,12 @@ public class SettingsFragment extends Fragment {
     private static final String TAG = "SETTINGS_FRAGMENT";
     private static final int LOGIN_REQUEST = 100;   //Request code for LoginActivity
     private static final int LOGIN_FAILED = 0;      //resultCode for MainActivity
-    private static final int CREATE_RERQUEST = 200; // Request code for CreateAccount Activity
+    private static final int CREATE_REQUEST = 200;  // Request code or CreateLogin
 
     // VARIABLES
     private Bundle bundle;
     private Settings settings;
     private Account account;
-    private String username = "";
-//    private String profilePicture = "";
-    // TODO are these variables needed
-    private String firstName = "";
-    private String lastName = "";
-    private String email = "";
-    private String password = "";
-    private String background = "";
-    private String distance = "";
-    // ^
     private List<Integer> favTrails;
     private SettingsManager manager;
     private ImageView profilePicture;
@@ -101,28 +91,22 @@ public class SettingsFragment extends Fragment {
         return fragment;
     }
 
-    // Sets the variables in the class almost like a constructor
+    // Sets the a few key variables in the class almost like a constructor
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Log.d(TAG,"Setting Variables from bundle");
-            // TODO check to see if you need these variables
-            username = getArguments().getString("username");
-            email = getArguments().getString("email");
-            password = getArguments().getString("password");
-            favTrails = getArguments().getIntegerArrayList("trails");
-            Log.d(TAG, getArguments().toString());
-            bundle = getArguments().getBundle("settings");
-            loggedIn = getArguments().getBoolean("loggedIn");
-            settings = new Settings(bundle);
-            account = new Account(username, password, email, favTrails, settings);
-            Log.d(TAG, "First Name: " + firstName + "\nLast Name: " + lastName +
-                    "\nDistance: " + distance + "\nBackground: " + background);
+            setAccount(new Account(getArguments()));
+            setLoggedIn(getArguments().getBoolean("loggedIn"));
+            Log.d(TAG, "First Name: " + getAccount().getSettings().getFirstName()
+                    + "\nLast Name: " + getAccount().getSettings().getLastName() + "\nDistance: "
+                    + getAccount().getSettings().getDistance() + "\nBackground: "
+                    + getAccount().getSettings().getBackground());
         }
     }
 
-    //
+    // Sets up the view for the fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -145,6 +129,7 @@ public class SettingsFragment extends Fragment {
         return rootView;
     }
 
+    // No idea
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -156,11 +141,11 @@ public class SettingsFragment extends Fragment {
         }
     }
 
-    // Set the variables and stuff acts like a constructor
+    // Set the variables. Acts like a constructor
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "Account " + username + " received");
+        Log.d(TAG, "Account " + getAccount().getUsername() + " received");
 //        if (loggedIn) {
             Log.d(TAG, "Setting up personal settings with Account on file.");
             manager = new SettingsManager(this);
@@ -243,13 +228,19 @@ public class SettingsFragment extends Fragment {
 
     // Method for setting the initial values of the views
     private void setViews() {
+        // Username
         if (getAccount().getUsername().isEmpty()) usernameView.setText("No Username");
         else usernameView.setText(getAccount().getUsername());
+        // Email
         if (getAccount().getEmail().isEmpty()) emailView.setText("No E-Mail");
         else emailView.setText(getAccount().getEmail());
-        if (getAccount().getSettings().getFirstName().isEmpty()) firstNameView.setText("No First Name");
+        // First Name
+        if (getAccount().getSettings().getFirstName().isEmpty())
+            firstNameView.setText("No First Name");
         else firstNameView.setText(getAccount().getSettings().getFirstName());
-        if (getAccount().getSettings().getLastName().isEmpty()) lastNameView.setText("No Last Name");
+        // Last Name
+        if (getAccount().getSettings().getLastName().isEmpty())
+            lastNameView.setText("No Last Name");
         else lastNameView.setText(getAccount().getSettings().getLastName());
     }
 
@@ -283,7 +274,7 @@ public class SettingsFragment extends Fragment {
             }
         }
 
-        if (requestCode == CREATE_RERQUEST) {
+        if (requestCode == CREATE_REQUEST) {
             if (resultCode == getActivity().RESULT_OK) {
                 //The user's account was created!
                 //The intent will have pertinent information that needs to be passed back in it
@@ -304,6 +295,7 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    // No idea
     @Override
     public void onDetach() {
         super.onDetach();
@@ -314,14 +306,16 @@ public class SettingsFragment extends Fragment {
     private void setInflater(LayoutInflater inflater) {
         this.inflater = inflater;
     }
-    private void setViewGroup(ViewGroup container) {
-        this.group = container;
-    }
+    private void setViewGroup(ViewGroup container)    { this.group = container;   }
+    private void setAccount(Account account)          { this.account = account;   }
+    private void setLoggedIn(boolean loggedIn)        { this.loggedIn = loggedIn; }
 
+    // Display somthing to the user through a Toast
     public void displayToast(String message) {
         new Toast(getContext()).makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
+    // GETTERS
     public Account getAccount() {
         return account;
     }

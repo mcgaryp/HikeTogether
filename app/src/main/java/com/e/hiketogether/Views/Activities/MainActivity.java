@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the trail search button, open the search fragment
-        else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment.equals("TRAIL_SEARCH")) {
+        else if (view == findViewById(R.id.toolbarSearchButton) && !currentFragment
+                .equals("TRAIL_SEARCH")) {
             template_fragment = new TrailSearchFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -89,7 +90,8 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the favorites button, open the favorites fragment
-        else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment.equals("FAVORITES")) {
+        else if (view == findViewById(R.id.toolbarFavoritesButton) && !currentFragment
+                .equals("FAVORITES")) {
             template_fragment = new FavoritesFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -99,7 +101,8 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the map button, open the map trail fragment
-        else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment.equals("MAP_TRAIL")) {
+        else if (view == findViewById(R.id.toolbarMapButton) && !currentFragment
+                .equals("MAP_TRAIL")) {
             template_fragment = new MapTrailFragment().newInstance(account);
             ft.replace(R.id.template_fragment, template_fragment);
             ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
@@ -109,7 +112,8 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Current fragment: " + currentFragment);
         }
         //They clicked the settings icon, open the settings activity
-        else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment.equals("SETTINGS")) {
+        else if (view == findViewById(R.id.toolbarSettingButton) && !currentFragment
+                .equals("SETTINGS")) {
             boolean loggedIn;
             if (account.getString("username") != "")
                 loggedIn = false;

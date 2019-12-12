@@ -95,13 +95,17 @@ public class TrailSearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
-        tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528), getContext());
+        tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528),
+                getContext());
 
         this.rootView = inflater.inflate(R.layout.fragment_trail_search, parent, false);
 
         // variables to get our long and lat instead of hard coding in Rexburg's
         lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && getActivity()
+                .checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions
             // here to request the missing permissions, and then overriding
