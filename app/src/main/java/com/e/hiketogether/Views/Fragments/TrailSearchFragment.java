@@ -17,11 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Models.CurrentLocationHelper;
 
 import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 import com.google.android.gms.maps.model.LatLng;
@@ -54,6 +58,15 @@ public class TrailSearchFragment extends Fragment {
     private Button search;
     private String address;
     private TrailList tl;
+
+    private RecyclerView recyclerView;
+    private TrailAdapter adapter;
+    private TrailList tl;
+
+    // implementing Geocoder
+    Geocoder geo;
+    List<Address> address;
+    LatLng latLng;
 
 
     TrailManager tm;
@@ -126,8 +139,9 @@ public class TrailSearchFragment extends Fragment {
             // to handle the case where the user grants the permission. See the documentation
             // for Activity#requestPermissions for more details.
 
-            longitude = -111.789528;
             latitude = 43.826069;
+            longitude = -111.789528;
+
             Log.d(TAG, "Made it to onCreateView.");
             // Inflate the layout for this fragment
             return rootView;
@@ -140,14 +154,6 @@ public class TrailSearchFragment extends Fragment {
         Log.d(TAG, "Made it to onCreateView.");
         // Inflate the layout for this fragment
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-
     }
 
     @Override
@@ -165,6 +171,34 @@ public class TrailSearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        search = rootView.findViewById(R.id.trailSearch_button);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tm.setLat(latitude /*43.826069*/);
+                tm.setLon(longitude /*-111.789528*/);
+
+
+                tl = tm.getTrails();
+
+                recyclerView = rootView.findViewById(R.id.locationSearchRecyclerView);
+                recyclerView.setHasFixedSize(true);
+
+                adapter = new TrailAdapter(getActivity(), tl);
+                recyclerView.setAdapter(adapter);
+
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+                recyclerView.addItemDecoration(itemDecoration);
+
+                //setTouchEnabled();
+            }
+        });
     }
 
     /**

@@ -81,13 +81,13 @@ public class TrailManager {
     private String requestTrails(String url) throws ExecutionException, InterruptedException {
 
         //See if the trail query is currently cached
-        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
-                Log.d(TAG, "Retrieved query (" + url + ") from cache");
-                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
-                return fManager.getCachedQuery(url);
-        }
+//        if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
+//                Log.d(TAG, "Retrieved query (" + url + ") from cache");
+//                Toast.makeText(context, "Retrieved trails from cache", Toast.LENGTH_LONG).show();
+//                return fManager.getCachedQuery(url);
+//        }
         //It wasn't cached, get it from the internet and cache it, then return it for the recycler view to use
-        else if (isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             Log.d(TAG, "Successfully connected to the internet");
             String trailList = new TrailHTTPHelper().execute(url).get();
 
