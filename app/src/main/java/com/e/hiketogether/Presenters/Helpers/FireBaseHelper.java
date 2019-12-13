@@ -61,7 +61,7 @@ public class FireBaseHelper {
 
         // Push to cloud storage FIRESTORE
         dataBase.collection("accounts")
-                .document(username)
+                .document(account.getUsername())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -180,8 +180,6 @@ public class FireBaseHelper {
         }
     }
 
-    // Update with an object
-
     // Delete user account
     public void deleteAccount(final DeleteAccountListener listener) {
         dataBase.collection("account").document(username)
@@ -190,6 +188,7 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        Log.d(TAG, "Document with username: " + username + " deleted.");
                         listener.onSuccess();
                     }
                 })
@@ -227,33 +226,6 @@ public class FireBaseHelper {
                         }
                     }
                 });
-    }
-
-    // Check when the username is being updated
-    public void exists(final UpdateAccountListener listener) {
-        // Create a reference to the accounts
-        CollectionReference reference = dataBase.collection("accounts");
-        // Make a search query to try and find the username
-        reference.whereEqualTo("username",username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot document = task.getResult();
-                    List<DocumentSnapshot> list = document.getDocuments();
-                    // if the query list is larger than 0 then we found something
-                    if (list.size() > 0) {
-                        Log.d(TAG, username + " was found, choose new username.");
-                        listener.onFail();
-                    } else {
-                        Log.d(TAG, username + " was not found so continue");
-                        listener.onSuccess();
-                    }
-                } else {
-                    Log.d(TAG, "Error reading Firebase.");
-                    listener.onFail();
-                }
-            }
-        });
     }
 
     // Setter Functions

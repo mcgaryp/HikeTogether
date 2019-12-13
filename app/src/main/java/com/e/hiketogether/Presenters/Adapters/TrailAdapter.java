@@ -19,11 +19,11 @@ import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
+import com.e.hiketogether.Views.SpecializedViews.FavImageView;
 
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
-import com.e.hiketogether.Views.SpecializedViews.FavImageView;
 /**
  * PURPOSE: This class will adapt the user interface and interaction of that RecyclerView for the
  *          TrailsList that is pulled from the internet or cached items on the phone. It will easily
@@ -98,7 +98,6 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             public void onClick(View v) {
                 //add a condition to detect if it is already a favorite or not
                 holder.getfavButton().change();
-
             }
         });
 

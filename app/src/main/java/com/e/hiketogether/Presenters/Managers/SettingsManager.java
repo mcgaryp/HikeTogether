@@ -96,45 +96,6 @@ public class SettingsManager {
                                         });
                             else Log.d(TAG, "Account has not been created properly.");
                             break;
-                        case "username":
-                            // TODO Look at the username by document not by just the account value.
-                            //  change the document name Might have to copy the collection and
-                            //  rename the collection then delete the old collection to be done in
-                            //  firebase
-//                            final String oldUsername = getAccount().getUsername();
-//                            changeUsername(view.getText().toString());
-//                            // Check to see we saved it right.
-//                            Log.d(TAG, "Settings username saved as: " +
-//                                    account.getUsername());
-//                            // Send update to Firebase
-//                            if (account.getUsername() != null || account.getUsername() != "")
-//                                new FireBaseHelper(getAccount().getUsername()).exists(new UpdateAccountListener() {
-//                                    @Override
-//                                    public void onSuccess() {
-//                                        new FireBaseHelper(oldUsername)
-//                                                .updateAccount("username", getAccount().getUsername(), new UpdateAccountListener() {
-//                                                    @Override
-//                                                    public void onSuccess() {
-//                                                        Log.d(TAG, "Successful Update of username: " + getAccount().getUsername());
-//                                                        fragment.displayToast("Saved");
-//                                                    }
-//
-//                                                    @Override
-//                                                    public void onFail() {
-//                                                        Log.d(TAG, "Failure to Update username.");
-//                                                        fragment.displayToast("Failed to Save");
-//                                                    }
-//                                                });
-//                                    }
-//
-//                                    @Override
-//                                    public void onFail() {
-//                                        Log.d(TAG, "Account name Already Exists");
-//                                        fragment.displayToast("Username Already Exists");
-//                                    }
-//                                });
-//                            else Log.d(TAG, "Account has not been created properly.");
-                            break;
                         case "email":
                             changeEmail(view.getText().toString());
                             // Check to see we saved it right.

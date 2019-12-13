@@ -48,7 +48,6 @@ public class SettingsFragment extends Fragment {
     private ImageView profilePicture;
     private Button changeFname;
     private Button changeLname;
-    private Button changeUsername;
     private Button changeEmail;
     private Button changeProfile;
     private Button changePassword;
@@ -162,7 +161,6 @@ public class SettingsFragment extends Fragment {
             // Set Buttons
             changeFname = rootView.findViewById(R.id.changeFirstNameButton);
             changeLname = rootView.findViewById(R.id.changeLastNameButton);
-            changeUsername = rootView.findViewById(R.id.changeUsernameButton);
             changeEmail = rootView.findViewById(R.id.changeEmailButton);
             changeProfile = rootView.findViewById(R.id.changeProfilePictureButton);
             changePassword = rootView.findViewById(R.id.changePasswordButton);
@@ -170,7 +168,6 @@ public class SettingsFragment extends Fragment {
             // Set OnClickListeners
             manager.setClick(changeFname, firstNameView, "first");
             manager.setClick(changeLname, lastNameView, "last");
-            manager.setClick(changeUsername, usernameView, "username");
             manager.setClick(changeEmail, emailView, "email");
             manager.setClick(changePassword, passwordView, verifyPasswordView, hiddenView);
             manager.setClick(changeProfile, profilePicture);
