@@ -31,10 +31,12 @@ public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
         // If not favorite
         if (isFavorite == false) {
             setImageResource(R.drawable.ic_star_border_black_24dp);
+            // TODO Delete from fav trail list in account
             isFavorite = true;
         }
         else {
             setImageResource(R.drawable.ic_star_yellow_50dp);
+            // TODO add to favtrail list in account
             isFavorite = false;
         }
     }

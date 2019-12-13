@@ -23,7 +23,7 @@ import com.e.hiketogether.R;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
-
+import com.e.hiketogether.Presenters.Helpers.FavImageView;
 /**
  * PURPOSE: This class will adapt the user interface and interaction of that RecyclerView for the
  *          TrailsList that is pulled from the internet or cached items on the phone. It will easily
@@ -67,7 +67,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
      * @param position  position in the trail list. This is each individual cards "id"
      */
     @Override
-    public void onBindViewHolder(@NonNull TrailViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final TrailViewHolder holder, final int position) {
         // Here we are setting the visibility of the expansion to visible or not depending on the
         //  clickPosition. If it is == to the position then set it visable else not.
         holder.getExpandable().setVisibility((position == clickPosition) ? View.VISIBLE : View.GONE);
@@ -92,7 +92,15 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 //            map(trail.getLatitude(), trail.getLatitude());
 //        });
 
-        ////////////////////////////if ()
+
+        holder.getfavButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //add a condition to detect if it is already a favorite or not
+                holder.getfavButton().change();
+
+            }
+        });
 
         // Setting the on click listener to open or not this view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +109,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
                 Log.d(TAG, "onClick Called position: " + position);
                 // set position
                 clickPosition = (position == clickPosition) ? -1 : position;
-                // We are notifitin the adapter that we need to reCall the on Bind View
+                // We are notifyin the adapter that we need to reCall the on Bind View
                 TrailAdapter.this.notifyItemChanged(prevClickPosition);
                 TrailAdapter.this.notifyItemChanged(clickPosition);
             }
@@ -146,6 +154,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
 
     // Sub Class that is a view holder in assisting the usage of the adapter
     class TrailViewHolder extends RecyclerView.ViewHolder {
+        private FavImageView favButton;
         private ImageView imageView;
         private TextView textViewTitle, textViewDesc, textViewPrice,
                 location, length, ascent, descent, status, statusDetails;
@@ -156,7 +165,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         public TrailViewHolder(@Nonnull View itemView) {
             super(itemView);
 
-
+            favButton = itemView.findViewById(R.id.favButton);
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewDesc = itemView.findViewById(R.id.textViewShortDesc);
@@ -173,6 +182,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         }
 
         // GETTERS
+        public FavImageView getfavButton()       { return favButton;    }
         public ImageView getImageView()       { return imageView;       }
         public TextView getTextViewTitle()    { return textViewTitle;   }
         public TextView getTextViewDesc()     { return textViewDesc;    }
