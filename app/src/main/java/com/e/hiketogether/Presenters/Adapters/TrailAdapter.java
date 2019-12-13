@@ -23,7 +23,7 @@ import com.e.hiketogether.R;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
-import com.e.hiketogether.Presenters.Helpers.FavImageView;
+import com.e.hiketogether.Views.SpecializedViews.FavImageView;
 /**
  * PURPOSE: This class will adapt the user interface and interaction of that RecyclerView for the
  *          TrailsList that is pulled from the internet or cached items on the phone. It will easily

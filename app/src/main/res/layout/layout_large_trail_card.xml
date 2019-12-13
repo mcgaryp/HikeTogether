@@ -112,7 +112,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
-            <com.e.hiketogether.Presenters.Helpers.FavImageView
+            <com.e.hiketogether.Views.SpecializedViews.FavImageView
                 android:id="@+id/favButton"
                 android:layout_width="47dp"
                 android:layout_height="43dp"

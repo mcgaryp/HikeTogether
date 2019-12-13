@@ -3,6 +3,8 @@ package com.e.hiketogether.Views.SpecializedViews;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.e.hiketogether.R;
+
 public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
     // VARIABLES
     private final static String TAG = "FAV_IMAGE_VIEW";
