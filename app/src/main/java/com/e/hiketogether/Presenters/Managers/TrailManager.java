@@ -33,10 +33,10 @@ public class TrailManager {
     private String lat;
     private String lon;
     private String maxDistance = "maxDistance=30";          //TODO Could be something to change in settings
-    private String maxResults;
-    private String sort = "quality";
-    private String minLength;
-    private String minStars;
+    private String maxResults;                              //TODO Could be something to change in settings
+    private String sort = "quality";                        //TODO Could be something to change in settings
+    private String minLength;                               //TODO Could be something to change in settings
+    private String minStars;                                //TODO Could be something to change in settings
 
     // Getters
     public String getLon() { return lon; }
@@ -74,12 +74,15 @@ public class TrailManager {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     // Requests the trail, either from the cache or from the internet
     private String requestTrails(String url) throws ExecutionException, InterruptedException {
+        boolean networkConnected = isNetworkAvailable();
+
+        if (!networkConnected)
+            Toast.makeText(context, "No trails could be retrieved.  Please check your internet connection and try again", Toast.LENGTH_LONG).show();
 
         //See if the trail query is currently cached
         if (!fManager.isCacheNull() && fManager.isQueryCached(url)) {
@@ -88,7 +91,7 @@ public class TrailManager {
                 return fManager.getCachedQuery(url);
         }
         //It wasn't cached, get it from the internet and cache it, then return it for the recycler view to use
-        if (isNetworkAvailable()) {
+        if (networkConnected) {
             Log.d(TAG, "Successfully connected to the internet");
             String trailList = new TrailHTTPHelper().execute(url).get();
 
