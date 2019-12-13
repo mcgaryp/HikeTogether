@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.Settings;
-import com.e.hiketogether.Views.SpecializedViews.DisableEditText;
+import com.e.hiketogether.Views.SpecializedViews.UniqueEditText;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
 
@@ -53,12 +53,12 @@ public class SettingsFragment extends Fragment {
     private Button changePassword;
     private Button login;
     private Button createAccount;
-    private DisableEditText firstNameView;
-    private DisableEditText lastNameView;
-    private DisableEditText usernameView;
-    private DisableEditText emailView;
-    private DisableEditText passwordView;
-    private DisableEditText verifyPasswordView;
+    private UniqueEditText firstNameView;
+    private UniqueEditText lastNameView;
+    private UniqueEditText usernameView;
+    private UniqueEditText emailView;
+    private UniqueEditText passwordView;
+    private UniqueEditText verifyPasswordView;
     private Spinner backgroundSpinner;
     private Spinner distanceSpinner;
     private RelativeLayout hiddenView;
@@ -149,6 +149,10 @@ public class SettingsFragment extends Fragment {
             Log.d(TAG, "Setting up personal settings with Account on file.");
             manager = new SettingsManager(this);
 
+            // Set Relative Layout
+            hiddenView = rootView.findViewById(R.id.expandedPassword);
+            hiddenView.setVisibility(View.GONE);
+
             // Set ImageView
             profilePicture = rootView.findViewById(R.id.profileImage);
 
@@ -157,6 +161,8 @@ public class SettingsFragment extends Fragment {
             lastNameView = rootView.findViewById(R.id.userLastName);
             usernameView = rootView.findViewById(R.id.userUsername);
             emailView = rootView.findViewById(R.id.userEmail);
+            passwordView = rootView.findViewById(R.id.passwordSettings);
+            verifyPasswordView = rootView.findViewById(R.id.verifyPasswordSettings);
 
             // Set Buttons
             changeFname = rootView.findViewById(R.id.changeFirstNameButton);
@@ -290,6 +296,16 @@ public class SettingsFragment extends Fragment {
                 loggedIn = false;
             }
         }
+    }
+
+    /** Set the focus to this Specific
+     * @param view
+     */
+    public void setFocus(String view) {
+        if (view == "password") {
+
+        }
+        if (view == "verifyPassword");
     }
 
     // No idea

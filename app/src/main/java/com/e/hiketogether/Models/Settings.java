@@ -28,7 +28,7 @@ public class Settings {
         setFirstName("");
         setLastName("");
         setBackground("blueBackground");
-        setDistance("10");
+        setDistance("30");
         setProfilePicture(null);
         Log.d(TAG, "Created settings with empty everything.");
     }

@@ -41,7 +41,6 @@ public class CreateAccountManager {
                 activity.setTouchEnabled();
             }
         });
-        //saveAccount(new Account(username,password,email));
     }
 
     // Checks to make sure that the password and verifying password match
