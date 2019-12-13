@@ -1,9 +1,7 @@
-package com.e.hiketogether.Presenters.Helpers;
+package com.e.hiketogether.Views.SpecializedViews;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
-import com.e.hiketogether.R;
 
 public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
     // VARIABLES

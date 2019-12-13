@@ -24,7 +24,13 @@ public class Account {
     private List<Integer> favTrails;                                //stores the ID values of favorite trails
 
     // Default Constructor
-    public Account() {}
+    public Account() {
+        Log.d(TAG, "Creating empty account.");
+        setUsername("");
+        setPassword("");
+        setEmail("");
+        setSettings(new Settings());
+    }
 
     // Creating a new account from the create account manager
     public Account(String username, String password, String email) {
@@ -43,6 +49,17 @@ public class Account {
         Log.d(TAG, "Password: " + getPassword());
         Log.d(TAG, "Original Password: " + password);
         Log.d(TAG, "Email: " + getEmail());
+    }
+
+    // Construct account from a bundle
+    public Account(Bundle bundle) {
+        Log.d(TAG, "Setting account from bundle.");
+        setUsername(bundle.getString("username"));
+        setEmail(bundle.getString("email"));
+        setPassword(bundle.getString("password"));
+        setFavTrails(bundle.getIntegerArrayList("trails"));
+        Bundle settingsBundle = bundle.getBundle("settings");
+        setSettings(new Settings(settingsBundle));
     }
 
     // Constructor

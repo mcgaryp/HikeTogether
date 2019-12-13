@@ -44,7 +44,8 @@ public class Settings {
     }
 
     // Constructor for individual
-    public Settings(String firstName, String lastName, String distance, String background, ImageView profilePicture) {
+    public Settings(String firstName, String lastName, String distance, String background,
+                    ImageView profilePicture) {
         setFirstName(firstName);
         setLastName(lastName);
         setDistance(distance);
