@@ -7,23 +7,23 @@ import android.util.Log;
 import android.widget.Button;
 
 @SuppressLint("AppCompatCustomView")
-public class DisableEditText extends androidx.appcompat.widget.AppCompatEditText {
+public class UniqueEditText extends androidx.appcompat.widget.AppCompatEditText {
     // VARIABLES
     private final static String TAG = "DISABLE_EDIT_TEXT";
     private boolean change;
 
     // Constructors
-    public DisableEditText(Context context) {
+    public UniqueEditText(Context context) {
         super(context);
         change = true;
     }
 
-    public DisableEditText(Context context, AttributeSet attrs) {
+    public UniqueEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         change = true;
     }
 
-    public DisableEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public UniqueEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         change = true;
     }

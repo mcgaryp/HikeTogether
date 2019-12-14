@@ -5,7 +5,7 @@
     android:padding="5dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/settingsLayout"
         android:background="@drawable/rounded_button"
         android:padding="20dp"
@@ -15,19 +15,21 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/profileImageLayout">
+
             <ImageView
+                android:id="@+id/profileImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/place_holder_profile_img"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/profileImage"
-                android:padding="3dp"/>
+                android:contentDescription="@string/profile_picture"
+                android:padding="3dp"
+                android:src="@drawable/place_holder_profile_img" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profileImage"
                 android:layout_centerHorizontal="true"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:id="@+id/changeProfilePictureButton"/>
         </RelativeLayout>
         <RelativeLayout
@@ -40,16 +42,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:id="@+id/firstNameView"
-                android:text="First Name"
-                android:textSize="17dp"/>
+                android:text="@string/first_name"
+                android:textSize="17sp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeFirstNameButton"
                 android:layout_below="@id/firstNameView"
-                android:text="Edit"/>
+                android:text="@string/edit"/>
 
-            <com.e.hiketogether.Views.SpecializedViews.DisableEditText
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
                 android:id="@+id/userFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,8 +60,8 @@
                 android:background="#FFF"
                 android:enabled="false"
                 android:selectAllOnFocus="true"
-                android:text="Users First Name"
-                android:textSize="17dp" />
+                android:text="@string/users_first_name"
+                android:textSize="17sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -71,16 +73,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:id="@+id/lastNameView"
-                android:text="Last Name"
-                android:textSize="17dp"/>
+                android:text="@string/last_name"
+                android:textSize="17sp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeLastNameButton"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:layout_below="@id/lastNameView"/>
 
-            <com.e.hiketogether.Views.SpecializedViews.DisableEditText
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
                 android:id="@+id/userLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,29 +91,30 @@
                 android:background="#FFF"
                 android:enabled="false"
                 android:selectAllOnFocus="true"
-                android:text="Users Last Name"
-                android:textSize="17dp" />
+                android:text="@string/users_last_name"
+                android:textSize="17sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/emailLayout"
             android:layout_below="@+id/usernameLayout">
+
             <TextView
+                android:id="@+id/emailView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:id="@+id/emailView"
-                android:text="E-Mail"
-                android:textSize="17dp"/>
+                android:text="@string/e_mail"
+                android:textSize="17sp" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changeEmailButton"
                 android:layout_below="@+id/emailView"
-                android:text="Edit"/>
+                android:text="@string/edit"/>
 
-            <com.e.hiketogether.Views.SpecializedViews.DisableEditText
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
                 android:id="@+id/userEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,8 +123,8 @@
                 android:background="#FFF"
                 android:enabled="false"
                 android:selectAllOnFocus="true"
-                android:text="User E-Mail"
-                android:textSize="17dp" />
+                android:text="@string/user_e_mail"
+                android:textSize="17sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -133,16 +136,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:id="@+id/usernameView"
-                android:text="Username"
-                android:textSize="17dp"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/changeUsernameButton"
-                android:layout_below="@id/usernameView"
-                android:text="Edit"/>
+                android:text="@string/username"
+                android:textSize="17sp"/>
 
-            <com.e.hiketogether.Views.SpecializedViews.DisableEditText
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
                 android:id="@+id/userUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,8 +148,8 @@
                 android:background="#FFF"
                 android:enabled="false"
                 android:selectAllOnFocus="true"
-                android:text="User Username"
-                android:textSize="17dp" />
+                android:text="@string/user_username"
+                android:textSize="17sp" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -164,8 +161,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:id="@+id/changeBackgroundView"
-                android:text="Change Background"
-                android:textSize="17dp"/>
+                android:text="@string/change_background"
+                android:textSize="17sp"/>
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,8 +182,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:id="@+id/searchDistanceView"
-                android:text="Change Trail Search Distance"
-                android:textSize="17dp"/>
+                android:text="@string/change_trail_search_distance"
+                android:textSize="17sp"/>
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -207,7 +204,34 @@
                 android:id="@+id/changePasswordButton"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:text="Change Password"/>
+                android:text="@string/change_password"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandedPassword"
+            android:layout_below="@+id/passwordButtonLayout">
+
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
+                android:id="@+id/passwordSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/new_password"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
+
+            <com.e.hiketogether.Views.SpecializedViews.UniqueEditText
+                android:id="@+id/verifyPasswordSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/passwordSettings"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/verify_new_password"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:importantForAutofill="no" />
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

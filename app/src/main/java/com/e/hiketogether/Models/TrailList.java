@@ -42,9 +42,7 @@ public class TrailList {
     }
 
     // Remove a trail
-    public void removeTrail(int index) {
-        trailList.remove(index);
-    }
+    public void removeTrail(int index) { trailList.remove(index); }
 
     // Is the list null??
     public boolean isNullList() {
