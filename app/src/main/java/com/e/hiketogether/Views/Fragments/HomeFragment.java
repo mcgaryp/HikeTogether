@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.e.hiketogether.Models.Account;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment implements Interact {
     private View rootView;
     private LocationManager locationManager;
     private Location location;
+    private Account account;
 
     private ProgressBar progressBar;
     private TrailManager tm;
@@ -77,6 +79,7 @@ public class HomeFragment extends Fragment implements Interact {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            account = new Account(getArguments());
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
             settings = getArguments().getBundle("settings");
@@ -146,7 +149,7 @@ public class HomeFragment extends Fragment implements Interact {
         recyclerView = rootView.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
 
-        adapter = new TrailAdapter(getActivity(), tl);
+        adapter = new TrailAdapter(getActivity(), tl, account);
         recyclerView.setAdapter(adapter);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

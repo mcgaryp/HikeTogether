@@ -79,7 +79,7 @@ public class Trail {
     public String getConditionImg()     { return conditionImg;     }
     public String getConditionDetails() { return conditionDetails; }
     public String getConditionDate()    { return conditionDate;    }
-    public boolean getFavorite() { return isFavorite; }
+    public boolean getFavorite()        { return isFavorite;       }
     public String getDifficulty()       {
         normalizeDif();
         return difficulty;

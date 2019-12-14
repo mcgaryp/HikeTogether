@@ -21,6 +21,7 @@ import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
 
 import java.util.concurrent.ExecutionException;
+import com.e.hiketogether.Models.Account;
 
 import javax.annotation.Nonnull;
 import com.e.hiketogether.Views.SpecializedViews.FavImageView;
@@ -38,13 +39,15 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     private TrailList tl;
     private int clickPosition;
     private int prevClickPosition;
+    private Account account;
 
     // Constructor for our adapter
-    public TrailAdapter(Context mCtx, TrailList tl) {
+    public TrailAdapter(Context mCtx, TrailList tl, Account account) {
         this.mCtx = mCtx;
         this.tl = tl;
         clickPosition = -1;
         prevClickPosition = -1;
+        this.account = account;
     }
 
     // This is setting up the pointer to the correct xml layout that we need to use
@@ -98,7 +101,27 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
             public void onClick(View v) {
                 //add a condition to detect if it is already a favorite or not
                 holder.getfavButton().change();
+                if (holder.getfavButton().getChange()) {
 
+                    try {
+                        account.addTrail(trail.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "Failed to add trail!!!!!!!!!!!!!!");
+                        return;
+                    }
+                    Log.d(TAG, "adding worked!!!!!!!");
+                } else {
+                    try {
+                        account.removeTrail(trail.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "removal failed!!!!!!!!!");
+                        return;
+                    }
+                    Log.d(TAG, "Successful removal!!");
+
+                }
             }
         });
 
@@ -182,7 +205,7 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         }
 
         // GETTERS
-        public FavImageView getfavButton()       { return favButton;    }
+        public FavImageView getfavButton()    { return favButton;       }
         public ImageView getImageView()       { return imageView;       }
         public TextView getTextViewTitle()    { return textViewTitle;   }
         public TextView getTextViewDesc()     { return textViewDesc;    }

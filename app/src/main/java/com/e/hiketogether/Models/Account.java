@@ -99,11 +99,18 @@ public class Account {
     // ADD a Trail to the accounts favTrails
     public void addTrail(Integer trailID) throws Exception {
         // Try to add a trail
-        
+
         if (favTrails.add(trailID))
             Log.d(TAG, "Successfully added a Favorites Trail.");
         else
             throw new Exception("Failed to add Trail to Favorites");
+    }
+
+    public void removeTrail(Integer trailID) throws Exception{
+        if (favTrails.remove(trailID))
+            Log.d(TAG, "Successfully removed a Favorites Trail.");
+        else
+            throw new Exception("Failed to remove trail to favorites");
     }
 
     // Bundle the account to sent to activity

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.R;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class FavoritesFragment extends Fragment {
     private List<Integer> favTrails;
     private Bundle settings;
     private OnFragmentInteractionListener mListener;
+    private Account account;
 
     public FavoritesFragment() {
         // Required empty public constructor
@@ -54,6 +56,7 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            account = new Account(getArguments());
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
             settings = getArguments().getBundle("settings");
