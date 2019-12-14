@@ -10,10 +10,10 @@
         <item>reply_all</item>
     </string-array>
     <string-array name="backgroundArray">
-        <item>Winter BackGround</item>
-        <item>Spring BackGround</item>
-        <item>Summer BackGround</item>
-        <item>Fall BackGround</item>
+        <item>Blue BackGround</item>
+        <item>Pink BackGround</item>
+        <item>Orange BackGround</item>
+        <item>Green BackGround</item>
     </string-array>
     <string-array name="distanceArray">
         <item>10 Miles</item>

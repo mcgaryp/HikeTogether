@@ -77,8 +77,7 @@ public class TrailSearchFragment extends Fragment {
      */
     public static TrailSearchFragment newInstance(Bundle account) {
         TrailSearchFragment fragment = new TrailSearchFragment();
-        Bundle args = account;
-        fragment.setArguments(args);
+        fragment.setArguments(account);
         return fragment;
     }
 

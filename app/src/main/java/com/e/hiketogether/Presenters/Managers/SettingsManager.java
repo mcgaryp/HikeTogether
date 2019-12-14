@@ -180,7 +180,9 @@ public class SettingsManager {
                     });
                 }
                 else {
+                    // Set the layout visible to user
                     layout.setVisibility(View.VISIBLE);
+                    // Change our state
                     password.changeState(button);
                 }
             }

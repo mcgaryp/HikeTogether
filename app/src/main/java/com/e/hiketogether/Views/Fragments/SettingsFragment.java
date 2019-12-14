@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,9 +19,9 @@ import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.Settings;
-import com.e.hiketogether.Views.SpecializedViews.UniqueEditText;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
+import com.e.hiketogether.Views.SpecializedViews.UniqueEditText;
 
 import java.util.List;
 
@@ -171,6 +172,10 @@ public class SettingsFragment extends Fragment {
             changeProfile = rootView.findViewById(R.id.changeProfilePictureButton);
             changePassword = rootView.findViewById(R.id.changePasswordButton);
 
+            // Set Spinners
+            backgroundSpinner = rootView.findViewById(R.id.backgroundSpinner);
+            distanceSpinner = rootView.findViewById(R.id.distanceSpinner);
+
             // Set OnClickListeners
             manager.setClick(changeFname, firstNameView, "first");
             manager.setClick(changeLname, lastNameView, "last");
@@ -178,28 +183,78 @@ public class SettingsFragment extends Fragment {
             manager.setClick(changePassword, passwordView, verifyPasswordView, hiddenView);
             manager.setClick(changeProfile, profilePicture);
 
-            // Spinners
-            backgroundSpinner = rootView.findViewById(R.id.backgroundSpinner);
+            // Set Spinner OnSelectListeners
             // TODO Select the background from spinner
-    //        backgroundSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    //            @Override
-    //            public void onItemClick(AdapterView<?> parent, View view, int position,
-    //                                    long id) {
-    //                background = backgroundSpinner.getSelectedItem().toString();
-    //                Log.d(TAG, "Updating the background. Background set to: "
-    //                        + background);
-    //            }
-    //        });
-            distanceSpinner = rootView.findViewById(R.id.distanceSpinner);
+            backgroundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                /**
+                 * <p>Callback method to be invoked when an item in this view has been
+                 * selected. This callback is invoked only when the newly selected
+                 * position is different from the previously selected position or if
+                 * there was no selected item.</p>
+                 * <p>
+                 * Implementers can call getItemAtPosition(position) if they need to access the
+                 * data associated with the selected item.
+                 *
+                 * @param parent   The AdapterView where the selection happened
+                 * @param view     The view within the AdapterView that was clicked
+                 * @param position The position of the view in the adapter
+                 * @param id       The row id of the item that is selected
+                 */
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getAccount().getSettings().setBackground(backgroundSpinner.getSelectedItem()
+                            .toString());
+                    Log.d(TAG, "Updating the background. Background set to: "
+                            + getAccount().getSettings().getBackground());
+                }
+
+                /**
+                 * Callback method to be invoked when the selection disappears from this
+                 * view. The selection can disappear for instance when touch is activated
+                 * or when the adapter becomes empty.
+                 *
+                 * @param parent The AdapterView that now contains no selected item.
+                 */
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
             // TODO Select the distance from spinner
-    //        distanceSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    //            @Override
-    //            public void onItemClick(AdapterView<?> parent, View view, int position,
-    //                                    long id) {
-    //                distance = distanceSpinner.getSelectedItem().toString();
-    //                Log.d(TAG, "Updating the distance. Distance set to: " + distance);
-    //            }
-    //        });
+            distanceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                /**
+                 * <p>Callback method to be invoked when an item in this view has been
+                 * selected. This callback is invoked only when the newly selected
+                 * position is different from the previously selected position or if
+                 * there was no selected item.</p>
+                 * <p>
+                 * Implementers can call getItemAtPosition(position) if they need to access the
+                 * data associated with the selected item.
+                 *
+                 * @param parent   The AdapterView where the selection happened
+                 * @param view     The view within the AdapterView that was clicked
+                 * @param position The position of the view in the adapter
+                 * @param id       The row id of the item that is selected
+                 */
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getAccount().getSettings().setDistance(distanceSpinner.getSelectedItem().toString());
+                    Log.d(TAG, "Updating the distance. Distance set to: " + getAccount().getSettings().getDistance());
+                }
+
+                /**
+                 * Callback method to be invoked when the selection disappears from this
+                 * view. The selection can disappear for instance when touch is activated
+                 * or when the adapter becomes empty.
+                 *
+                 * @param parent The AdapterView that now contains no selected item.
+                 */
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    Log.d(TAG, "Nothing is selected");
+                }
+            });
 
             // Set user info
             setViews();
@@ -245,6 +300,20 @@ public class SettingsFragment extends Fragment {
         if (getAccount().getSettings().getLastName().isEmpty())
             lastNameView.setText("No Last Name");
         else lastNameView.setText(getAccount().getSettings().getLastName());
+
+        // Spinners
+        int position = getPosition(getAccount().getSettings().getBackground());
+        backgroundSpinner.setSelection(position);
+    }
+
+    private int getPosition(String position) {
+        int pos;
+        if (position == "blueBackground") pos = 0;
+        else if (position == "pinkBackground") pos = 1;
+        else if (position == "orangeBackground") pos = 2;
+        else if (position == "greenBackground") pos = 3;
+        else pos = 0;
+        return pos;
     }
 
     //When the Login Activity is closed, it will return information to this function
@@ -305,7 +374,10 @@ public class SettingsFragment extends Fragment {
         if (view == "password") {
 
         }
-        if (view == "verifyPassword");
+        else if (view == "verifyPassword") {
+
+        }
+        else Log.d(TAG, "Focus was not set.");
     }
 
     // No idea

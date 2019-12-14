@@ -14,6 +14,7 @@ import java.util.List;
  *      This class will handle the data and the model. I think it should save things and be directly
  *      related and connected to the firebase database that we are setting up.
  */
+// TODO Implement so that only one of these can be created... Singleton Model
 public class Account {
     // VARIABLES
     private static final String TAG = "ACCOUNT";
@@ -21,7 +22,7 @@ public class Account {
     private String username;
     private String email;
     private Settings settings;
-    private List<Integer> favTrails;                                //stores the ID values of favorite trails
+    private List<Integer> favTrails;                 //stores the ID values of favorite trails
 
     // Default Constructor
     public Account() {
@@ -29,6 +30,7 @@ public class Account {
         setUsername("");
         setPassword("");
         setEmail("");
+        setFavTrails(null);
         setSettings(new Settings());
     }
 
@@ -63,7 +65,8 @@ public class Account {
     }
 
     // Constructor
-    public Account(String username, String password, String email, List<Integer> favTrails, Settings settings) {
+    public Account(String username, String password, String email,
+                   List<Integer> favTrails, Settings settings) {
         setUsername(username);
         setPassword(password);
         setEmail(email);
