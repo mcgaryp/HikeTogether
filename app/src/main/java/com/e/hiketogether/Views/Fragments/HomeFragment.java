@@ -149,6 +149,7 @@ public class HomeFragment extends Fragment implements Interact {
         recyclerView = rootView.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
 
+        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         adapter = new TrailAdapter(getActivity(), tl, account);
         recyclerView.setAdapter(adapter);
 
