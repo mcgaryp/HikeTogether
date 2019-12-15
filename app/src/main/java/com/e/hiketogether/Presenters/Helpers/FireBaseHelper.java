@@ -180,7 +180,7 @@ public class FireBaseHelper {
         }
     }
 
-    // Delete user account
+    // Delete user account at least the info in the document?
     public void deleteAccount(final DeleteAccountListener listener) {
         dataBase.collection("account").document(username)
                 .delete()

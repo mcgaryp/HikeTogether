@@ -21,14 +21,12 @@ public class SettingsManager {
 
     // VARIABLES
     private Account account;
-    private Settings settings;
     private SettingsFragment fragment;
 
     // Constructor
     public SettingsManager(SettingsFragment fragment) {
         setFragment(fragment);
         setAccount(fragment.getAccount());
-        setSettings(getSettings());
     }
 
     // Method for setting click for all the buttons
@@ -200,7 +198,7 @@ public class SettingsManager {
     }
 
     // Add Picture to Profile
-    public void addPicture(String picture) {
+    public void addPicture(ImageView picture) {
         getSettings().setPicture(picture);
         Log.d(TAG, "Changed Profile Picture: " + picture);
     }
@@ -299,5 +297,4 @@ public class SettingsManager {
     // SETTERS
     public void setFragment(SettingsFragment fragment) { this.fragment = fragment; }
     public void setAccount(Account account)            { this.account = account;   }
-    public void setSettings(Settings settings)         { this.settings = settings; }
 }

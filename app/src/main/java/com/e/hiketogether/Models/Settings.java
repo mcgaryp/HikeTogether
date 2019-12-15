@@ -16,7 +16,7 @@ import java.util.Map;
 public class Settings {
     // VARIABLES
     private static final String TAG = "SETTINGS";
-    private String picture;
+    private ImageView picture;
     private String firstName;
     private String lastName;
     private String background;
@@ -64,7 +64,7 @@ public class Settings {
     }
 
     // Setter functions
-    public void setPicture(String picture)           { this.picture = picture;        }
+    public void setPicture(ImageView picture)        { this.picture = picture;        }
     public void setLastName(String lastName)         { this.lastName = lastName;      }
     public void setFirstName(String firstName)       { this.firstName = firstName;    }
     public void setBackground(String background)     { this.background = background;  }
@@ -72,7 +72,7 @@ public class Settings {
     public void setProfilePicture(ImageView picture) { this.profilePicture = picture; }
 
     // Getter functions
-    public String getPicture()           { return picture;        }
+    public ImageView getPicture()        { return picture;        }
     public String getFirstName()         { return firstName;      }
     public String getLastName()          { return lastName;       }
     public String getBackground()        { return background;     }

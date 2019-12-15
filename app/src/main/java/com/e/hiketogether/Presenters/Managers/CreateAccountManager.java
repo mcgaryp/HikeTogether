@@ -29,7 +29,7 @@ public class CreateAccountManager {
         new FireBaseHelper(username).exists(new Account(username,password,email), new SaveAccountListener() {
             @Override
             public void onSuccess(Account account) {
-                Log.d(TAG,"");
+                Log.d(TAG,"Account Created:\nUsername: " + account.getUsername() + "\nTrailList: " + account.getFavTrails());
                 activity.displayToast("Account Created!");
                 activity.onSuccess(account);
             }

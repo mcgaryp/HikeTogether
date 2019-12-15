@@ -55,6 +55,7 @@ public class HomeFragment extends Fragment implements Interact {
     private ProgressBar progressBar;
     private TrailManager tm;
 
+    // Constructor
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -67,15 +68,18 @@ public class HomeFragment extends Fragment implements Interact {
      * @return A new instance of fragment HomeFragment.
      */
     public static HomeFragment newInstance(Bundle account) {
+        // Creates new instance of the fragment
         HomeFragment fragment = new HomeFragment();
-        Bundle args = account;
-        fragment.setArguments(args);
+        // Setting the arguments of the fragment with passed in variables
+        fragment.setArguments(account);
         return fragment;
     }
 
+    // Create image calls a bunch of functions as it starts the fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set our variables from the passed in arguments
         if (getArguments() != null) {
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
@@ -84,16 +88,21 @@ public class HomeFragment extends Fragment implements Interact {
         Log.d(TAG, "Account " + username + " received.");
     }
 
+    // Create the view of the fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Establishing the view for our fragment. Gets the right xml file and set the view variable
         this.rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // Set the variables in the view, Buttons, and other views from xml
         progressBar = rootView.findViewById(R.id.homeProgressBar);
         setTouchDisabled();
 
-        //Implement everything needed for the recyclerView to work
+        // Implement everything needed for the recyclerView to work
         tm = new TrailManager(Double.toString(43.826069), Double.toString(-111.789528), getContext());
 
+        // Location services rendered
         locationManager = (LocationManager) getActivity()
                 .getSystemService(getContext().LOCATION_SERVICE);
         if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -139,16 +148,20 @@ public class HomeFragment extends Fragment implements Interact {
         mListener = null;
     }
 
+    // When we start up set these things in motion
     @Override
     public void onStart() {
         super.onStart();
+        // Set the recyclerView
         Log.d(TAG, "onStart.");
         recyclerView = rootView.findViewById(R.id.homeRecyclerView);
         recyclerView.setHasFixedSize(true);
 
+        // Set the adapter to proper segments and tell it what to add
         adapter = new TrailAdapter(getActivity(), tl);
         recyclerView.setAdapter(adapter);
 
+        // Specific for adapter
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
         recyclerView.addItemDecoration(itemDecoration);
