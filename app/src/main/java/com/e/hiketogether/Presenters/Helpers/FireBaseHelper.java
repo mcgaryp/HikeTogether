@@ -180,6 +180,19 @@ public class FireBaseHelper {
         }
     }
 
+    // Update the trail list
+    public void updateAccount(final String fieldToUpdate, final ArrayList<Integer> arrayList, final UpdateAccountListener listener) {
+        dataBase.collection("accounts").document(username)
+                .update(fieldToUpdate, arrayList).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        listener.onSuccess();
+                        return;
+                    }
+                });
+        listener.onFail();
+    }
+
     // Delete user account at least the info in the document?
     public void deleteAccount(final DeleteAccountListener listener) {
         dataBase.collection("account").document(username)
