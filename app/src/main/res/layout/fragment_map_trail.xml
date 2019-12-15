@@ -6,9 +6,11 @@
     tools:context=".Views.Fragments.MapTrailFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.esri.arcgisruntime.mapping.view.MapView
+        android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent" >
+
+    </com.esri.arcgisruntime.mapping.view.MapView>
 
 </FrameLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import com.e.hiketogether.Models.Account;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,6 +60,7 @@ public class TrailSearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private TrailAdapter adapter;
+    private Account account;
 
     TrailManager tm;
 
@@ -85,6 +87,7 @@ public class TrailSearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            account = new Account(getArguments());
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
             bundle = getArguments().getBundle("settings");
@@ -177,7 +180,7 @@ public class TrailSearchFragment extends Fragment {
                 recyclerView = rootView.findViewById(R.id.locationSearchRecyclerView);
                 recyclerView.setHasFixedSize(true);
 
-                adapter = new TrailAdapter(getActivity(), tl);
+                adapter = new TrailAdapter(getActivity(), tl, account);
                 recyclerView.setAdapter(adapter);
 
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -34,20 +34,31 @@ public class FavImageView extends androidx.appcompat.widget.AppCompatImageView {
     public void change() {
         // If not favorite - change to favorite
         if (isFavorite == false) {
-            setImageResource(R.drawable.ic_star_yellow_50dp);
+            setFavorite();
             // TODO add to fav trail list in account
             isFavorite = true;
-            new Toast(getContext()).makeText(getContext(), "Trail added to favorites",
-                    Toast.LENGTH_SHORT).show();
+          //  new Toast(getContext()).makeText(getContext(), "Trail added to favorites",
+                 //   Toast.LENGTH_SHORT).show();
 
         }
         else { //if already favrorite, change to non-favorite
-            setImageResource(R.drawable.ic_star_border_black_24dp);
+            setNotFavorite();
             // TODO remove from favtrail list in account
             isFavorite = false;
-            new Toast(getContext()).makeText(getContext(), "Trail removed from favorites",
-                    Toast.LENGTH_SHORT).show();
+          //  new Toast(getContext()).makeText(getContext(), "Trail removed from favorites",
+                  //  Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    public void setFavorite(){
+        setImageResource(R.drawable.ic_star_yellow_50dp);
+    }
+    public void setNotFavorite(){
+        setImageResource(R.drawable.ic_star_border_black_24dp);
+    }
+
+    public boolean getChange(){
+        return isFavorite;
     }
 }
