@@ -1,15 +1,28 @@
 package com.e.hiketogether.Views.Fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Models.ItemOffsetDecoration;
+import com.e.hiketogether.Models.Trail;
+import com.e.hiketogether.Models.TrailList;
+import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
 import java.util.List;
@@ -31,6 +44,15 @@ public class FavoritesFragment extends Fragment {
     private List<Integer> favTrails;
     private Bundle settings;
     private OnFragmentInteractionListener mListener;
+    private Account account;
+    private RecyclerView recyclerView;
+    private View rootView;
+    private TrailAdapter adapter;
+    private List<Integer> tl;
+    private ProgressBar progressBar;
+    private TrailManager tm;
+    private LocationManager locationManager;
+    private Trail trail;
 
     public FavoritesFragment() {
         // Required empty public constructor
@@ -54,6 +76,7 @@ public class FavoritesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            account = new Account(getArguments());
             username = getArguments().getString("username");
             favTrails = getArguments().getIntegerArrayList("trails");
             settings = getArguments().getBundle("settings");
@@ -65,7 +88,15 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false);
+        this.rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+
+            tl = (List<Integer>) new TrailList();
+            Log.d(TAG, "created new list");
+            
+            tl = account.getFavTrails();
+
+        // Inflate the layout for this fragment
+        return rootView;
     }
 
     @Override
@@ -78,11 +109,21 @@ public class FavoritesFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart.");
+        recyclerView = rootView.findViewById(R.id.favoriteRecyclerView);
+        recyclerView.setHasFixedSize(true);
+
+        Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        adapter = new TrailAdapter(getActivity(), tl, account);
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.item_offset);
+        recyclerView.addItemDecoration(itemDecoration);
+
     }
 
     /**

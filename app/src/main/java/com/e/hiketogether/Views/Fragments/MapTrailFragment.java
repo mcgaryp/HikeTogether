@@ -61,7 +61,7 @@ public class MapTrailFragment extends Fragment {
      * @param account User Account
      * @return A new instance of fragment MapTrailFragment.
      */
-    public static MapTrailFragment newInstance(Bundle account, Bundle longLat) {
+    public static MapTrailFragment newInstance(Bundle account) {
         MapTrailFragment fragment = new MapTrailFragment();
         Bundle args = account;
         fragment.setArguments(args);
