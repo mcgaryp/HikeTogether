@@ -48,7 +48,7 @@ public class FavoritesFragment extends Fragment {
     private RecyclerView recyclerView;
     private View rootView;
     private TrailAdapter adapter;
-    private List<Integer> tl;
+    private TrailList tl;
     private ProgressBar progressBar;
     private TrailManager tm;
     private LocationManager locationManager;
@@ -89,11 +89,10 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         this.rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+            tl = new TrailList();
+            Log.d(TAG, "print size again: " + account.getFavTrails().size());
+            tl = (TrailList) account.getFavTrails();
 
-            tl = (List<Integer>) new TrailList();
-            Log.d(TAG, "created new list");
-            
-            tl = account.getFavTrails();
 
         // Inflate the layout for this fragment
         return rootView;

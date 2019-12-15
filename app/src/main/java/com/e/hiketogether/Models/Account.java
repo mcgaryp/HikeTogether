@@ -106,10 +106,20 @@ public class Account {
         // Try to add a trail
             if (favTrails == null)
                 favTrails = new ArrayList<>();
+            Log.d(TAG, "Created new arraylist");
         if (favTrails.add(trailID))
-            Log.d(TAG, "Successfully added a Favorites Trail.");
-        else
+            //Log.d(TAG, "Successfully added a Favorites Trail.");
+            Log.d(TAG, "print size: "+ favTrails.size());
+        else{
             throw new Exception("Failed to add Trail to Favorites");
+        }
+    }
+
+    public void removeTrail(Integer trailID) throws Exception{
+        if (favTrails.remove(trailID))
+            Log.d(TAG, "Successfully removed a Favorites Trail.");
+        else
+            throw new Exception("Failed to remove trail to favorites");
     }
 
     public void removeTrail(Integer trailID) throws Exception{
