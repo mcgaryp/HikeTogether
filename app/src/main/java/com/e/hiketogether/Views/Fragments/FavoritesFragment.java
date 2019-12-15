@@ -103,6 +103,7 @@ public class FavoritesFragment extends Fragment {
             }
             });
 
+
            // tl = new TrailList();
             Log.d(TAG, "print size again: " + account.getFavTrails());
             tl = (TrailList) account.getFavTrails();

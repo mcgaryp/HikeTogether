@@ -2,10 +2,13 @@ package com.e.hiketogether.Models;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
 import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
 import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
+import com.e.hiketogether.Views.Activities.MainActivity;
+import com.e.hiketogether.Views.SpecializedViews.FavImageView;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -126,10 +129,12 @@ public class Account {
 
                 }
             });
+
         }else{
             throw new Exception("Failed to add Trail to Favorites");
 
-        };
+        }
+
 
     }
 
