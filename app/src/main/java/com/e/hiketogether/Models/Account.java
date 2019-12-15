@@ -122,13 +122,6 @@ public class Account {
             throw new Exception("Failed to remove trail to favorites");
     }
 
-    public void removeTrail(Integer trailID) throws Exception{
-        if (favTrails.remove(trailID))
-            Log.d(TAG, "Successfully removed a Favorites Trail.");
-        else
-            throw new Exception("Failed to remove trail to favorites");
-    }
-
     // Bundle the account to sent to activity
     public Bundle bundleAccount() {
         Bundle extra = new Bundle();
