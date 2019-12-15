@@ -22,9 +22,13 @@ import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,8 +93,18 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         this.rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
-            tl = new TrailList();
-            Log.d(TAG, "print size again: " + account.getFavTrails().size());
+        new FireBaseHelper(username).loadAccount(new LoadAccountListener() {
+            @Override
+            public void onSuccess(Account account) {
+            }
+
+            @Override
+            public void onFail() {
+            }
+            });
+
+           // tl = new TrailList();
+            Log.d(TAG, "print size again: " + account.getFavTrails());
             tl = (TrailList) account.getFavTrails();
 
 

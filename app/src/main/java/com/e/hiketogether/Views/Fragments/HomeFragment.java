@@ -23,7 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.e.hiketogether.Models.ItemOffsetDecoration;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Adapters.TrailAdapter;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
 import com.e.hiketogether.Presenters.Interfaces.Interact;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
 import com.e.hiketogether.Presenters.Managers.TrailManager;
 import com.e.hiketogether.R;
 
@@ -116,6 +118,17 @@ public class HomeFragment extends Fragment implements Interact {
             Log.d(TAG, "Setting location to default location");
             tl = new TrailList();
             tl = tm.getTrails();
+
+            new FireBaseHelper(username).loadAccount(new LoadAccountListener() {
+                @Override
+                public void onSuccess(Account account) {
+                }
+
+                @Override
+                public void onFail() {
+                }
+            });
+
 
             // Inflate the layout for this fragment
             return rootView;

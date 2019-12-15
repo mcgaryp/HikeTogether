@@ -3,6 +3,10 @@ package com.e.hiketogether.Models;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
+import com.e.hiketogether.Presenters.Interfaces.UpdateAccountListener;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +27,7 @@ public class Account {
     private String email;
     private Settings settings;
     private List<Integer> favTrails;                 //stores the ID values of favorite trails
+
 
     // Default Constructor
     public Account() {
@@ -104,15 +109,28 @@ public class Account {
     // ADD a Trail to the accounts favTrails
     public void addTrail(Integer trailID) throws Exception {
         // Try to add a trail
-            if (favTrails == null)
-                favTrails = new ArrayList<>();
-            Log.d(TAG, "Created new arraylist");
-        if (favTrails.add(trailID))
+        if (favTrails == null)
+            favTrails = new ArrayList<>();
+        Log.d(TAG, "Created new arraylist");
+        if (favTrails.add(trailID)) {
             //Log.d(TAG, "Successfully added a Favorites Trail.");
-            Log.d(TAG, "print size: "+ favTrails.size());
-        else{
+            Log.d(TAG, "print size: " + favTrails.size());
+            new FireBaseHelper(username).updateAccount("trails", (ArrayList<Integer>) favTrails, new UpdateAccountListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFail() {
+
+                }
+            });
+        }else{
             throw new Exception("Failed to add Trail to Favorites");
-        }
+
+        };
+
     }
 
     public void removeTrail(Integer trailID) throws Exception{
@@ -120,6 +138,17 @@ public class Account {
             Log.d(TAG, "Successfully removed a Favorites Trail.");
         else
             throw new Exception("Failed to remove trail to favorites");
+      /*  new FireBaseHelper(username).updateAccount("trails", (ArrayList<Integer>) favTrails, new UpdateAccountListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        }); */
     }
 
     // Bundle the account to sent to activity

@@ -14,7 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.e.hiketogether.Models.Account;
+import com.e.hiketogether.Presenters.Helpers.FireBaseHelper;
 import com.e.hiketogether.Presenters.Interfaces.Interact;
+import com.e.hiketogether.Presenters.Interfaces.LoadAccountListener;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.Fragments.FavoritesFragment;
 import com.e.hiketogether.Views.Fragments.HomeFragment;
@@ -42,9 +45,11 @@ public class MainActivity extends AppCompatActivity
     private String currentFragment = "";
     private Bundle account;
     private ProgressBar progressBar;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -188,5 +193,5 @@ public class MainActivity extends AppCompatActivity
         return;
     }
 
-    public Bundle getAccount() { return account; }
+    public Bundle getAccount(){ return account; }
 }
