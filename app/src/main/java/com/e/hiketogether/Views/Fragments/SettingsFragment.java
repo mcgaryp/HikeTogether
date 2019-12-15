@@ -1,7 +1,6 @@
 package com.e.hiketogether.Views.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,12 +17,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.Account;
-import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.Presenters.Managers.SettingsManager;
 import com.e.hiketogether.R;
 import com.e.hiketogether.Views.SpecializedViews.UniqueEditText;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,9 +38,7 @@ public class SettingsFragment extends Fragment {
 
     // VARIABLES
     private Bundle bundle;
-    private Settings settings;
     private Account account;
-    private List<Integer> favTrails;
     private SettingsManager manager;
     private ImageView profilePicture;
     private Button changeFname;
@@ -67,9 +61,9 @@ public class SettingsFragment extends Fragment {
 
     private View rootView;
     private OnFragmentInteractionListener mListener;
-    private Bundle state;
-    private ViewGroup group;
-    private LayoutInflater inflater;
+//    private Bundle state;
+//    private ViewGroup group;
+//    private LayoutInflater inflater;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -84,6 +78,7 @@ public class SettingsFragment extends Fragment {
      */
     public static SettingsFragment newInstance(Bundle account, boolean loggedIn) {
         SettingsFragment fragment = new SettingsFragment();
+        // Set arguments for fragment
         Bundle args = account;
         args.putBoolean("loggedIn", loggedIn);
         Log.d(TAG, "Making new fragment with account: " + account.getString("username"));
@@ -95,6 +90,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the variables from the arguments
         if (getArguments() != null) {
             Log.d(TAG,"Setting Variables from bundle");
             setAccount(new Account(getArguments()));
@@ -111,9 +107,9 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "Creating the Right View");
-
-        setInflater(inflater);
-        setViewGroup(container);
+        // Know what kind of view needs added
+//        setInflater(inflater);
+//        setViewGroup(container);
         // Inflate the layout for this fragment
 //        if (loggedIn != null)
 //            Log.d(TAG, loggedIn.toString());
@@ -319,53 +315,53 @@ public class SettingsFragment extends Fragment {
     //When the Login Activity is closed, it will return information to this function
     //Two codes indicate whether the process was successful, and any important data
     //Is return through the intent
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //Log the status of the result & request
-        Log.d(TAG, "on activity result success.");
-        Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
-
-        if (requestCode == LOGIN_REQUEST) {
-            if (resultCode == getActivity().RESULT_OK) {
-                //The user was logged in!
-                //The intent will have pertinent information that needs to be passed back in it
-                bundle = data.getBundleExtra("account");
-                loggedIn = true;
-                Log.d(TAG, "Account username: " + bundle.getString("username"));
-//                onCreateView(inflater,group,state);
-                newInstance(bundle, true);
-                rootView = inflater.inflate(R.layout.fragment_settings, group, false);
-//                new SettingsFragment().newInstance(account, true);
-            }
-            if (resultCode == LOGIN_FAILED) {
-                new Toast(getContext()).makeText(getContext(), "Failed to Login",
-                        Toast.LENGTH_LONG).show();
-                loggedIn = false;
-            }
-        }
-
-        if (requestCode == CREATE_REQUEST) {
-            if (resultCode == getActivity().RESULT_OK) {
-                //The user's account was created!
-                //The intent will have pertinent information that needs to be passed back in it
-                Log.d(TAG, "Attempting to automatically login user");
-                loggedIn = true;
-                // do something with the intent here
-                bundle = data.getBundleExtra("account");
-                // Log the user in AUTOMATICALLY with the account they just created
-                Log.d(TAG, "Login in from Create Account Screen.");
-//                newInstance(account);
-            }
-            if (resultCode == LOGIN_FAILED) {
-                new Toast(getContext()).makeText(getContext(),
-                        "Login Failed While Attempting to Create Account", Toast.LENGTH_LONG)
-                        .show();
-                loggedIn = false;
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //Log the status of the result & request
+//        Log.d(TAG, "on activity result success.");
+//        Log.d(TAG, "requestCode: " + requestCode + "\nresultCode: " + resultCode);
+//
+//        if (requestCode == LOGIN_REQUEST) {
+//            if (resultCode == getActivity().RESULT_OK) {
+//                //The user was logged in!
+//                //The intent will have pertinent information that needs to be passed back in it
+//                bundle = data.getBundleExtra("account");
+//                loggedIn = true;
+//                Log.d(TAG, "Account username: " + bundle.getString("username"));
+////                onCreateView(inflater,group,state);
+//                newInstance(bundle, true);
+//                rootView = inflater.inflate(R.layout.fragment_settings, group, false);
+////                new SettingsFragment().newInstance(account, true);
+//            }
+//            if (resultCode == LOGIN_FAILED) {
+//                new Toast(getContext()).makeText(getContext(), "Failed to Login",
+//                        Toast.LENGTH_LONG).show();
+//                loggedIn = false;
+//            }
+//        }
+//
+//        if (requestCode == CREATE_REQUEST) {
+//            if (resultCode == getActivity().RESULT_OK) {
+//                //The user's account was created!
+//                //The intent will have pertinent information that needs to be passed back in it
+//                Log.d(TAG, "Attempting to automatically login user");
+//                loggedIn = true;
+//                // do something with the intent here
+//                bundle = data.getBundleExtra("account");
+//                // Log the user in AUTOMATICALLY with the account they just created
+//                Log.d(TAG, "Login in from Create Account Screen.");
+////                newInstance(account);
+//            }
+//            if (resultCode == LOGIN_FAILED) {
+//                new Toast(getContext()).makeText(getContext(),
+//                        "Login Failed While Attempting to Create Account", Toast.LENGTH_LONG)
+//                        .show();
+//                loggedIn = false;
+//            }
+//        }
+//    }
 
     /** Set the focus to this Specific
      * @param view
@@ -388,10 +384,9 @@ public class SettingsFragment extends Fragment {
     }
 
     // SETTERS
-    private void setInflater(LayoutInflater inflater) {
-        this.inflater = inflater;
-    }
-    private void setViewGroup(ViewGroup container)    { this.group = container;   }
+//    private void setInflater(LayoutInflater inflater) { this.inflater = inflater; }
+
+//    private void setViewGroup(ViewGroup container)    { this.group = container;   }
     private void setAccount(Account account)          { this.account = account;   }
     private void setLoggedIn(boolean loggedIn)        { this.loggedIn = loggedIn; }
 

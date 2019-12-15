@@ -74,6 +74,7 @@ public class Account {
         setSettings(settings);
     }
 
+    // Translates the bytes to Hexadecimal
     private static String bytesToHex(byte[] hash) {
         StringBuffer hexString = new StringBuffer();
         for (int i = 0; i < hash.length; i++) {
@@ -84,6 +85,7 @@ public class Account {
         return hexString.toString();
     }
 
+    // Hashes the password to hash form for save storage on web server
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest digest; {
             try {
