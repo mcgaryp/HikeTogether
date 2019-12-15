@@ -1,6 +1,10 @@
 package com.e.hiketogether.Views.Fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +16,9 @@ import androidx.fragment.app.Fragment;
 
 import com.e.hiketogether.Models.Settings;
 import com.e.hiketogether.R;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.view.MapView;
 
 import java.util.List;
 
@@ -32,8 +39,16 @@ public class MapTrailFragment extends Fragment {
     private Bundle bundle;
     private Settings settings;
     private List<Integer> favTrails;
-
+    private View rootView;
+    private double latitude;
+    private double longitude;
+    private LocationManager lm;
+    private Location location;
+    private ArcGISMap map;
     private OnFragmentInteractionListener mListener;
+
+    // add map view
+    private MapView mMapView;
 
     public MapTrailFragment() {
         // Required empty public constructor
@@ -46,7 +61,7 @@ public class MapTrailFragment extends Fragment {
      * @param account User Account
      * @return A new instance of fragment MapTrailFragment.
      */
-    public static MapTrailFragment newInstance(Bundle account) {
+    public static MapTrailFragment newInstance(Bundle account, Bundle longLat) {
         MapTrailFragment fragment = new MapTrailFragment();
         Bundle args = account;
         fragment.setArguments(args);
@@ -61,14 +76,47 @@ public class MapTrailFragment extends Fragment {
             favTrails = getArguments().getIntegerArrayList("trails");
             bundle = getArguments().getBundle("settings");
         }
+
         Log.d(TAG, "Account " + username + " received");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        rootView = inflater.inflate(R.layout.fragment_map_trail, container, false);
+
+        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && getActivity()
+                .checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+
+            latitude = 43.826069;
+            longitude = -111.789528;
+
+            Log.d(TAG, "Made it to onCreateView.");
+            // Inflate the layout for this fragment
+        }
+        else {
+
+            location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+
+        // create the map view
+        mMapView = rootView.findViewById(R.id.mapview);
+
+        if (mMapView != null) {
+            Basemap.Type basemapType = Basemap.Type.STREETS_VECTOR;
+            int levelOfDetail = 11;
+            map = new ArcGISMap(basemapType, latitude, longitude, levelOfDetail);
+            mMapView.setMap(map);
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map_trail, container, false);
+        return rootView;
     }
 
     @Override

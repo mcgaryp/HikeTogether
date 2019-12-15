@@ -2,6 +2,7 @@ package com.e.hiketogether.Presenters.Adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,12 @@ import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
+import com.e.hiketogether.Views.Fragments.MapTrailFragment;
 import com.e.hiketogether.Views.SpecializedViews.FavImageView;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
@@ -87,10 +92,22 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
         holder.getRatingBar().setRating(trail.getRating());
         // TODO DYLAN here is code that should allow you to set the onclick button for when the user
         //  uses the button to get the trails starting location
-//        holder.getGoHikingButton().setOnClickListener(onClick_View -> {
-//            Log.d(TAG, "Take the user to the Location!");
-//            map(trail.getLatitude(), trail.getLatitude());
-//        });
+        holder.getGoHikingButton().setOnClickListener(onClick_View -> {
+            Log.d(TAG, "Take the user to the Location!");
+            Basemap.Type basemapType = Basemap.Type.STREETS_VECTOR;
+
+            double lat = trail.getLatitude();
+            double longi = trail.getLongitude();
+
+            Bundle args = new Bundle();
+
+            args.putDouble("lat", lat);
+            args.putDouble("long", longi);
+
+            MapTrailFragment mtf = new MapTrailFragment();
+            mtf.setArguments(, args);
+
+        });
 
 
         holder.getfavButton().setOnClickListener(new View.OnClickListener() {
