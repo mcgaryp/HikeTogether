@@ -187,10 +187,12 @@ public class FireBaseHelper {
                     @Override
                     public void onSuccess(Void aVoid) {
                         listener.onSuccess();
+                        Log.d(TAG, "Data has been updated to Firebase.");
                         return;
                     }
                 });
         listener.onFail();
+        Log.d(TAG, "FAILED updated to Firebase.");
     }
 
     // Delete user account at least the info in the document?
