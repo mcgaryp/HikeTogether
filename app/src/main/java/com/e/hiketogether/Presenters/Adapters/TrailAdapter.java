@@ -16,18 +16,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.e.hiketogether.Models.Account;
 import com.e.hiketogether.Models.Trail;
 import com.e.hiketogether.Models.TrailList;
 import com.e.hiketogether.Presenters.Helpers.DrawableHTTPHelper;
 import com.e.hiketogether.R;
-import com.e.hiketogether.Views.Fragments.MapTrailFragment;
 import com.e.hiketogether.Views.SpecializedViews.FavImageView;
-import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
 
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import com.e.hiketogether.Models.Account;
 
 import javax.annotation.Nonnull;
 /**
@@ -187,6 +184,8 @@ public class TrailAdapter extends RecyclerView.Adapter<TrailAdapter.TrailViewHol
     // Gets the length of trailList
     @Override
     public int getItemCount() {
+        if (tl == null)
+            return 0;
         return tl.getTrailList().size();
     }
 
